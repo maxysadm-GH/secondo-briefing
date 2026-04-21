@@ -1,6 +1,6 @@
 # Secondo — Timeline, Roadmap & Deliverables
 
-> Written 2026-04-20 for the Andy briefing on 2026-04-21. Rolls up `.planning/STATE.md`, `.planning/ROADMAP.md`, `.planning/APRIL-28-DEMO-PUNCH-LIST.md`, and the Welvey Labs legal calendar into one page.
+> Written 2026-04-20 for the Investor briefing on 2026-04-21. Rolls up `.planning/STATE.md`, `.planning/ROADMAP.md`, `.planning/APRIL-28-DEMO-PUNCH-LIST.md`, and the Welvey Labs legal calendar into one page.
 
 ## Snapshot
 
@@ -15,7 +15,7 @@
 
 | Date | Deliverable | Owner | Status |
 |---|---|---|---|
-| 2026-04-21 Tue | Andy briefing — command center + deck + this roadmap | Max | ✅ Today |
+| 2026-04-21 Tue | Investor briefing — command center + deck + this roadmap | Max | ✅ Today |
 | 2026-04-22 Wed | Rob Jacobson pre-signing call reply — SEND | Max | 🟥 Drafted, unsent (`docs/legal/rob-reply-draft.md`) |
 | 2026-04-22 Wed | Adam Sussman second follow-up | Max | 🟧 Pending |
 | 2026-04-22 → 24 | Phase 06 polish — Retell `lookup_vault` custom tool end-to-end on real device | Max + Claude | 🟧 In progress |
@@ -98,7 +98,7 @@ Intercompany doc + IP assignment (present + future) handled by Ned. **No Welvey 
 
 ## Reference links
 
-- Command center (Andy briefing): `file:///C:/Users/maxys/Projects/secondo-app/docs/MBACIO-COMMAND-CENTER-2026-04-21.html`
+- Command center (Investor briefing): `file:///C:/Users/maxys/Projects/secondo-app/docs/MBACIO-COMMAND-CENTER-2026-04-21.html`
 - Investor deck: `file:///C:/Users/maxys/Projects/secondo-app/docs/pitch/secondo-investor-deck-2026-04-21.html`
 - Project state: `.planning/STATE.md`
 - Phase roadmap: `.planning/ROADMAP.md`
