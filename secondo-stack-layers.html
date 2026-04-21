@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secondo &mdash; Stack Layers, Licensing &amp; Integration Status</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:        #080c12;
+  --bg2:       #0c1018;
+  --bg-card:   #101520;
+  --bg-card-h: #141c28;
+  --bg-glass:  rgba(16,21,32,0.85);
+  --navy:      #0d1929;
+
+  --teal:      #00c9b1;
+  --teal-dim:  rgba(0,201,177,0.12);
+  --blue:      #3b82f6;
+  --blue-dim:  rgba(59,130,246,0.12);
+  --purple:    #a78bfa;
+  --purple-dim:rgba(167,139,250,0.12);
+  --amber:     #f59e0b;
+  --amber-dim: rgba(245,158,11,0.12);
+  --red:       #ef4444;
+  --red-dim:   rgba(239,68,68,0.12);
+  --green:     #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --orange:    #f97316;
+
+  --text:      #e2e8f0;
+  --text2:     #94a3b8;
+  --text3:     #475569;
+  --border:    rgba(148,163,184,0.08);
+  --border2:   rgba(148,163,184,0.15);
+
+  --r:  12px;
+  --r2: 8px;
+  --r3: 6px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+code, .mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85em;
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 56px 24px 48px;
+  text-align: center;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,201,177,0.07) 0%, transparent 60%),
+              linear-gradient(180deg, #080e1c 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border2);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.015) 80px),
+              repeating-linear-gradient(0deg,  transparent, transparent 79px, rgba(255,255,255,0.015) 80px);
+  pointer-events: none;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--teal-dim); border: 1px solid rgba(0,201,177,0.25);
+  color: var(--teal); border-radius: 100px;
+  padding: 4px 14px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #e2e8f0 30%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 15px; color: var(--text2); max-width: 640px; margin: 0 auto 24px;
+}
+.hero-meta {
+  display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta .label { color: var(--text2); }
+
+/* ── ALERT BANNER ── */
+.alert {
+  margin: 32px auto 0; max-width: 1100px;
+  background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(245,158,11,0.08));
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: var(--r); padding: 18px 24px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.alert-icon { font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+.alert-body h3 { font-size: 14px; font-weight: 600; color: #fca5a5; margin-bottom: 4px; }
+.alert-body p  { font-size: 13px; color: var(--text2); }
+.alert-body strong { color: var(--text); }
+
+/* ── SECTION HEADING ── */
+section { padding: 48px 0 16px; }
+.section-title {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+
+/* ── LAYER CARDS ── */
+.layers-grid { display: flex; flex-direction: column; gap: 20px; }
+
+.layer-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.layer-card:hover { border-color: var(--border2); }
+
+.layer-card.blocking { border-color: rgba(239,68,68,0.3); }
+.layer-card.blocking .layer-header { background: linear-gradient(90deg, rgba(239,68,68,0.06), transparent); }
+
+.layer-header {
+  padding: 20px 24px 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: start;
+  border-bottom: 1px solid var(--border);
+}
+.layer-num {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+  flex-shrink: 0;
+}
+.layer-title-block h2 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 3px; }
+.layer-title-block .layer-role { font-size: 12px; color: var(--text2); }
+.layer-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+
+.badge {
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 100px; letter-spacing: 0.04em; white-space: nowrap;
+}
+.badge-blocker   { background: rgba(239,68,68,0.15);  color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+.badge-done      { background: rgba(34,197,94,0.12);  color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+.badge-partial   { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.25); }
+.badge-workaround{ background: rgba(167,139,250,0.12);color: #c4b5fd; border: 1px solid rgba(167,139,250,0.25); }
+.badge-free      { background: rgba(0,201,177,0.10);  color: var(--teal); border: 1px solid rgba(0,201,177,0.2); }
+
+.layer-body {
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 768px) { .layer-body { grid-template-columns: 1fr; } }
+
+.layer-col h4 {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text3); margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.layer-col p   { font-size: 13px; color: var(--text2); margin-bottom: 8px; }
+.layer-col p:last-child { margin-bottom: 0; }
+.layer-col strong { color: var(--text); }
+
+.have-list, .missing-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.have-list li, .missing-list li {
+  font-size: 12.5px; padding: 5px 10px; border-radius: var(--r3);
+  display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+}
+.have-list li {
+  background: rgba(34,197,94,0.06);
+  color: #a7f3d0;
+  border: 1px solid rgba(34,197,94,0.12);
+}
+.missing-list li {
+  background: rgba(239,68,68,0.06);
+  color: #fca5a5;
+  border: 1px solid rgba(239,68,68,0.12);
+}
+.have-list li::before   { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.missing-list li::before { content: '✗'; color: var(--red);   font-weight: 700; flex-shrink: 0; }
+
+.cost-box {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 12px 14px;
+  margin-bottom: 10px;
+}
+.cost-box .cost-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.cost-box .cost-value { font-size: 18px; font-weight: 600; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+.cost-box .cost-note  { font-size: 11px; color: var(--text2); margin-top: 3px; }
+.cost-box.cost-free   .cost-value { color: var(--teal); }
+.cost-box.cost-low    .cost-value { color: var(--green); }
+.cost-box.cost-medium .cost-value { color: var(--amber); }
+
+.license-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--purple-dim); border: 1px solid rgba(167,139,250,0.2);
+  color: var(--purple); border-radius: var(--r3);
+  padding: 2px 8px; font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 6px;
+}
+
+.action-required {
+  margin-top: 12px; padding: 10px 12px;
+  background: rgba(245,158,11,0.07); border: 1px solid rgba(245,158,11,0.2);
+  border-radius: var(--r3); font-size: 12px; color: #fcd34d;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.action-required strong { color: #fbbf24; }
+
+/* ── SUMMARY TABLE ── */
+.summary-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  background: var(--bg-card);
+}
+.summary-table {
+  width: 100%; border-collapse: collapse; min-width: 700px;
+}
+.summary-table th {
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3); padding: 12px 16px; text-align: left;
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg2);
+}
+.summary-table td {
+  padding: 11px 16px; font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.summary-table tr:hover td { background: var(--bg-card-h); }
+.summary-table .layer-name { font-weight: 600; color: var(--text); }
+.summary-table .cost-cell  { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.summary-table .yes { color: var(--red); font-weight: 700; }
+.summary-table .no  { color: var(--text3); }
+
+/* ── ARCH FLOW ── */
+.flow-wrap {
+  background: var(--bg-card); border: 1px solid var(--border2);
+  border-radius: var(--r); padding: 32px 24px; overflow-x: auto;
+}
+.flow {
+  display: flex; align-items: center; gap: 0;
+  justify-content: center; flex-wrap: nowrap;
+  min-width: 600px;
+}
+.flow-node {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  min-width: 80px;
+}
+.flow-node .node-box {
+  padding: 10px 14px; border-radius: var(--r2);
+  font-size: 11px; font-weight: 600; text-align: center;
+  border: 1px solid; white-space: nowrap;
+}
+.flow-node .node-label { font-size: 9px; color: var(--text3); text-align: center; text-transform: uppercase; letter-spacing: 0.07em; }
+
+.node-device  .node-box { background: rgba(59,130,246,0.1);  border-color: rgba(59,130,246,0.3);  color: #93c5fd; }
+.node-cloud   .node-box { background: rgba(0,201,177,0.1);   border-color: rgba(0,201,177,0.3);   color: var(--teal); }
+.node-telco   .node-box { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.3); color: var(--purple); }
+.node-ext     .node-box { background: rgba(245,158,11,0.1);  border-color: rgba(245,158,11,0.3);  color: var(--amber); }
+.node-missing .node-box { background: rgba(239,68,68,0.08);  border-color: rgba(239,68,68,0.3);   color: #fca5a5; }
+
+.flow-arrow {
+  font-size: 18px; color: var(--text3); padding: 0 4px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.flow-arrow .arrow-label { font-size: 9px; color: var(--text3); white-space: nowrap; }
+
+.flow-group {
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+  background: rgba(255,255,255,0.02); border: 1px dashed var(--border2);
+  border-radius: var(--r2); padding: 12px 10px;
+}
+.flow-group-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 4px; }
+
+/* ── COMMENTS SECTION ── */
+.comments-section {
+  background: var(--bg-card); border: 1px solid var(--border2);
+  border-radius: var(--r); padding: 28px 28px 24px; margin-bottom: 32px;
+}
+.comments-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.comments-header h3 { font-size: 15px; font-weight: 600; }
+.comments-header .save-status {
+  font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+}
+.comments-header .save-status.saved { color: var(--green); }
+
+.comment-entries { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+.comment-entry {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 14px 16px;
+}
+.comment-entry .comment-meta {
+  font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+}
+.comment-entry .comment-meta .comment-tag {
+  background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25);
+  padding: 1px 7px; border-radius: 100px; font-size: 10px; font-weight: 600;
+}
+.comment-entry .comment-text { font-size: 13px; color: var(--text2); line-height: 1.65; }
+.comment-entry .comment-text ul { padding-left: 16px; margin-top: 6px; }
+.comment-entry .comment-text li { margin-bottom: 4px; }
+
+.add-comment-block { display: flex; flex-direction: column; gap: 10px; }
+.add-comment-block label { font-size: 12px; color: var(--text2); font-weight: 500; }
+.add-comment-block textarea {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: var(--r2); color: var(--text);
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+  padding: 12px 14px; resize: vertical; min-height: 120px;
+  line-height: 1.6; transition: border-color 0.2s;
+  width: 100%;
+}
+.add-comment-block textarea:focus { outline: none; border-color: var(--teal); }
+.add-comment-block textarea::placeholder { color: var(--text3); }
+.comment-actions { display: flex; gap: 10px; align-items: center; }
+.btn {
+  padding: 9px 20px; border-radius: var(--r2); font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none; font-family: inherit; transition: all 0.15s;
+}
+.btn-primary { background: var(--teal); color: #080c12; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--text2); }
+.btn-ghost:hover { border-color: var(--text2); color: var(--text); }
+.btn-danger { background: transparent; border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; font-size: 11px; padding: 6px 12px; }
+.btn-danger:hover { background: rgba(239,68,68,0.1); }
+
+/* ── LICENSING TABLE ── */
+.license-table-wrap {
+  overflow-x: auto; border: 1px solid var(--border2); border-radius: var(--r);
+}
+.license-table {
+  width: 100%; border-collapse: collapse; min-width: 560px;
+}
+.license-table th {
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text3); padding: 11px 14px; text-align: left;
+  border-bottom: 1px solid var(--border2); background: var(--bg2);
+}
+.license-table td {
+  padding: 10px 14px; font-size: 12.5px; border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.license-table tr:last-child td { border-bottom: none; }
+.license-table tr:hover td { background: var(--bg-card-h); }
+.lt-free { color: var(--teal); font-weight: 600; }
+.lt-paid { color: var(--amber); font-weight: 600; }
+.lt-open { color: var(--green); font-weight: 600; }
+.lt-prop { color: #c084fc; font-weight: 600; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 40px 24px 48px;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+}
+footer a { color: var(--teal); text-decoration: none; }
+
+/* color chips for layer numbers */
+.chip-1  { background: rgba(59,130,246,0.15); color: #93c5fd; }
+.chip-2  { background: rgba(0,201,177,0.15);  color: var(--teal); }
+.chip-3  { background: rgba(239,68,68,0.15);  color: #fca5a5; }
+.chip-4  { background: rgba(167,139,250,0.15);color: var(--purple); }
+.chip-5  { background: rgba(245,158,11,0.15); color: #fcd34d; }
+.chip-6  { background: rgba(34,197,94,0.15);  color: #86efac; }
+.chip-7  { background: rgba(248,113,113,0.15);color: #fda4af; }
+.chip-8  { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+
+.toc {
+  display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 0 0;
+}
+.toc a {
+  font-size: 12px; color: var(--text2); text-decoration: none;
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 4px 12px; border-radius: 100px;
+  transition: all 0.15s;
+}
+.toc a:hover { color: var(--teal); border-color: rgba(0,201,177,0.3); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HERO -->
+<div class="hero">
+  <div class="hero-kicker"><span class="dot"></span>Secondo &mdash; Patent Demo April 28</div>
+  <h1>Stack Layers, Licensing<br>&amp; Integration Status</h1>
+  <p class="hero-sub">Every vendor, library, and cloud service powering Secondo &mdash; what it does, what it costs, what's wired, and what's still missing before the April 28 demo.</p>
+  <div class="hero-meta">
+    <span><span class="label">generated</span> 2026-04-11</span>
+    <span><span class="label">patent filing</span> 2026-04-30</span>
+    <span><span class="label">supabase</span> hyudrgfqhawehzbktntp (SECONDO org)</span>
+    <span><span class="label">ref</span> docs/deliverables/</span>
+  </div>
+  <div class="toc container">
+    <a href="#layer-1">Expo App</a>
+    <a href="#layer-2">Supabase</a>
+    <a href="#layer-3">Retell AI</a>
+    <a href="#layer-4">Twilio</a>
+    <a href="#layer-5">Picovoice</a>
+    <a href="#layer-6">whisper.rn</a>
+    <a href="#layer-7">Apple Dev</a>
+    <a href="#layer-8">Claude API</a>
+    <a href="#summary">Summary Table</a>
+    <a href="#flow">Architecture Flow</a>
+    <a href="#licensing">Licensing</a>
+    <a href="#comments">Notes</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════════════════════ ALERT -->
+  <div class="alert" style="padding-top:28px; border:none; background:none; padding-left:0; padding-right:0;">
+    <div style="background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(245,158,11,0.08));border:1px solid rgba(239,68,68,0.25);border-radius:12px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start;width:100%">
+      <div class="alert-icon">&#9888;</div>
+      <div class="alert-body">
+        <h3>Two blockers remain before the April 28 patent demo</h3>
+        <p><strong>Retell AI</strong> &mdash; no account created, no agent ID, no API key in <code>.env.local</code>. Every outbound AI call fails without this.<br>
+        <strong>Twilio Secondo subaccount</strong> &mdash; no phone number purchased, Retell BYO Twilio unconfigured. Without a real phone number, Retell cannot dial PSTN. <br>
+        All other missing pieces have workarounds sufficient for counsel's April 28 review.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ LAYERS -->
+  <section>
+    <div class="section-title">8 Stack Layers</div>
+    <div class="layers-grid">
+
+      <!-- ── LAYER 1: Expo ── -->
+      <div class="layer-card" id="layer-1">
+        <div class="layer-header">
+          <div class="layer-num chip-1">01</div>
+          <div class="layer-title-block">
+            <h2>Expo / React Native &mdash; The App</h2>
+            <div class="layer-role">iOS &amp; Android mobile application &bull; File-based Expo Router &bull; All 5 tabs</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-partial">Partial</span>
+            <span class="badge badge-workaround">Video OK for Demo</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>The React Native mobile app that users and counsel interact with. Built on <strong>Expo SDK 53</strong> with Expo Router for file-based tab navigation. Contains all UI: Vault, Scan, Voice, Calls, Settings. The Expo Dev Client (not Expo Go) is required because native modules (whisper.rn, Picovoice, document scanner) don't run inside the sandboxed Expo Go environment.</p>
+            <div class="license-tag">MIT &mdash; Expo SDK</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost</h4>
+            <div class="cost-box cost-free">
+              <div class="cost-label">Local Dev</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">Unlimited on M51 &amp; mac-claude-node</div>
+            </div>
+            <div class="cost-box cost-medium">
+              <div class="cost-label">EAS Build (cloud iOS builds)</div>
+              <div class="cost-value">$29 / mo</div>
+              <div class="cost-note">Pro plan needed for TestFlight &amp; fast iOS build queue. Free tier: 30 builds/mo but slow queue (~30 min wait).</div>
+            </div>
+            <p style="font-size:12px;color:var(--text3);margin-top:8px">For April 28: local <code>xcrun simctl</code> screen recording on mac-claude-node avoids EAS entirely.</p>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li>All 5 tabs scaffolded + routed</li>
+              <li>Auth screens complete (sign-in, sign-up, AuthGate in _layout)</li>
+              <li>Intent parser wired in calls.tsx (&ldquo;Call Geico&rdquo; &rarr; handleCall)</li>
+              <li>Document context overlay in active call bar</li>
+              <li>react-native-document-scanner-plugin installed</li>
+              <li>expo-speech available (free TTS)</li>
+              <li>ExpoCalendarAdapter.ts created</li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li>Working iOS build on counsel&rsquo;s device (metro.config.js issue blocks eas build)</li>
+              <li>Whisper model file downloaded to device</li>
+              <li>EAS Pro plan (optional for demo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYER 2: Supabase ── -->
+      <div class="layer-card" id="layer-2">
+        <div class="layer-header">
+          <div class="layer-num chip-2">02</div>
+          <div class="layer-title-block">
+            <h2>Supabase &mdash; Backend</h2>
+            <div class="layer-role">Postgres DB &bull; Auth &bull; Edge Functions &bull; Storage &bull; pgvector</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-done">Core Done</span>
+            <span class="badge badge-partial">Upgrade Recommended</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>The entire cloud backend. Stores the encrypted vault (<strong>documents</strong>, scanned files), user accounts, call records, action items, and voice queries. The <strong><code>vault-lookup</code> Edge Function</strong> is the patent-critical piece: Retell calls it mid-conversation to pull document snippets in real time using PostgreSQL full-text search + pgvector semantic search.</p>
+            <p style="margin-top:8px">Project: <code>hyudrgfqhawehzbktntp</code> (us-east-2, SECONDO org). Postgres 17.6. Migrated from MBACIO org 2026-04-11.</p>
+            <div class="license-tag">Apache-2.0 &mdash; Supabase OSS</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost</h4>
+            <div class="cost-box cost-low">
+              <div class="cost-label">MBACIO Org — Pro Plan (already paid)</div>
+              <div class="cost-value">$25 / mo</div>
+              <div class="cost-note">MBACIO org covers MBACIO WEBSITE, Navilum, Automations, and the old Secondo project. Projected at $49/mo this cycle.</div>
+            </div>
+            <div class="cost-box cost-low">
+              <div class="cost-label">SECONDO Org — Pro Plan (confirmed)</div>
+              <div class="cost-value">$25 / mo</div>
+              <div class="cost-note">SECONDO org (jlwiipkxvzvwjhzxpmin) is on Pro. Project hyudrgfqhawehzbktntp is ACTIVE_HEALTHY. No pauses, full pgvector, daily backups, Edge Function cold-start protection.</div>
+            </div>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li>Schema <code>full_brain_schema_v1</code> live and migrated</li>
+              <li>Tables: documents, action_items, voice_queries, wiki_pages, service_providers</li>
+              <li>Extensions: pgvector, pg_trgm, pgcrypto, uuid-ossp</li>
+              <li>vault-lookup Edge Function <strong>deployed live</strong></li>
+              <li>match_documents() RPC + FTS GIN indexes</li>
+              <li>RLS policies on all user-owned tables</li>
+              <li>fix_security_advisors migration applied</li>
+              <li>Anon key in <code>.env.local</code></li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li>FTS index migration not pushed yet (<code>add-documents-fts-index</code> task queued)</li>
+              <li>Pro plan upgrade (not blocking demo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYER 3: Retell AI ── -->
+      <div class="layer-card blocking" id="layer-3">
+        <div class="layer-header">
+          <div class="layer-num chip-3">03</div>
+          <div class="layer-title-block">
+            <h2>Retell AI &mdash; AI Call Agent</h2>
+            <div class="layer-role">The persistent AI participant in the phone call &bull; Custom tool (vault-lookup) &bull; THE patent claim</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-blocker">&#9888; DEMO BLOCKER</span>
+            <span class="badge badge-partial">Code Scaffolded</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>When Secondo places an outbound call, Retell&rsquo;s AI agent joins the call as a persistent participant. It listens to the service provider&rsquo;s rep, and when it needs information from the user&rsquo;s vault, it calls the <code>vault-lookup</code> Edge Function as a &ldquo;custom tool.&rdquo; This real-time, mid-call document retrieval <strong>is patent claim P1-C1</strong> &mdash; the independent claim that the entire provisional filing rests on.</p>
+            <p style="margin-top:8px">Retell connects to Twilio (BYO) to dial out to real PSTN numbers.</p>
+            <div class="license-tag">Proprietary &mdash; retell.ai</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost &amp; Pricing Risk</h4>
+            <div class="cost-box cost-low">
+              <div class="cost-label">Per-minute (AI call + Twilio combined)</div>
+              <div class="cost-value">~$0.125 / min</div>
+              <div class="cost-note">Retell $0.11 + Twilio $0.015. At a $20/mo sub this is a real drain if users love the feature.</div>
+            </div>
+            <div class="cost-box cost-medium">
+              <div class="cost-label">Pricing strategy (proposed)</div>
+              <div class="cost-value">Quota tiers</div>
+              <div class="cost-note">
+                <strong>Free:</strong> 5 min/mo AI calls ($0.63 cost)<br>
+                <strong>Personal $20/mo:</strong> 30 min ($3.75 cost = $16.25 margin)<br>
+                <strong>Pro $50/mo:</strong> 120 min ($15 cost = $35 margin)<br>
+                <strong>Unlimited $149/mo:</strong> 600 min ($75 cost = $74 margin)<br>
+                Or: base sub + $0.20/min pay-as-you-go for heavy users.
+              </div>
+            </div>
+            <p style="font-size:12px;color:var(--text3);margin-top:8px"><strong>Enforcement:</strong> <code>user_usage</code> table now in schema tracks <code>ai_minutes_used</code> per billing month per user. Call agent checks quota before connecting to Retell. Overage = prompt to upgrade. Per-call max: 15 min.</p>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li>RetellClient.ts (REST wrapper)</li>
+              <li>CallAgent.ts (state machine + custom tool spec)</li>
+              <li>RetellTelephonyAdapter.ts</li>
+              <li>vault-lookup Edge Function deployed (the URL Retell calls)</li>
+              <li>userJwt threading documented in NEXT-ACTIONS.md</li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li><strong>No Retell account created</strong></li>
+              <li>No agent created in Retell dashboard</li>
+              <li><code>calls.tsx:~113</code> hardcodes <code>&lsquo;default-secondo-agent&rsquo;</code></li>
+              <li>No <code>EXPO_PUBLIC_RETELL_API_KEY</code> in <code>.env.local</code></li>
+              <li>vault-lookup custom tool not registered in Retell agent config</li>
+            </ul>
+            <div class="action-required">
+              <strong>Max must:</strong> sign up at retell.ai &rarr; create agent &rarr; add <code>lookup_vault</code> custom tool pointing at <code>https://hyudrgfqhawehzbktntp.supabase.co/functions/v1/vault-lookup</code> &rarr; copy agent ID into calls.tsx:113 &rarr; add API key to .env.local
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYER 4: Twilio ── -->
+      <div class="layer-card blocking" id="layer-4">
+        <div class="layer-header">
+          <div class="layer-num chip-4">04</div>
+          <div class="layer-title-block">
+            <h2>Twilio &mdash; PSTN Telephony</h2>
+            <div class="layer-role">Real phone network access &bull; BYO Twilio subaccount under MBACIO parent &bull; Retell dials through this</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-blocker">&#9888; DEMO BLOCKER</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>Provides the actual phone network (PSTN) connectivity. Retell uses &ldquo;BYO Twilio&rdquo; &mdash; you supply your own Twilio subaccount credentials and a purchased phone number, and Retell dials outbound calls through it. Without Twilio, Retell can&rsquo;t reach any real phone number.</p>
+            <p style="margin-top:8px"><strong>Architecture note:</strong> No new top-level Twilio account needed. Create a <strong>Secondo subaccount</strong> under the existing MBACIO parent account. Subaccounts are free; you only pay for the phone number and per-minute usage.</p>
+            <div class="license-tag">Proprietary &mdash; twilio.com</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost</h4>
+            <div class="cost-box cost-free">
+              <div class="cost-label">Subaccount creation</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">Under MBACIO parent &mdash; no extra charge.</div>
+            </div>
+            <div class="cost-box cost-low">
+              <div class="cost-label">US phone number</div>
+              <div class="cost-value">~$1.15 / mo</div>
+              <div class="cost-note">Standard local US number. Ported or new purchase.</div>
+            </div>
+            <div class="cost-box cost-low">
+              <div class="cost-label">Outbound calls</div>
+              <div class="cost-value">$0.015 / min</div>
+              <div class="cost-note">Billed by Twilio on top of Retell&rsquo;s per-minute rate.</div>
+            </div>
+            <p style="font-size:12px;color:var(--text3);margin-top:8px">Demo budget: 30 minutes of calls = ~$3.50 total (Twilio + Retell combined).</p>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li>MBACIO parent Twilio account exists</li>
+              <li>Architecture documented (BYO subaccount pattern)</li>
+              <li>RetellTelephonyAdapter.ts ready to accept subaccount credentials</li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li><strong>Secondo subaccount not created</strong></li>
+              <li>No phone number purchased</li>
+              <li>No <code>EXPO_PUBLIC_TWILIO_FROM_NUMBER</code> in <code>.env.local</code></li>
+              <li>Retell BYO Twilio not configured (SID + auth token not entered)</li>
+            </ul>
+            <div class="action-required">
+              <strong>Max must:</strong> Twilio Console &rarr; create subaccount &ldquo;Secondo-Dev&rdquo; &rarr; buy a US number &rarr; enter subaccount SID + auth token into Retell BYO Twilio settings &rarr; add phone number to .env.local
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYER 5: Picovoice ── -->
+      <div class="layer-card" id="layer-5">
+        <div class="layer-header">
+          <div class="layer-num chip-5">05</div>
+          <div class="layer-title-block">
+            <h2>Picovoice Porcupine &mdash; Wake Word</h2>
+            <div class="layer-role">On-device, always-listening &ldquo;Hey Secondo&rdquo; detection &bull; Zero audio sent to cloud</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-partial">Installed, Not Configured</span>
+            <span class="badge badge-workaround">Not Blocking Demo</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>Runs a tiny neural network on-device to listen for a specific wake phrase. When &ldquo;Hey Secondo&rdquo; is detected, it fires an event that triggers the voice pipeline. All audio processing happens <strong>entirely on the device</strong> &mdash; no audio ever leaves the phone, making it HIPAA-friendly and latency-free.</p>
+            <p style="margin-top:8px">For April 28: the manual <strong>&ldquo;Listen&rdquo; button</strong> in the Calls tab is a perfectly acceptable demo path. Counsel doesn&rsquo;t need to see wake-word activation to understand the patent claim.</p>
+            <div class="license-tag">Apache-2.0 &mdash; Picovoice SDK</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost</h4>
+            <div class="cost-box cost-free">
+              <div class="cost-label">Apache-2.0 License — free including commercial</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">Apache-2.0 explicitly allows commercial use with no royalties. No "contact for pricing" needed to ship Secondo in the App Store. The SDK is open-source.</div>
+            </div>
+            <div class="cost-box cost-free">
+              <div class="cost-label">Picovoice Console (custom wake word)</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">Get free access key at console.picovoice.ai. Train &ldquo;Hey Secondo&rdquo; .ppn keyword online. ~24hr processing. Free tier: 3 custom keywords, 500k detections/mo.</div>
+            </div>
+            <p style="font-size:12px;color:var(--text3);margin-top:8px">Enterprise support contracts are optional and paid — but using the library itself under Apache-2.0 is free for any purpose including commercial products.</p>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li><code>@picovoice/porcupine-react-native</code> installed</li>
+              <li>WakeWordService.ts written with platform guard</li>
+              <li>Dynamic require + isSupported() check</li>
+              <li>Built-in keyword &ldquo;computer&rdquo; works as a test</li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li>No <code>EXPO_PUBLIC_PICOVOICE_ACCESS_KEY</code> in <code>.env.local</code></li>
+              <li>No custom &ldquo;Hey Secondo&rdquo; <code>.ppn</code> keyword file</li>
+            </ul>
+            <div class="action-required">
+              <strong>Max:</strong> get free access key at console.picovoice.ai &mdash; 5 minutes. Custom keyword takes ~24 hrs. Not blocking April 28; do this week 2.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYER 6: whisper.rn ── -->
+      <div class="layer-card" id="layer-6">
+        <div class="layer-header">
+          <div class="layer-num chip-6">06</div>
+          <div class="layer-title-block">
+            <h2>whisper.rn &mdash; On-Device Speech-to-Text</h2>
+            <div class="layer-role">Whisper.cpp port for React Native &bull; Fully offline STT &bull; HIPAA-compliant (no cloud audio)</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-partial">Installed, Not Configured</span>
+            <span class="badge badge-workaround">iOS STT Fallback Available</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>Transcribes the user&rsquo;s spoken voice to text entirely on-device using OpenAI&rsquo;s Whisper model (via whisper.cpp). Supports multiple model sizes &mdash; <strong>whisper-tiny</strong> (~75 MB) is fast enough for real-time use on modern iPhones. Used in VoiceSession.ts after wake word detection (or after &ldquo;Listen&rdquo; button tap).</p>
+            <p style="margin-top:8px">Demo fallback: iOS native <code>SpeechRecognizer</code> (built into VoiceSession as a fallback path) activates automatically if the whisper model is not loaded. Slightly less accurate, but demo-ready.</p>
+            <div class="license-tag">MIT &mdash; mybigday/whisper.rn</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost</h4>
+            <div class="cost-box cost-free">
+              <div class="cost-label">whisper.rn — 100% free, forever</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">MIT license. On-device — zero API calls, zero usage fees, zero per-minute charge. OpenAI released Whisper model weights under MIT in 2022: also free commercially. Model files: whisper-tiny GGML ~75 MB, whisper-base ~142 MB.</div>
+            </div>
+            <div class="cost-box cost-free">
+              <div class="cost-label">iOS Native SpeechRecognizer (demo fallback)</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">Built-in iOS API. Uses Apple&rsquo;s servers (not HIPAA-long-term). Active in VoiceSession.ts as automatic fallback if whisper model file isn&rsquo;t loaded. Demo-ready today.</div>
+            </div>
+            <p style="font-size:12px;color:var(--text3);margin-top:8px">whisper.rn is a key competitive advantage vs. cloud-STT alternatives (Deepgram $0.0043/min, AssemblyAI $0.0065/min, Google STT $0.006/min). On-device = $0/min at any volume.</p>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li><code>whisper.rn</code> installed in package.json</li>
+              <li>SttService.ts written</li>
+              <li>VoiceSession.ts orchestrates it with native fallback</li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li>whisper-tiny GGML model file not downloaded to device</li>
+              <li>No <code>modelPath</code> configured &mdash; SttService throws without it</li>
+              <li>Autonomous task <code>add-whisper-model-download</code> queued but not run</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYER 7: Apple Dev ── -->
+      <div class="layer-card" id="layer-7">
+        <div class="layer-header">
+          <div class="layer-num chip-7">07</div>
+          <div class="layer-title-block">
+            <h2>Apple Developer Program</h2>
+            <div class="layer-role">iOS app signing &bull; TestFlight distribution &bull; App Store &bull; Apple Sign-In entitlement</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-done">Paid</span>
+            <span class="badge badge-partial">Waiting on Apple</span>
+            <span class="badge badge-workaround">Video OK for Counsel</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>Required for all iOS distribution. To run Secondo on counsel&rsquo;s iPad via TestFlight, or to submit to the App Store, the Apple Developer Team must be active. Provides: <strong>code signing certificates</strong>, <strong>provisioning profiles</strong>, <strong>TestFlight</strong> access, and the <strong>Apple Sign-In</strong> entitlement (required for App Store apps that offer social login).</p>
+            <p style="margin-top:8px">For April 28: a <strong>screen recording</strong> from the iOS Simulator on mac-claude-node (<code>xcrun simctl io booted recordVideo</code>) is fully acceptable as demo evidence for a provisional patent filing.</p>
+            <div class="license-tag">Proprietary &mdash; developer.apple.com</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost</h4>
+            <div class="cost-box cost-medium">
+              <div class="cost-label">Apple Developer Program</div>
+              <div class="cost-value">$99 / yr</div>
+              <div class="cost-note">Already paid. Waiting on Apple to process Team ID. Renews annually.</div>
+            </div>
+            <div class="cost-box cost-free">
+              <div class="cost-label">Simulator (demo fallback)</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">Runs on mac-claude-node (MacBook Pro 16,1). No Apple Team ID needed for Simulator builds.</div>
+            </div>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li>$99/yr fee paid</li>
+              <li>eas.json configured</li>
+              <li>mac-claude-node (100.77.115.27) available as iOS build host</li>
+              <li>Simulator path available for screen recording</li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li>Apple has not yet processed the Team ID</li>
+              <li>No provisioning profile yet (depends on Team ID)</li>
+              <li>TestFlight unavailable until Apple approval</li>
+              <li>metro.config.js issue blocks <code>eas build --platform ios</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LAYER 8: Claude API ── -->
+      <div class="layer-card" id="layer-8">
+        <div class="layer-header">
+          <div class="layer-num chip-8">08</div>
+          <div class="layer-title-block">
+            <h2>Claude API (Anthropic) &mdash; Intent &amp; Post-Call LLM</h2>
+            <div class="layer-role">Intent parsing Edge Function &bull; Action item extraction from call transcript &bull; Not blocking demo</div>
+          </div>
+          <div class="layer-badges">
+            <span class="badge badge-done">Code Written</span>
+            <span class="badge badge-workaround">Regex Covers Demo</span>
+          </div>
+        </div>
+        <div class="layer-body">
+          <div class="layer-col">
+            <h4>What it does</h4>
+            <p>Used in two places in the architecture:</p>
+            <p><strong>1. Intent Edge Function</strong> &mdash; takes voice transcription text, calls Claude to parse structured intent and generate tool calls (e.g. &ldquo;Call Geico about my claim&rdquo; &rarr; <code>{intent: "call", provider: "Geico", topic: "auto claim"}</code>). Stronger than regex for ambiguous phrasing.</p>
+            <p style="margin-top:6px"><strong>2. CallAgent.finalizeCall()</strong> &mdash; after a call ends, Claude extracts structured action items from the transcript (&ldquo;Send policy docs by Friday&rdquo; &rarr; calendar event + ClickUp task).</p>
+            <p style="margin-top:6px">For demo: the regex intent parser in <code>calls.tsx</code> covers &ldquo;Call Geico&rdquo; without needing the Claude Edge Function.</p>
+            <div class="license-tag">Proprietary &mdash; anthropic.com</div>
+          </div>
+          <div class="layer-col">
+            <h4>Cost</h4>
+            <div class="cost-box cost-low">
+              <div class="cost-label">Claude Sonnet 4.5 (target model)</div>
+              <div class="cost-value">$3 / M input<br>$15 / M output</div>
+              <div class="cost-note">A typical intent parse: ~200 tokens in + ~100 tokens out = $0.0009 per call. Action item extraction: ~2,000 tokens = $0.009 per call. Demo-scale: cents, not dollars.</div>
+            </div>
+            <div class="cost-box cost-free">
+              <div class="cost-label">Demo fallback (regex)</div>
+              <div class="cost-value">Free</div>
+              <div class="cost-note">Regex intent parser in calls.tsx handles &ldquo;Call [name]&rdquo; patterns without any API calls. Suitable for April 28 demo flow.</div>
+            </div>
+          </div>
+          <div class="layer-col">
+            <h4>Have</h4>
+            <ul class="have-list">
+              <li>intent Edge Function spec written</li>
+              <li>CallAgent.finalizeCall() extraction logic written</li>
+              <li>Regex intent parser wired in calls.tsx (demo path)</li>
+              <li>MBACIO Anthropic account exists</li>
+            </ul>
+            <h4 style="margin-top:14px">Missing</h4>
+            <ul class="missing-list">
+              <li>Claude API key not set in Supabase Edge Function secrets (for the intent fn)</li>
+              <li>Intent Edge Function not yet deployed (regex covers demo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /layers-grid -->
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ SUMMARY TABLE -->
+  <section id="summary">
+    <div class="section-title">Summary Matrix</div>
+    <div class="summary-table-wrap">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Layer / Vendor</th>
+            <th>Dev Cost</th>
+            <th>Prod Cost</th>
+            <th>License</th>
+            <th>Status</th>
+            <th>Demo Blocker?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span style="color:var(--blue);font-family:monospace;font-weight:600">01</span></td>
+            <td class="layer-name">Expo / React Native</td>
+            <td class="cost-cell">$0</td>
+            <td class="cost-cell">$29/mo EAS Pro</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Partial &mdash; no device build</td>
+            <td class="no">No &mdash; screen recording fallback</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--teal);font-family:monospace;font-weight:600">02</span></td>
+            <td class="layer-name">Supabase</td>
+            <td class="cost-cell">SECONDO org free tier</td>
+            <td class="cost-cell">$25/mo Pro (when launching)</td>
+            <td><span class="lt-open">Apache-2.0</span></td>
+            <td>MBACIO org already Pro. SECONDO org new, free tier for now. All migrations applied.</td>
+            <td class="no">No &mdash; free tier fine for demo</td>
+          </tr>
+          <tr style="background:rgba(239,68,68,0.04)">
+            <td><span style="color:var(--red);font-family:monospace;font-weight:600">03</span></td>
+            <td class="layer-name">Retell AI</td>
+            <td class="cost-cell">~$20 credits</td>
+            <td class="cost-cell">$0.07&ndash;$0.11/min</td>
+            <td><span class="lt-prop">Proprietary</span></td>
+            <td>Code scaffolded, no account</td>
+            <td class="yes">&#9888; YES</td>
+          </tr>
+          <tr style="background:rgba(239,68,68,0.04)">
+            <td><span style="color:var(--purple);font-family:monospace;font-weight:600">04</span></td>
+            <td class="layer-name">Twilio</td>
+            <td class="cost-cell">~$1/mo + usage</td>
+            <td class="cost-cell">$0.015/min + number</td>
+            <td><span class="lt-prop">Proprietary</span></td>
+            <td>Parent account exists, no subaccount</td>
+            <td class="yes">&#9888; YES</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--amber);font-family:monospace;font-weight:600">05</span></td>
+            <td class="layer-name">Picovoice Porcupine</td>
+            <td class="cost-cell">Free</td>
+            <td class="cost-cell">Free (Apache-2.0 allows commercial)</td>
+            <td><span class="lt-open">Apache-2.0</span></td>
+            <td>Installed, no access key</td>
+            <td class="no">No &mdash; manual Listen button works</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--green);font-family:monospace;font-weight:600">06</span></td>
+            <td class="layer-name">whisper.rn</td>
+            <td class="cost-cell">Free</td>
+            <td class="cost-cell">Free (on-device)</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Installed, no model file</td>
+            <td class="no">No &mdash; iOS STT fallback active</td>
+          </tr>
+          <tr>
+            <td><span style="color:#fda4af;font-family:monospace;font-weight:600">07</span></td>
+            <td class="layer-name">Apple Developer</td>
+            <td class="cost-cell">$99/yr (paid)</td>
+            <td class="cost-cell">$99/yr</td>
+            <td><span class="lt-prop">Proprietary</span></td>
+            <td>Paid, waiting Apple approval</td>
+            <td class="no">No &mdash; Simulator + recording works</td>
+          </tr>
+          <tr>
+            <td><span style="color:#a5b4fc;font-family:monospace;font-weight:600">08</span></td>
+            <td class="layer-name">Claude API (Anthropic)</td>
+            <td class="cost-cell">Cents/demo</td>
+            <td class="cost-cell">$3/$15 per M tok</td>
+            <td><span class="lt-prop">Proprietary</span></td>
+            <td>Code written, key not in Supabase</td>
+            <td class="no">No &mdash; regex covers demo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ ARCH FLOW -->
+  <section id="flow">
+    <div class="section-title">Architecture Flow</div>
+    <div class="flow-wrap">
+      <p style="font-size:11px;color:var(--text3);margin-bottom:22px;font-family:'JetBrains Mono',monospace">
+        User voice &rarr; intent &rarr; Retell places call &rarr; Retell queries vault mid-call &rarr; answer delivered to caller
+      </p>
+      <div class="flow">
+        <!-- Device -->
+        <div class="flow-node node-device">
+          <div class="node-box">Porcupine<br><span style="font-size:9px;opacity:0.7">Wake Word</span></div>
+          <div class="node-label">Layer 5</div>
+        </div>
+        <div class="flow-arrow">&#8594;<div class="arrow-label">audio</div></div>
+        <div class="flow-node node-device">
+          <div class="node-box">whisper.rn<br><span style="font-size:9px;opacity:0.7">STT</span></div>
+          <div class="node-label">Layer 6</div>
+        </div>
+        <div class="flow-arrow">&#8594;<div class="arrow-label">text</div></div>
+        <div class="flow-node node-device">
+          <div class="node-box">Expo App<br><span style="font-size:9px;opacity:0.7">Intent Parser</span></div>
+          <div class="node-label">Layer 1</div>
+        </div>
+        <div class="flow-arrow">&#8594;<div class="arrow-label">REST</div></div>
+        <!-- Cloud -->
+        <div class="flow-node node-missing">
+          <div class="node-box">Retell AI<br><span style="font-size:9px;opacity:0.7">Call Agent</span></div>
+          <div class="node-label">Layer 3 &#9888;</div>
+        </div>
+        <div class="flow-arrow">&#8594;<div class="arrow-label">BYO Twilio</div></div>
+        <div class="flow-node node-missing">
+          <div class="node-box">Twilio<br><span style="font-size:9px;opacity:0.7">PSTN</span></div>
+          <div class="node-label">Layer 4 &#9888;</div>
+        </div>
+        <div class="flow-arrow">&#8594;<div class="arrow-label">dial</div></div>
+        <div class="flow-node node-ext">
+          <div class="node-box">Callee<br><span style="font-size:9px;opacity:0.7">Service Provider</span></div>
+          <div class="node-label">External</div>
+        </div>
+      </div>
+      <!-- Second row -->
+      <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:0">
+        <div class="flow-node node-cloud">
+          <div class="node-box">Supabase<br><span style="font-size:9px;opacity:0.7">vault-lookup</span></div>
+          <div class="node-label">Layer 2</div>
+        </div>
+        <div class="flow-arrow">&#8592;<div class="arrow-label">query</div></div>
+        <div class="flow-node node-missing" style="opacity:0.7">
+          <div class="node-box">Retell<br><span style="font-size:9px;opacity:0.7">mid-call tool</span></div>
+          <div class="node-label">Layer 3</div>
+        </div>
+        <div style="padding:0 20px;font-size:12px;color:var(--text3)">
+          &#8594; Retell calls vault-lookup mid-conversation &rarr; snippet returned &rarr; Retell speaks answer to callee
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)"><span style="width:10px;height:10px;border-radius:2px;background:rgba(59,130,246,0.3);display:inline-block"></span>On-device (Layer 1,5,6)</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)"><span style="width:10px;height:10px;border-radius:2px;background:rgba(0,201,177,0.3);display:inline-block"></span>Cloud / Supabase (Layer 2)</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)"><span style="width:10px;height:10px;border-radius:2px;background:rgba(239,68,68,0.3);display:inline-block"></span>&#9888; Missing setup (Layer 3,4)</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)"><span style="width:10px;height:10px;border-radius:2px;background:rgba(245,158,11,0.3);display:inline-block"></span>External (callee)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ LICENSING -->
+  <section id="licensing">
+    <div class="section-title">Open-Source Licensing Reference</div>
+    <div class="license-table-wrap">
+      <table class="license-table">
+        <thead>
+          <tr>
+            <th>Library / SDK</th>
+            <th>Layer</th>
+            <th>License</th>
+            <th>Obligations</th>
+            <th>Can use in commercial product?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>expo</code> / Expo Router / Expo SDK</td>
+            <td>Layer 1</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes, no restrictions</td>
+          </tr>
+          <tr>
+            <td><code>react-native</code></td>
+            <td>Layer 1</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes, no restrictions</td>
+          </tr>
+          <tr>
+            <td><code>react-native-document-scanner-plugin</code></td>
+            <td>Layer 1 / OCR</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes, no restrictions</td>
+          </tr>
+          <tr>
+            <td><code>@supabase/supabase-js</code></td>
+            <td>Layer 2</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes. Supabase hosted service is separate proprietary offering.</td>
+          </tr>
+          <tr>
+            <td><code>@picovoice/porcupine-react-native</code></td>
+            <td>Layer 5</td>
+            <td><span class="lt-open">Apache-2.0</span></td>
+            <td>Preserve NOTICE file, state changes made</td>
+            <td>Yes. Prototype/personal use free. Commercial license required at scale.</td>
+          </tr>
+          <tr>
+            <td><code>whisper.rn</code> (mybigday)</td>
+            <td>Layer 6</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes, no restrictions</td>
+          </tr>
+          <tr>
+            <td>whisper.cpp (underlying engine)</td>
+            <td>Layer 6</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes, no restrictions</td>
+          </tr>
+          <tr>
+            <td>OpenAI Whisper model weights</td>
+            <td>Layer 6</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes &mdash; OpenAI released Whisper weights under MIT in 2022</td>
+          </tr>
+          <tr>
+            <td><code>react-native-keychain</code></td>
+            <td>Encryption</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes, no restrictions</td>
+          </tr>
+          <tr>
+            <td><code>react-native-quick-crypto</code></td>
+            <td>Encryption</td>
+            <td><span class="lt-open">MIT</span></td>
+            <td>Preserve copyright notice</td>
+            <td>Yes, no restrictions</td>
+          </tr>
+          <tr>
+            <td>Retell AI (hosted service)</td>
+            <td>Layer 3</td>
+            <td><span class="lt-prop">Proprietary SaaS</span></td>
+            <td>Per retell.ai Terms of Service</td>
+            <td>Yes, via paid plan. Review ToS for AI disclosure requirements (TCPA).</td>
+          </tr>
+          <tr>
+            <td>Twilio (hosted service)</td>
+            <td>Layer 4</td>
+            <td><span class="lt-prop">Proprietary SaaS</span></td>
+            <td>Per twilio.com ToS &amp; Acceptable Use Policy</td>
+            <td>Yes, via paid plan. A2P 10DLC registration required for US numbers.</td>
+          </tr>
+          <tr>
+            <td>Claude API / Anthropic (hosted service)</td>
+            <td>Layer 8</td>
+            <td><span class="lt-prop">Proprietary API</span></td>
+            <td>Per Anthropic Usage Policies</td>
+            <td>Yes, via paid plan. Review AI disclosure obligations in health contexts.</td>
+          </tr>
+          <tr>
+            <td>Supabase (hosted service)</td>
+            <td>Layer 2</td>
+            <td><span class="lt-prop">Proprietary SaaS</span></td>
+            <td>Per supabase.com ToS; data residency &amp; DPA available on Pro+</td>
+            <td>Yes, via paid plan. Request DPA for HIPAA compliance on Pro.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--text3);margin-top:12px;font-family:'JetBrains Mono',monospace">
+      Counsel note: no GPL or AGPL dependencies. All open-source libraries are MIT or Apache-2.0. No copyleft obligations. Proprietary SaaS services are pay-for-API and do not impose source disclosure requirements on Secondo.
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ COMMENTS -->
+  <section id="comments">
+    <div class="section-title">Notes &amp; Comments</div>
+    <div class="comments-section">
+      <div class="comments-header">
+        <h3>Max&rsquo;s Notes</h3>
+        <span class="save-status" id="save-status">Notes auto-save to browser storage</span>
+      </div>
+
+      <!-- Pre-seeded entries -->
+      <div class="comment-entries" id="comment-entries">
+
+        <div class="comment-entry">
+          <div class="comment-meta">
+            <span>2026-04-11 &mdash; Supabase migration to SECONDO org</span>
+            <span class="comment-tag">Migration</span>
+          </div>
+          <div class="comment-text">
+            Supabase migrated from MBACIO org to dedicated SECONDO org (jlwiipkxvzvwjhzxpmin). New project: <code>hyudrgfqhawehzbktntp</code>. All migrations applied in this session:
+            <ul>
+              <li>phase_02_persistence_schema (rooms, documents, service_providers, provider_documents, alerts, call_records)</li>
+              <li>phase_02_persistence_schema_fixes (RLS hardening, performance)</li>
+              <li>full_brain_schema_v1_base (pgvector, pg_trgm, action_items, voice_queries, wiki_pages, FTS indexes, user_usage quota table)</li>
+              <li>match_documents_rpc_v2 (semantic vector search RPC)</li>
+            </ul>
+            Creds saved to kv-mbacio-tools: SECONDO-SUPABASE-URL, SECONDO-SUPABASE-ANON-KEY, SECONDO-SUPABASE-SERVICE-KEY, SECONDO-SUPABASE-DB-PASSWORD. .env.local updated. vault-lookup deploy ref updated to new project.
+            <br><br>
+            Note: MBACIO org is Pro ($25/mo). SECONDO org is also Pro ($25/mo, confirmed via API). Both orgs fully operational.
+          </div>
+        </div>
+
+        <div class="comment-entry">
+          <div class="comment-meta">
+            <span>2026-04-11 &mdash; Session summary</span>
+            <span class="comment-tag">Status</span>
+          </div>
+          <div class="comment-text">
+            This document created end-of-session after context ran out before we could print this. All content is current as of the April 11 swarm session. Commits pushed to main:
+            <ul>
+              <li><code>2ffbc46</code> &mdash; Intent parser, doc context overlay, ExpoCalendarAdapter</li>
+              <li><code>0cd4919</code> &mdash; vault-lookup Edge Function deployed live</li>
+              <li><code>2b0887f</code> &mdash; Autonomous queue repopulated (5 tasks), sign-up import fix</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="comment-entry">
+          <div class="comment-meta">
+            <span>2026-04-11 &mdash; Vendor action items</span>
+            <span class="comment-tag">Action Required</span>
+          </div>
+          <div class="comment-text">
+            Two blockers that require Max&rsquo;s credit card or login (cannot be automated):
+            <ul>
+              <li><strong>Retell AI</strong> &mdash; sign up retell.ai, create agent, configure lookup_vault custom tool, get API key. ~$20 credits to start.</li>
+              <li><strong>Twilio Secondo subaccount</strong> &mdash; Twilio Console &rarr; create subaccount under MBACIO parent &rarr; buy US number (~$1/mo) &rarr; enter SID + auth token into Retell BYO Twilio settings.</li>
+            </ul>
+            Once Max has the Retell agent ID: replace the hardcode at <code>app/(tabs)/calls.tsx:~113</code> where <code>'default-secondo-agent'</code> must become the real agent ID.
+          </div>
+        </div>
+
+        <div class="comment-entry">
+          <div class="comment-meta">
+            <span>2026-04-09 &mdash; Counsel context</span>
+            <span class="comment-tag">Patent</span>
+          </div>
+          <div class="comment-text">
+            Robert Jacobson (Marshall Gerstein) needs a single end-to-end demo video by April 28. The flow: user speaks &rarr; app transcribes &rarr; intent parsed &rarr; outbound AI call placed &rarr; Retell agent answers rep&rsquo;s questions using vault &rarr; call ends &rarr; action items extracted. The demo recording + a 2-page patent narrative memo mapping each patent claim to code + screen recording timestamp is what gets attached to the provisional filing. Screen recording from iOS Simulator on mac-claude-node is acceptable; TestFlight on counsel&rsquo;s iPad is a stretch goal.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Add new comment -->
+      <div class="add-comment-block">
+        <label for="new-comment">Add a note (saved to browser storage &mdash; persists across page reloads)</label>
+        <textarea id="new-comment" placeholder="Type a note, decision, or action item..."></textarea>
+        <div class="comment-actions">
+          <button class="btn btn-primary" onclick="addComment()">Save Note</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('new-comment').value=''">Clear</button>
+        </div>
+      </div>
+
+      <div id="saved-comments-container" style="margin-top:16px;display:flex;flex-direction:column;gap:12px"></div>
+
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- ═══════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  <p><strong>Secondo</strong> &mdash; Stack Layers, Licensing &amp; Integration Status</p>
+  <p style="margin-top:6px">
+    Generated 2026-04-11 &bull; Patent demo 2026-04-28 &bull; Provisional filing 2026-04-30 &bull;
+    <a href="secondo-patent-claims.html">Patent Claims</a> &bull;
+    <a href="platform-patent-specification.html">Platform Spec</a> &bull;
+    <a href="secondo-hub.html">Project Hub</a>
+  </p>
+  <p style="margin-top:6px">Counsel: Robert S. Jacobson, Marshall Gerstein &amp; Borun LLP</p>
+</footer>
+
+<script>
+// ── Comment persistence via localStorage ──
+const STORAGE_KEY = 'secondo-stack-notes';
+
+function loadSavedComments() {
+  const container = document.getElementById('saved-comments-container');
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  container.innerHTML = '';
+  saved.forEach((note, idx) => {
+    const div = document.createElement('div');
+    div.className = 'comment-entry';
+    div.innerHTML = `
+      <div class="comment-meta">
+        <span>${note.date} &mdash; Your note</span>
+        <span style="display:flex;gap:8px;align-items:center">
+          <span class="comment-tag">Note</span>
+          <button class="btn btn-danger" onclick="deleteComment(${idx})">Delete</button>
+        </span>
+      </div>
+      <div class="comment-text" style="white-space:pre-wrap">${escapeHtml(note.text)}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function addComment() {
+  const ta = document.getElementById('new-comment');
+  const text = ta.value.trim();
+  if (!text) return;
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const now = new Date();
+  saved.push({
+    text,
+    date: now.toISOString().slice(0,10) + ' ' + now.toTimeString().slice(0,5)
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+  ta.value = '';
+  loadSavedComments();
+  const status = document.getElementById('save-status');
+  status.textContent = 'Saved';
+  status.classList.add('saved');
+  setTimeout(() => {
+    status.textContent = 'Notes auto-save to browser storage';
+    status.classList.remove('saved');
+  }, 2000);
+}
+
+function deleteComment(idx) {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  saved.splice(idx, 1);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+  loadSavedComments();
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Allow Ctrl+Enter to save
+document.getElementById('new-comment').addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === 'Enter') addComment();
+});
+
+loadSavedComments();
+</script>
+
+</body>
+</html>

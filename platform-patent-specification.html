@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Provisional Patent Specification — Voice-Activated AI Assistant Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0a1a;
+    --bg-card: #13132e;
+    --bg-card-alt: #1a1a3e;
+    --bg-highlight: #1e1e4a;
+    --text-primary: #e8e8f0;
+    --text-secondary: #a0a0c0;
+    --text-muted: #6a6a8e;
+    --accent: #7c6aef;
+    --accent-light: #9d8ff5;
+    --accent-dim: #4a3db0;
+    --border: #2a2a50;
+    --border-light: #3a3a60;
+    --red: #ef4444;
+    --green: #34d399;
+    --yellow: #fbbf24;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  /* Confidential Banner */
+  .confidential-banner {
+    background: linear-gradient(135deg, #1a0a0a, #2a0a0a);
+    border: 2px solid var(--red);
+    border-radius: 8px;
+    padding: 16px 24px;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .confidential-banner::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--red), transparent, var(--red));
+    z-index: -1;
+    opacity: 0.3;
+  }
+  .confidential-banner p {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+  .confidential-banner .sub {
+    color: #cc6666;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* Header */
+  .doc-header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-header .doc-type {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .doc-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #fff;
+    margin-bottom: 24px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .doc-header .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .doc-header .meta-row .label {
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* Section Cards */
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2 .num {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-light);
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+  .section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  .section p, .section li {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .section ul, .section ol {
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  .section li {
+    margin-bottom: 6px;
+  }
+
+  /* Claim Cards */
+  .claim {
+    background: var(--bg-highlight);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .claim .claim-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+  }
+  .claim .claim-type {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .claim p {
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  /* Table */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: var(--bg-highlight);
+    color: var(--accent-light);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--border-light);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  tr:hover td {
+    background: rgba(124, 106, 239, 0.04);
+  }
+  .yes { color: var(--green); font-weight: 600; }
+  .no { color: var(--text-muted); }
+  .partial { color: var(--yellow); font-weight: 500; }
+
+  /* Figure descriptions */
+  .figure {
+    background: var(--bg-highlight);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .figure .fig-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .figure p {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  /* Abstract box */
+  .abstract-box {
+    background: var(--bg-highlight);
+    border: 1px solid var(--accent-dim);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .abstract-box p {
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.8;
+    text-align: justify;
+  }
+
+  /* Footer */
+  .doc-footer {
+    text-align: center;
+    padding-top: 32px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .doc-footer p {
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  /* Print styles */
+  @media print {
+    body {
+      background: #fff;
+      color: #111;
+      font-size: 11pt;
+    }
+    .container { max-width: 100%; padding: 0; }
+    .section {
+      background: #fff;
+      border: 1px solid #ddd;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .confidential-banner {
+      background: #fff;
+      border-color: #c00;
+    }
+    .confidential-banner p { color: #c00; }
+    .section h2 { color: #111; }
+    .section h2 .num { background: #333; }
+    .section h3 { color: #333; }
+    .section p, .section li, td { color: #333; }
+    .claim { background: #f8f8f8; border-color: #ddd; }
+    .claim p { color: #111; }
+    .figure { background: #f5f5f5; border-left-color: #333; }
+    th { background: #f0f0f0; color: #333; }
+    .yes { color: #16a34a; }
+    .no { color: #999; }
+    .partial { color: #ca8a04; }
+    .doc-header h1 { color: #111; }
+    .doc-header .doc-type { color: #555; }
+    .abstract-box { background: #f8f8fc; border-color: #ccc; }
+    .abstract-box p { color: #111; }
+    a { color: #111; text-decoration: none; }
+  }
+
+  /* TOC */
+  .toc {
+    columns: 2;
+    column-gap: 32px;
+    font-size: 13px;
+  }
+  .toc li {
+    break-inside: avoid;
+    margin-bottom: 6px;
+  }
+  .toc a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--accent-light); }
+
+  /* Subsection indent */
+  .sub-section {
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 2px solid var(--border);
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- CONFIDENTIAL BANNER -->
+<div class="confidential-banner">
+  <p>PRIVILEGED &amp; CONFIDENTIAL &mdash; ATTORNEY WORK PRODUCT DRAFT</p>
+  <p class="sub">This document is prepared in anticipation of patent prosecution and is protected by attorney-client privilege and the work product doctrine.</p>
+</div>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="doc-type">United States Provisional Patent Application</div>
+  <h1>System and Method for Voice-Activated AI Assistant with Persistent Document Context, On-Device Processing, and Autonomous Call Participation</h1>
+  <div class="meta-row">
+    <div>
+      <span class="label">Inventor</span>
+      Maximiliano Frank, Chicago, IL
+    </div>
+    <div>
+      <span class="label">Assignee</span>
+      MBACIO LLC<br><span style="font-size:11px; color:var(--text-muted)">(to be assigned to MBACIO Labs LLC upon formation)</span>
+    </div>
+    <div>
+      <span class="label">Filing Date</span>
+      April 2, 2026
+    </div>
+    <div>
+      <span class="label">Application Type</span>
+      Provisional (35 U.S.C. &sect;111(b))
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="section">
+  <h2>Table of Contents</h2>
+  <ol class="toc">
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#technical-field">Technical Field</a></li>
+    <li><a href="#background">Background of the Invention</a></li>
+    <li><a href="#summary">Summary of the Invention</a></li>
+    <li><a href="#detailed-description">Detailed Description of Preferred Embodiments</a></li>
+    <li><a href="#section-1">Section 1: System Architecture Overview</a></li>
+    <li><a href="#section-2">Section 2: On-Device Wake Word Detection</a></li>
+    <li><a href="#section-3">Section 3: On-Device Speech-to-Text Processing</a></li>
+    <li><a href="#section-4">Section 4: On-Device OCR with Voice-Guided Categorization</a></li>
+    <li><a href="#section-5">Section 5: Encrypted Hierarchical Document Vault</a></li>
+    <li><a href="#section-6">Section 6: Natural Language Voice Query Engine</a></li>
+    <li><a href="#section-7">Section 7: Autonomous Call Participation Module</a></li>
+    <li><a href="#section-8">Section 8: Multi-Application Deployment Platform</a></li>
+    <li><a href="#claims">Claims</a></li>
+    <li><a href="#drawings">Drawings Descriptions</a></li>
+    <li><a href="#prior-art">Prior Art Differentiation</a></li>
+  </ol>
+</div>
+
+<!-- ABSTRACT -->
+<div class="section" id="abstract">
+  <h2><span class="num">I</span> Abstract</h2>
+  <div class="abstract-box">
+    <p>A system and method for a voice-activated artificial intelligence assistant that operates primarily on-device for privacy, maintains a persistent encrypted document vault accessible by natural language voice queries, and autonomously participates in telephone communications on behalf of the user with real-time access to the user's stored documents. The system comprises: (1) an on-device wake word detection module that activates without cloud connectivity; (2) an on-device speech-to-text engine that processes voice commands locally without transmitting audio data; (3) an on-device optical character recognition module that captures, classifies, and indexes physical documents through a voice-guided categorization wizard; (4) an encrypted local-first document vault organized in user-defined hierarchical categories with vector-indexed natural language search; (5) a voice response synthesizer that reads stored document content aloud in response to natural language queries; (6) an autonomous call management module that initiates outbound telephone calls, navigates automated phone systems (IVR), and maintains the AI as a persistent participant during live calls with real-time access to the document vault; and (7) a post-call intelligence module that extracts action items, dates, and commitments from call transcriptions and automatically generates calendar events and reminders. The platform is designed as a modular, application-agnostic engine that powers multiple domain-specific applications through a common application interface layer, enabling rapid deployment across vertical markets including healthcare coordination and personal life management.</p>
+  </div>
+</div>
+
+<!-- TECHNICAL FIELD -->
+<div class="section" id="technical-field">
+  <h2><span class="num">II</span> Technical Field</h2>
+  <p>The present invention relates generally to voice-activated computing systems and, more particularly, to systems and methods for voice-activated artificial intelligence assistants that combine on-device natural language processing, encrypted document management, autonomous telecommunications capabilities, and on-device machine learning. The invention further relates to modular platform architectures that enable a single core engine to power multiple domain-specific applications with specialized workflows and compliance requirements.</p>
+</div>
+
+<!-- BACKGROUND -->
+<div class="section" id="background">
+  <h2><span class="num">III</span> Background of the Invention</h2>
+  <h3>Field Context and Problem Statement</h3>
+  <p>Voice-activated digital assistants have become commonplace in consumer electronics, with systems such as Apple Siri, Amazon Alexa, and Google Assistant deployed on billions of devices worldwide. However, these existing systems suffer from several critical limitations that prevent them from serving as comprehensive personal information management and communication tools.</p>
+
+  <h3>Limitations of Existing Voice Assistants</h3>
+  <p><strong>Cloud Dependency and Privacy Concerns.</strong> Current voice assistants transmit substantially all spoken audio to remote cloud servers for processing. This architectural design creates significant privacy concerns, particularly for sensitive personal information such as medical records, financial documents, legal agreements, and identity credentials. Users who wish to manage sensitive life information through voice interfaces are forced to accept the transmission of that information to third-party servers, often with opaque data retention and usage policies. This cloud-dependent architecture also renders these systems inoperable during network outages, precisely when users may most urgently need access to critical personal information.</p>
+
+  <p><strong>Absence of Persistent Document Context.</strong> No existing commercially available voice assistant maintains a persistent, encrypted, user-controlled document vault that can be queried through natural language voice commands. While cloud-based document management platforms (e.g., Notion, Evernote, Google Drive, Apple Notes) provide text-based document storage and search, these systems are fundamentally text-first interfaces with voice capabilities added as a secondary interaction modality. They do not support voice-guided document capture, voice-first categorization workflows, or the ability to speak a natural language question and receive a synthesized voice response that reads relevant information from stored documents.</p>
+
+  <p><strong>No Autonomous Call Participation.</strong> Perhaps most significantly, no existing system combines document awareness with autonomous telephone communication capabilities. Users managing complex life situations&mdash;chronic illness, elder care, legal disputes, insurance claims, financial planning&mdash;frequently spend substantial time on telephone calls with service providers, during which they must manually locate and reference relevant documents. These calls often involve extended hold times, navigation of complex automated phone systems (IVR trees), and the need to provide information (account numbers, policy numbers, identification numbers, dates) that is stored in physical or digital documents. No existing system can autonomously initiate such calls, navigate IVR systems using stored information, wait on hold on behalf of the user, participate in live calls with real-time document access, or extract actionable intelligence from completed calls.</p>
+
+  <h3>Unmet Need</h3>
+  <p>There exists a significant unmet need for a voice-first AI assistant system that: (a) processes voice data primarily on-device to protect user privacy; (b) maintains a persistent, encrypted, hierarchically organized document vault accessible through natural language voice queries; (c) can autonomously initiate and participate in telephone communications with real-time access to stored documents; and (d) extracts actionable intelligence from completed calls to automate follow-up tasks. Furthermore, there is a need for such a system to be architected as a modular platform capable of powering multiple domain-specific applications&mdash;such as healthcare coordination and personal life management&mdash;through a common core engine with application-specific extension modules.</p>
+</div>
+
+<!-- SUMMARY -->
+<div class="section" id="summary">
+  <h2><span class="num">IV</span> Summary of the Invention</h2>
+  <p>The present invention provides a voice-activated artificial intelligence assistant system and platform that addresses the foregoing limitations and unmet needs. In preferred embodiments, the system comprises a mobile computing device executing an application that integrates the following interconnected modules:</p>
+  <ol>
+    <li><strong>On-Device Wake Word Detection Module</strong> &mdash; A continuously-running, low-power wake word detection engine that operates entirely on-device without network connectivity, consuming less than approximately 5% of device battery capacity, and that activates the speech processing pipeline upon detection of one or more configurable wake word phrases.</li>
+    <li><strong>On-Device Speech-to-Text Engine</strong> &mdash; A local inference engine that converts spoken audio to text entirely on the mobile device without transmitting audio data to any remote server, supporting real-time transcription, batch processing, voice activity detection, and multiple languages.</li>
+    <li><strong>On-Device Optical Character Recognition Module with Voice-Guided Categorization</strong> &mdash; A module that captures images of physical documents through the device camera, extracts text content using on-device OCR, and engages the user in a voice-guided categorization wizard to classify and organize captured documents within the hierarchical vault.</li>
+    <li><strong>Encrypted Hierarchical Document Vault</strong> &mdash; A local-first encrypted storage system organized in user-defined hierarchical categories, wherein each document is stored with its raw image, extracted text, structured fields, vector embedding, and metadata, and wherein encryption keys are derived from user credentials using zero-knowledge principles.</li>
+    <li><strong>Natural Language Voice Query Engine</strong> &mdash; An engine that parses natural language voice queries, performs vector similarity search across the document vault, retrieves matching documents, extracts relevant fields, and synthesizes voice responses containing the requested information, with support for contextual follow-up queries.</li>
+    <li><strong>Autonomous Call Management Module</strong> &mdash; A module that initiates outbound telephone calls via a telephony API, autonomously navigates automated phone system (IVR) menus using information stored in the vault, establishes conference connections including the user and the AI agent, maintains the AI as a persistent call participant with real-time document vault access, and transcribes calls in real-time with speaker identification.</li>
+    <li><strong>Post-Call Intelligence Module</strong> &mdash; A module that analyzes call transcriptions to extract action items, dates, monetary amounts, commitments, and follow-up requirements, and that automatically generates calendar events, reminders, document updates, and summary records stored in the vault.</li>
+    <li><strong>Application Interface Layer</strong> &mdash; A modular interface that enables domain-specific applications to extend the core engine with specialized workflows, domain knowledge, and compliance requirements without modification of the core modules.</li>
+  </ol>
+</div>
+
+<!-- DETAILED DESCRIPTION -->
+<div class="section" id="detailed-description">
+  <h2><span class="num">V</span> Detailed Description of Preferred Embodiments</h2>
+  <p>The following detailed description sets forth specific embodiments of the invention. These embodiments are illustrative and are not intended to limit the scope of the invention as defined by the appended claims. Those of ordinary skill in the art will appreciate that various modifications, variations, and equivalents may be employed without departing from the spirit and scope of the invention.</p>
+  <p>Reference will be made to the accompanying drawings, in which like reference numerals denote like elements throughout the several views.</p>
+</div>
+
+<!-- SECTION 1: System Architecture -->
+<div class="section" id="section-1">
+  <h2><span class="num">1</span> System Architecture Overview</h2>
+
+  <h3>1.1 Hardware Platform</h3>
+  <p>In preferred embodiments, the system is implemented as a software application executing on a mobile computing device, such as a smartphone or tablet computer running the iOS or Android operating system. The mobile device comprises at least: a multi-core processor with neural processing unit (NPU) or graphics processing unit (GPU) capable of running machine learning inference; a camera module capable of capturing high-resolution images of physical documents; a microphone array for audio input; a speaker or audio output interface; non-volatile storage sufficient to maintain the encrypted document vault; and wireless communication interfaces including cellular and Wi-Fi connectivity.</p>
+
+  <h3>1.2 On-Device Processing Architecture</h3>
+  <p>A defining characteristic of the present invention is that core functions&mdash;including wake word detection, speech-to-text conversion, optical character recognition, document encryption and storage, natural language query processing, and voice response synthesis&mdash;are performed entirely on the mobile device without requiring network connectivity. This on-device processing architecture ensures that: (a) sensitive user data, including spoken audio and document content, is not transmitted to remote servers; (b) the system remains functional during network outages; and (c) processing latency is minimized by eliminating network round-trip delays.</p>
+
+  <h3>1.3 Cloud Connectivity</h3>
+  <p>The system utilizes network connectivity selectively for functions that inherently require it:</p>
+  <ul>
+    <li><strong>Telephone Communications:</strong> Outbound and inbound telephone calls are established through a telephony API service (e.g., Twilio, Retell.ai, or equivalent) that bridges between Voice over Internet Protocol (VoIP) and the public switched telephone network (PSTN).</li>
+    <li><strong>Calendar Synchronization:</strong> Calendar events generated by the post-call intelligence module are synchronized with the user's existing calendar service (e.g., Google Calendar, Apple Calendar, Microsoft Outlook) through standard calendar APIs.</li>
+    <li><strong>Optional Encrypted Backup:</strong> Users may optionally enable end-to-end encrypted cloud backup of the document vault, wherein encryption is performed on-device before transmission and decryption keys are never transmitted to or stored on any server.</li>
+  </ul>
+
+  <h3>1.4 Operating Modes</h3>
+  <p>The system operates in three primary modes, each of which may be initiated by voice command following wake word detection:</p>
+  <ul>
+    <li><strong>Document Capture Mode:</strong> The user captures and categorizes physical documents using the camera and voice-guided wizard.</li>
+    <li><strong>Voice Query Mode:</strong> The user speaks natural language questions and receives synthesized voice responses from the document vault.</li>
+    <li><strong>Call Participation Mode:</strong> The system initiates and participates in telephone calls with real-time document vault access, IVR navigation, and post-call intelligence extraction.</li>
+  </ul>
+
+  <h3>1.5 Data Flow Architecture</h3>
+  <p>In operation, data flows through the system as follows. Audio input from the microphone is continuously monitored by the wake word detection module, which operates as a lightweight, always-on process. Upon wake word detection, the audio stream is routed to the on-device speech-to-text engine, which converts spoken audio to text. The resulting text is passed to an intent classification module that determines the user's intent and routes the request to the appropriate processing pipeline: document capture, voice query, or call initiation. Each pipeline operates on the encrypted document vault as its primary data store, reading from and writing to the vault as required. Voice responses are generated by the text-to-speech synthesis module and delivered through the device speaker or connected audio output.</p>
+</div>
+
+<!-- SECTION 2: Wake Word Detection -->
+<div class="section" id="section-2">
+  <h2><span class="num">2</span> On-Device Wake Word Detection</h2>
+
+  <h3>2.1 Architecture</h3>
+  <p>The wake word detection module comprises a lightweight neural network model optimized for continuous execution on the mobile device's processor or dedicated neural processing unit. In preferred embodiments, the module employs a keyword-spotting architecture such as that provided by Picovoice Porcupine, Snowboy, or an equivalent on-device wake word engine. The model is trained to detect one or more predefined wake word phrases with high accuracy and low false-positive rates.</p>
+
+  <h3>2.2 Power Efficiency</h3>
+  <p>The wake word detection module is designed to operate continuously without significant impact on device battery life. In preferred embodiments, the module consumes less than approximately 5% of total device battery capacity over a 24-hour period when operating continuously. This efficiency is achieved through: (a) use of a small neural network model (typically less than 2 MB in size) that requires minimal computational resources; (b) operation at a reduced audio sampling rate sufficient for wake word detection but lower than that required for full speech-to-text processing; and (c) utilization of hardware-accelerated audio processing features available on modern mobile processors.</p>
+
+  <h3>2.3 Privacy Characteristics</h3>
+  <p>The wake word detection module processes all audio on-device and does not transmit any audio data, metadata, or detection events to any remote server. Audio that does not match the wake word pattern is discarded immediately and is not stored, buffered, or logged. Only upon positive wake word detection is the audio stream routed to the speech-to-text engine for further processing, and even then, processing occurs entirely on-device.</p>
+
+  <h3>2.4 Customization</h3>
+  <p>In preferred embodiments, users may configure one or more custom wake word phrases. The system supports both pre-trained wake word models (e.g., "Hey [Application Name]") and user-trained custom wake words created through a brief voice enrollment process. Multiple wake word variants may be active simultaneously, enabling users to select the phrase that is most natural and comfortable for their usage patterns.</p>
+
+  <h3>2.5 Activation Pipeline</h3>
+  <p>Upon positive wake word detection, the module performs the following sequence: (a) emits a configurable audio or haptic acknowledgment to confirm activation; (b) transitions the speech-to-text engine from standby to active processing mode; (c) begins routing the audio stream to the speech-to-text engine; and (d) initiates a configurable timeout period (e.g., 10 seconds of silence) after which the system returns to wake-word-only listening mode.</p>
+</div>
+
+<!-- SECTION 3: Speech-to-Text -->
+<div class="section" id="section-3">
+  <h2><span class="num">3</span> On-Device Speech-to-Text Processing</h2>
+
+  <h3>3.1 Inference Engine</h3>
+  <p>The speech-to-text module comprises an on-device inference engine that converts spoken audio to text without transmitting audio data to any remote server. In preferred embodiments, the engine employs a transformer-based speech recognition model, such as those derived from the OpenAI Whisper architecture (e.g., whisper.cpp compiled for mobile platforms, or whisper.rn for React Native applications), optimized for on-device execution through quantization, pruning, and hardware-specific compilation.</p>
+
+  <h3>3.2 Processing Modes</h3>
+  <p>The speech-to-text engine supports two processing modes:</p>
+  <ul>
+    <li><strong>Real-Time Streaming Mode:</strong> Audio is processed in overlapping chunks (e.g., 30-second windows with 5-second overlap) to provide near-real-time transcription with partial result updates. This mode is used during voice queries and live call transcription.</li>
+    <li><strong>Batch Processing Mode:</strong> Complete audio recordings are processed in a single pass for maximum accuracy. This mode is used for post-call transcription refinement and audio note processing.</li>
+  </ul>
+
+  <h3>3.3 Voice Activity Detection</h3>
+  <p>The module incorporates a voice activity detection (VAD) subsystem that distinguishes speech from background noise and silence. The VAD subsystem enables efficient processing by: (a) activating the full inference engine only when speech is detected; (b) segmenting continuous speech into logical utterances based on pause detection; (c) filtering environmental noise to improve recognition accuracy; and (d) detecting end-of-utterance to trigger downstream intent classification.</p>
+
+  <h3>3.4 Language Support</h3>
+  <p>The speech-to-text engine supports multiple languages through downloadable language model packages. Users may install one or more language models on their device, and the system can be configured to automatically detect the spoken language or to operate in a fixed-language mode for improved accuracy. In preferred embodiments, the system supports at least English, Spanish, French, German, Mandarin Chinese, Japanese, Korean, Portuguese, and Arabic.</p>
+
+  <h3>3.5 Intent Classification</h3>
+  <p>The output of the speech-to-text engine is passed to an intent classification module that determines the type of user request. The intent classifier categorizes each utterance into one of the following primary intent categories: (a) document query (the user is asking a question that should be answered from the vault); (b) document capture (the user wishes to scan and store a document); (c) call initiation (the user wishes to place a telephone call); (d) system command (the user is adjusting settings, creating categories, or performing administrative tasks); or (e) conversational (the user is engaging in general conversation with the AI assistant). The classified intent determines which processing pipeline receives the utterance for further handling.</p>
+</div>
+
+<!-- SECTION 4: OCR -->
+<div class="section" id="section-4">
+  <h2><span class="num">4</span> On-Device Optical Character Recognition with Voice-Guided Categorization</h2>
+
+  <h3>4.1 Document Capture Process</h3>
+  <p>The document capture module enables users to digitize physical documents through the mobile device camera with automated text extraction and voice-guided categorization. The capture process proceeds as follows:</p>
+  <ol>
+    <li>The user activates document capture mode by voice command (e.g., "Scan a document") or by manual interface interaction.</li>
+    <li>The device camera activates with real-time edge detection that identifies document boundaries within the camera viewfinder.</li>
+    <li>Upon detection of a stable document position, the system captures a high-resolution image and applies perspective correction, contrast enhancement, and de-skewing to produce a normalized document image.</li>
+    <li>The normalized image is processed by the on-device OCR engine.</li>
+  </ol>
+
+  <h3>4.2 OCR Engine</h3>
+  <p>The OCR engine operates entirely on-device using a machine learning-based text recognition framework (e.g., Google ML Kit, Apple Vision framework, or Tesseract compiled for mobile). The engine extracts text from the captured document image with support for: printed text in multiple languages; handwritten text (with reduced accuracy); tabular data and structured layouts; and mixed text and graphical content. The extracted text is stored as a searchable text layer associated with the original document image.</p>
+
+  <h3>4.3 Automatic Field Extraction</h3>
+  <p>Following OCR text extraction, the system applies named entity recognition (NER) and pattern matching to automatically identify and extract structured fields from the document content, including but not limited to:</p>
+  <ul>
+    <li><strong>Dates:</strong> Expiration dates, effective dates, appointment dates, due dates.</li>
+    <li><strong>Monetary Amounts:</strong> Deductibles, premiums, balances, payment amounts, copays.</li>
+    <li><strong>Personal Names:</strong> Account holders, providers, beneficiaries, dependents.</li>
+    <li><strong>Identification Numbers:</strong> Policy numbers, account numbers, member IDs, Social Security numbers (stored with enhanced encryption).</li>
+    <li><strong>Addresses:</strong> Physical addresses, mailing addresses, provider locations.</li>
+    <li><strong>Contact Information:</strong> Phone numbers, fax numbers, email addresses, website URLs.</li>
+  </ul>
+  <p>Extracted fields are stored as structured metadata associated with the document record, enabling both precise field-based queries (e.g., "What is my policy number?") and broader semantic queries (e.g., "Tell me about my health coverage").</p>
+
+  <h3>4.4 Voice-Guided Categorization Wizard</h3>
+  <p>Following text extraction and field identification, the system initiates a voice-guided categorization wizard that assists the user in classifying and organizing the captured document. The wizard operates as follows:</p>
+  <ol>
+    <li><strong>Content-Aware Category Suggestion:</strong> Based on the extracted text content and identified fields, the system suggests relevant categories. For example, a document containing terms such as "premium," "deductible," and "coverage" may prompt: "This looks like an insurance document. Would you like to file it under Health Insurance?"</li>
+    <li><strong>Hierarchical Navigation:</strong> If the user requests a different category or if automatic detection is uncertain, the wizard presents the top-level categories (rooms) and allows the user to navigate deeper into the hierarchy through voice responses. For example: "Is this for Personal, Work, Family, Health, or Pets?" followed by "Within Health, is this for Insurance, Medical Records, or Prescriptions?"</li>
+    <li><strong>Tag Assignment:</strong> The wizard offers the option to assign one or more tags for additional cross-referencing. Tags may be suggested based on document content or specified by the user in natural language.</li>
+    <li><strong>Confirmation:</strong> The wizard provides a verbal summary of the categorization and requests confirmation before finalizing storage.</li>
+  </ol>
+
+  <h3>4.5 Supported Document Types</h3>
+  <p>The system is designed to capture and process a wide variety of document types encountered in personal and professional life, including but not limited to: insurance cards and policy documents; medical records, lab results, and prescriptions; residential leases, mortgage documents, and property records; utility bills, bank statements, and financial documents; receipts and warranties; government-issued identification documents; tax forms and filings; veterinary records and pet documentation; vehicle titles, registrations, and maintenance records; and educational transcripts and certifications.</p>
+</div>
+
+<!-- SECTION 5: Document Vault -->
+<div class="section" id="section-5">
+  <h2><span class="num">5</span> Encrypted Hierarchical Document Vault</h2>
+
+  <h3>5.1 Local-First Architecture</h3>
+  <p>The document vault is implemented as a local-first encrypted database stored on the mobile device's non-volatile storage. All document data&mdash;including raw images, extracted text, structured fields, vector embeddings, and metadata&mdash;is encrypted at rest using AES-256 encryption (or equivalent) before being written to storage. The local-first architecture ensures that: (a) no unencrypted document data is transmitted to any server under any circumstances during normal operation; (b) the vault is fully accessible without network connectivity; and (c) the user retains complete physical control over their data by virtue of its storage on their personal device.</p>
+
+  <h3>5.2 Zero-Knowledge Encryption</h3>
+  <p>The vault employs a zero-knowledge encryption scheme in which encryption keys are derived from user-provided credentials (e.g., a passphrase, biometric authentication, or a combination thereof) using a key derivation function (e.g., Argon2id, PBKDF2, or scrypt). Critically, the derived encryption keys are never transmitted to, stored on, or accessible by any remote server. The system operator has no ability to decrypt vault contents, even if compelled, because the operator never possesses the encryption keys. This zero-knowledge design provides strong privacy guarantees that are particularly important for sensitive personal documents such as medical records, financial information, and identity credentials.</p>
+
+  <h3>5.3 Hierarchical Category Structure</h3>
+  <p>Documents within the vault are organized in a user-defined hierarchical category structure referred to as "rooms." Each room represents a top-level organizational domain, and rooms may contain sub-categories to any desired depth. The default room structure may include, for example:</p>
+  <ul>
+    <li><strong>Personal:</strong> Identity documents, personal correspondence, personal records.</li>
+    <li><strong>Work:</strong> Employment documents, professional certifications, business records.</li>
+    <li><strong>Family:</strong> Family member documents, shared household records, school records.</li>
+    <li><strong>Health:</strong> Insurance, medical records, prescriptions, lab results, provider contacts.</li>
+    <li><strong>Pets:</strong> Veterinary records, vaccination records, insurance, registration.</li>
+    <li><strong>Financial:</strong> Bank statements, tax documents, investment records, bills.</li>
+    <li><strong>Home:</strong> Lease/mortgage, utilities, maintenance records, warranties.</li>
+    <li><strong>Vehicle:</strong> Title, registration, insurance, maintenance, loan documents.</li>
+  </ul>
+  <p>Users may create, rename, reorganize, and delete rooms and sub-categories at any time through voice commands or manual interface interaction. The hierarchical structure is stored as metadata within the encrypted vault.</p>
+
+  <h3>5.4 Document Record Structure</h3>
+  <p>Each document stored in the vault comprises a document record containing the following elements:</p>
+  <ul>
+    <li><strong>Raw Image:</strong> The original captured image of the physical document, stored in its original resolution.</li>
+    <li><strong>Extracted Text:</strong> The full OCR-extracted text content of the document.</li>
+    <li><strong>Structured Fields:</strong> Key-value pairs of identified fields (e.g., "Policy Number: ABC123456", "Expiration Date: 2027-03-15").</li>
+    <li><strong>Vector Embedding:</strong> A high-dimensional vector representation of the document content generated by an on-device embedding model, enabling semantic similarity search.</li>
+    <li><strong>Category Path:</strong> The hierarchical room and sub-category assignment (e.g., "Health > Insurance > Auto").</li>
+    <li><strong>Tags:</strong> Zero or more user-assigned or automatically suggested tags for cross-referencing.</li>
+    <li><strong>Capture Metadata:</strong> Timestamp, device information, and capture quality indicators.</li>
+    <li><strong>Revision History:</strong> A log of modifications to the document record, including re-categorizations and field corrections.</li>
+  </ul>
+
+  <h3>5.5 Vector-Indexed Search</h3>
+  <p>The vault maintains a vector index over all stored document embeddings, enabling semantic similarity search in response to natural language queries. The vector index is implemented using an on-device approximate nearest neighbor (ANN) algorithm (e.g., HNSW, IVF, or equivalent) that provides sub-second query performance even for vaults containing thousands of documents. The vector index is updated incrementally as documents are added, modified, or deleted. Combined with traditional keyword search over extracted text and structured fields, the vector index enables the system to answer both precise queries ("What is my Geico policy number?") and semantic queries ("What documents do I have about car coverage?") with high relevance.</p>
+
+  <h3>5.6 Cross-Category Intelligence</h3>
+  <p>The natural language query engine is capable of performing cross-category searches that span multiple rooms and sub-categories. For example, the query "What insurance do I have for my dog?" may retrieve documents from both the "Pets" room (veterinary records mentioning insurance) and the "Financial" room (pet insurance policy documents). Cross-category intelligence is enabled by: (a) vector similarity search that operates across the entire vault regardless of category boundaries; (b) tag-based correlation that identifies documents sharing common tags across categories; and (c) entity linking that connects documents mentioning the same entities (e.g., a pet's name, a provider's name, a policy number) across categories.</p>
+
+  <h3>5.7 Optional Encrypted Cloud Backup</h3>
+  <p>Users may optionally enable cloud backup of the encrypted vault. When enabled, the encrypted vault contents are transmitted to a cloud storage service (e.g., iCloud, Google Drive, or a dedicated backup service) in their encrypted form. Because encryption is performed on-device before transmission, the cloud storage provider receives only encrypted data and cannot access vault contents. Backup and restoration are initiated by the user through voice command or manual interface interaction. The system supports incremental backup to minimize data transfer requirements.</p>
+</div>
+
+<!-- SECTION 6: Voice Query -->
+<div class="section" id="section-6">
+  <h2><span class="num">6</span> Natural Language Voice Query Engine</h2>
+
+  <h3>6.1 Query Processing Pipeline</h3>
+  <p>When the intent classification module determines that a user utterance constitutes a document query, the utterance is processed through the following pipeline:</p>
+  <ol>
+    <li><strong>Query Understanding:</strong> The natural language text is analyzed to determine the query type (factual lookup, document retrieval, comparison, enumeration, or action request), the target entity or topic, and any constraints (date ranges, categories, specific document types).</li>
+    <li><strong>Search Execution:</strong> The query engine executes a hybrid search combining: (a) vector similarity search using an embedding of the query text against the vault's vector index; (b) keyword search against extracted text fields; and (c) structured field lookup for queries targeting specific known fields (e.g., "policy number," "expiration date"). Search results are ranked by a combined relevance score.</li>
+    <li><strong>Document Retrieval:</strong> The top-ranked matching documents are retrieved from the encrypted vault and decrypted in-memory for processing.</li>
+    <li><strong>Field Extraction:</strong> Based on the query type, the engine extracts the specific information requested from the retrieved documents. For factual lookups, this may be a single field value; for broader queries, this may be a synthesis of information from multiple documents.</li>
+    <li><strong>Response Generation:</strong> The extracted information is formatted into a natural language response suitable for voice synthesis.</li>
+    <li><strong>Voice Synthesis:</strong> The response text is converted to speech using an on-device text-to-speech (TTS) engine and delivered through the device speaker or connected audio output.</li>
+  </ol>
+
+  <h3>6.2 Contextual Follow-Up Queries</h3>
+  <p>The query engine maintains a conversation context buffer that enables follow-up queries to reference the context of prior exchanges. For example:</p>
+  <ul>
+    <li>User: "When does my lease expire?" &rarr; System retrieves lease, responds with expiration date.</li>
+    <li>User: "What's the landlord's phone number?" &rarr; System understands "the landlord" refers to the lease just retrieved, extracts and speaks the phone number.</li>
+    <li>User: "Call them." &rarr; System understands "them" refers to the landlord, initiates a call to the extracted phone number, and pre-loads the lease document for reference during the call.</li>
+  </ul>
+  <p>The context buffer retains the most recent query-response pairs and their associated document references for a configurable duration or number of turns.</p>
+
+  <h3>6.3 Example Queries and Responses</h3>
+  <p>The following examples illustrate the range of queries the system is designed to handle:</p>
+  <ul>
+    <li>"When does my lease expire?" &rarr; Retrieves lease document &rarr; "Your lease expires on August 31, 2027."</li>
+    <li>"What's my insurance deductible?" &rarr; Retrieves insurance card &rarr; "Your annual deductible is $1,500 for in-network providers and $3,000 for out-of-network."</li>
+    <li>"Do I have any documents expiring this month?" &rarr; Searches all documents with expiration dates &rarr; "You have two documents expiring this month: your auto insurance policy on April 15th and your driver's license on April 28th."</li>
+    <li>"What shots does my dog need?" &rarr; Retrieves veterinary records &rarr; "Based on your vet records, Bella is due for her rabies booster and bordetella vaccination. Her last visit was November 12th."</li>
+    <li>"How much did I pay for car repairs last year?" &rarr; Retrieves automotive receipts &rarr; "I found four repair receipts from 2025 totaling $2,847.50."</li>
+  </ul>
+
+  <h3>6.4 Voice Response Synthesis</h3>
+  <p>The text-to-speech synthesis module converts response text to spoken audio using an on-device neural TTS engine. In preferred embodiments, the TTS engine supports: multiple voice options (varying in gender, accent, and speaking rate); configurable speaking rate and volume; intelligent handling of numbers, dates, monetary amounts, and alphanumeric identifiers (e.g., spelling out policy numbers letter-by-letter); and pause insertion for natural phrasing of complex responses.</p>
+</div>
+
+<!-- SECTION 7: Call Participation -->
+<div class="section" id="section-7">
+  <h2><span class="num">7</span> Autonomous Call Participation Module</h2>
+  <p style="color: var(--accent-light); font-weight: 600; font-style: italic; margin-bottom: 16px;">This section describes the most novel component of the present invention.</p>
+
+  <h3>7a. Call Initiation</h3>
+  <div class="sub-section">
+    <h4>7a.1 Voice-Commanded Call Initiation</h4>
+    <p>The autonomous call participation module enables users to initiate telephone calls through voice commands. Upon receiving a call initiation intent (e.g., "Call Geico," "Call Dr. Smith's office," "Call my landlord"), the system performs the following preparatory steps:</p>
+    <ol>
+      <li><strong>Contact Resolution:</strong> The system queries the document vault and the device's native contact list to resolve the specified entity to a telephone number. Resolution may involve: matching the entity name against document metadata (e.g., finding a phone number on a stored insurance card for "Geico"); searching extracted text fields for phone numbers associated with the entity; or looking up the entity in the device's native contact database.</li>
+      <li><strong>Document Pre-Loading:</strong> The system identifies and pre-loads documents likely to be relevant to the upcoming call. For example, a call to "Geico" triggers pre-loading of: the Geico insurance policy document, the insurance ID card, any recent correspondence from Geico, and any prior call summaries with Geico. Pre-loaded documents are decrypted in-memory and indexed for rapid access during the call.</li>
+      <li><strong>User Briefing:</strong> Before initiating the call, the system provides the user with a brief summary: "I'll call Geico at (800) 861-8380. I have your policy number, your claim from January, and your most recent bill ready. Shall I proceed?"</li>
+      <li><strong>Call Establishment:</strong> Upon user confirmation, the system initiates the outbound call through a telephony API (e.g., Twilio Programmable Voice, Retell.ai, or equivalent) that bridges between VoIP and the PSTN. The AI agent is connected to the call as the initial participant.</li>
+    </ol>
+
+    <h4>7a.2 Telephony Integration</h4>
+    <p>The call is established through a telephony API service that provides: outbound PSTN calling capability; real-time audio streaming for the AI agent's participation; conference call management (adding and removing participants); call recording and real-time transcription support; and DTMF tone generation for IVR menu navigation. The telephony integration is abstracted behind a provider-agnostic interface, enabling substitution of telephony providers without modification to the core application logic.</p>
+  </div>
+
+  <h3>7b. IVR Navigation</h3>
+  <div class="sub-section">
+    <h4>7b.1 Automated Menu Navigation</h4>
+    <p>Upon call connection, the AI agent autonomously navigates automated phone system (Interactive Voice Response, or IVR) menus on behalf of the user. The IVR navigation module operates as follows:</p>
+    <ol>
+      <li><strong>Menu Detection:</strong> The agent's real-time speech recognition identifies IVR menu prompts and determines the available options (e.g., "Press 1 for claims, press 2 for billing, press 3 for new policies").</li>
+      <li><strong>Intent Mapping:</strong> Based on the user's stated reason for calling (if provided) or inferred purpose (based on pre-loaded documents), the agent selects the most appropriate menu option.</li>
+      <li><strong>DTMF Response:</strong> The agent generates the appropriate DTMF tone(s) to navigate the menu. For speech-based IVR systems, the agent provides spoken responses.</li>
+      <li><strong>Information Provision:</strong> When IVR prompts request personal information (e.g., "Please enter your policy number," "Please say your date of birth"), the agent retrieves the requested information from the pre-loaded documents and provides it via DTMF tones or speech as appropriate.</li>
+      <li><strong>Hold Detection:</strong> When placed on hold, the agent detects hold music or silence patterns and enters a monitoring state that consumes minimal processing resources while waiting for a human representative to answer.</li>
+    </ol>
+
+    <h4>7b.2 User Notification During Hold</h4>
+    <p>While the AI agent waits on hold, the user is free to use their device for other purposes. The system provides: an estimated wait time (if announced by the IVR system); periodic status notifications (e.g., "Still on hold with Geico. Estimated wait: 12 minutes."); and an immediate notification when a human representative answers (e.g., "A Geico representative has answered. Would you like to join the call?").</p>
+  </div>
+
+  <h3>7c. Persistent AI Participation</h3>
+  <div class="sub-section">
+    <h4>7c.1 Conference Mode</h4>
+    <p>When a human representative answers the call, the system supports two operating modes:</p>
+    <ul>
+      <li><strong>Full AI Mode:</strong> The AI agent conducts the entire conversation with the human representative on behalf of the user, following pre-established instructions and utilizing information from the document vault. The user receives a real-time transcript and can interject at any time.</li>
+      <li><strong>Conference Mode (Preferred):</strong> The user is conferenced into the call as an active participant. The AI agent remains connected as a persistent third participant with the following capabilities:
+        <ul>
+          <li>Real-time document vault access to answer questions from any participant.</li>
+          <li>Automatic provision of requested information (e.g., when the representative asks "What's your policy number?", the AI can immediately provide it from the vault).</li>
+          <li>Real-time transcription displayed on the user's device screen.</li>
+          <li>Whisper mode: the AI can provide information to the user through text display or private audio channel without the call counterpart hearing.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>7c.2 Warm-Transfer Mode</h4>
+    <p>In a preferred embodiment, the system supports a warm-transfer mode in which: (a) the AI agent initiates the call and handles all initial interactions including IVR navigation, hold waiting, and initial representative greeting; (b) the AI provides the representative with basic account verification information; (c) the AI briefs the user on what has been discussed so far; and (d) the user is then conferenced in with full context, avoiding the need to repeat information. The AI remains as a persistent passive participant that responds when directly addressed or when document information is requested.</p>
+
+    <h4>7c.3 Document-Aware Responses</h4>
+    <p>Throughout the call, the AI agent maintains active awareness of the conversation context and the pre-loaded document set. When a question is asked that can be answered from the vault&mdash;whether by the call counterpart or by the user themselves&mdash;the AI can provide the answer. Examples include:</p>
+    <ul>
+      <li>Representative: "What's your policy number?" &rarr; AI: "The policy number is GEI-4827193." (read from insurance card in vault)</li>
+      <li>Representative: "When was your last claim?" &rarr; AI: "The most recent claim was filed on January 15, 2026, for incident reference CLM-88421." (read from correspondence in vault)</li>
+      <li>User: "What was our deductible again?" &rarr; AI whispers to user: "Your deductible is $500 for comprehensive and $1,000 for collision."</li>
+    </ul>
+  </div>
+
+  <h3>7d. Live Transcription</h3>
+  <div class="sub-section">
+    <h4>7d.1 Real-Time Transcription</h4>
+    <p>The entire call is transcribed in real-time using the system's speech-to-text engine. The transcription module provides:</p>
+    <ul>
+      <li><strong>Speaker Diarization:</strong> The system identifies and labels each speaker in the transcript (user, AI agent, call counterpart), enabling clear attribution of statements.</li>
+      <li><strong>Real-Time Display:</strong> The transcript is displayed on the user's device screen in real-time, with speaker labels and timestamps.</li>
+      <li><strong>Keyword Highlighting:</strong> Important terms such as monetary amounts, dates, names, and action-related language are highlighted in the real-time display.</li>
+      <li><strong>Consent Notification:</strong> At the beginning of each call, the system provides an appropriate disclosure that the call may be recorded and transcribed, in compliance with applicable federal and state recording consent laws.</li>
+    </ul>
+
+    <h4>7d.2 Transcript Storage</h4>
+    <p>Upon call completion, the full transcript is encrypted and stored in the document vault under the relevant category, associated with: the call date, time, and duration; the participating parties; the call outcome classification; and a generated summary (see Section 7e).</p>
+  </div>
+
+  <h3>7e. Post-Call Intelligence</h3>
+  <div class="sub-section">
+    <h4>7e.1 Transcript Analysis</h4>
+    <p>Upon call completion, the post-call intelligence module analyzes the full call transcript to extract actionable information, including:</p>
+    <ul>
+      <li><strong>Action Items:</strong> Tasks that the user or any party committed to during the call (e.g., "I'll send you that form by Friday," "You need to submit the documentation within 30 days").</li>
+      <li><strong>Dates and Deadlines:</strong> Specific dates, deadlines, and time-sensitive commitments mentioned during the call (e.g., "Your appointment is Tuesday at 2 PM," "The appeal deadline is April 30th").</li>
+      <li><strong>Monetary Amounts:</strong> Financial figures discussed during the call (e.g., "Your balance is $847.23," "The copay will be $35").</li>
+      <li><strong>Commitments and Promises:</strong> Statements of intent or commitment by any party (e.g., "We'll process your refund within 5-7 business days," "I'll follow up with the supervisor").</li>
+      <li><strong>Reference Numbers:</strong> Case numbers, confirmation numbers, reference IDs, and tracking numbers provided during the call.</li>
+      <li><strong>Contact Information:</strong> Names, direct phone numbers, and extension numbers of representatives spoken with.</li>
+    </ul>
+
+    <h4>7e.2 Automated Action Generation</h4>
+    <p>Based on the extracted information, the post-call intelligence module automatically generates:</p>
+    <ul>
+      <li><strong>Calendar Events:</strong> Appointments, deadlines, and follow-up dates are converted to calendar events and synchronized with the user's calendar service. Events include relevant context (e.g., "Follow-up call with Geico re: claim CLM-88421, reference: Sarah ext. 4521").</li>
+      <li><strong>Reminders:</strong> Time-sensitive action items generate reminders at appropriate intervals (e.g., a reminder 3 days before a deadline, a reminder to follow up if a promised callback has not occurred).</li>
+      <li><strong>Document Updates:</strong> New information obtained during the call (e.g., updated balances, new reference numbers, revised dates) is flagged for integration into existing vault documents or stored as supplementary records.</li>
+      <li><strong>Call Summary:</strong> A structured summary of the call is generated, including: participants, duration, key topics discussed, decisions made, action items, and next steps. The summary is stored in the vault and optionally delivered to the user via notification.</li>
+    </ul>
+
+    <h4>7e.3 Example Post-Call Workflow</h4>
+    <p>To illustrate the complete post-call intelligence workflow, consider the following example. A user calls their health insurance provider to dispute a claim. During the call, the representative states: "Your appeal has been received. The review committee meets on April 15th. You should receive a determination letter within 10 business days after that. If you need to add any documentation, please submit it by April 10th. Your case number is APL-29471. I'm Sarah, and my direct extension is 4521."</p>
+    <p>The post-call intelligence module generates the following automated actions:</p>
+    <ul>
+      <li>Calendar event: "Insurance Appeal Review Committee Meeting" on April 15th.</li>
+      <li>Reminder: "Submit additional documentation for appeal APL-29471" on April 8th (2 days before deadline).</li>
+      <li>Reminder: "Expected determination letter for appeal APL-29471" on April 29th (10 business days after April 15th).</li>
+      <li>Document update: New reference number APL-29471 added to health insurance records.</li>
+      <li>Contact update: "Sarah, ext. 4521" stored as insurance provider contact.</li>
+      <li>Call summary stored in vault under Health &gt; Insurance with full transcript.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 8: Multi-Application Platform -->
+<div class="section" id="section-8">
+  <h2><span class="num">8</span> Multi-Application Deployment Platform</h2>
+
+  <h3>8.1 Platform Architecture</h3>
+  <p>The system described in the preceding sections is designed as a modular, application-agnostic platform that powers multiple domain-specific applications through a common core engine. The platform architecture comprises two layers:</p>
+  <ul>
+    <li><strong>Core Engine Layer:</strong> The shared infrastructure including the wake word detection module, speech-to-text engine, OCR module, encrypted document vault, natural language query engine, voice response synthesizer, autonomous call management module, and post-call intelligence module. The core engine is domain-agnostic and provides general-purpose voice, document, and communication capabilities.</li>
+    <li><strong>Application Interface Layer:</strong> A well-defined API and extension mechanism that enables domain-specific applications to: register specialized document types and field extractors; add domain-specific vocabulary and intent categories to the speech processing pipeline; implement specialized workflows triggered by voice commands or post-call events; overlay domain-specific compliance requirements (e.g., HIPAA for healthcare, PCI-DSS for financial); customize the voice interaction patterns and response formats; and integrate with domain-specific external services and APIs.</li>
+  </ul>
+
+  <h3>8.2 Healthcare Application Module</h3>
+  <p>In a first exemplary application, the platform powers a healthcare coordination application that extends the core engine with:</p>
+  <ul>
+    <li><strong>Medical Document Types:</strong> Specialized extractors for medical records, lab results, prescription documents, EOB (Explanation of Benefits) statements, and provider directories.</li>
+    <li><strong>Medication Management:</strong> Extraction and tracking of medication names, dosages, frequencies, and refill dates from prescription documents, with automated reminders.</li>
+    <li><strong>Appointment Coordination:</strong> Enhanced post-call intelligence that identifies appointment-related information and integrates with healthcare provider scheduling systems.</li>
+    <li><strong>HIPAA Compliance:</strong> Additional encryption, access logging, and data handling controls that satisfy Health Insurance Portability and Accountability Act requirements for protected health information (PHI).</li>
+    <li><strong>Provider Network Awareness:</strong> Integration with insurance provider directories to support queries such as "Is Dr. Smith in my network?" and "Find me an in-network dermatologist near me."</li>
+    <li><strong>Medical Terminology:</strong> Domain-specific vocabulary added to the speech recognition and natural language understanding models to improve accuracy for medical terms, drug names, and procedure codes.</li>
+  </ul>
+
+  <h3>8.3 Life Management Application Module</h3>
+  <p>In a second exemplary application, the platform powers a personal life management application that extends the core engine with:</p>
+  <ul>
+    <li><strong>Multi-Room Organization:</strong> Enhanced hierarchical vault organization with pre-configured room templates for common life domains (home, auto, pets, family, finances).</li>
+    <li><strong>Service Provider Coordination:</strong> Workflows for managing relationships with service providers (landlords, utilities, contractors, veterinarians) including automated call preparation with relevant documents.</li>
+    <li><strong>Household Intelligence:</strong> Cross-category queries that synthesize information across multiple life domains (e.g., "What bills are due this week?" spanning utilities, insurance, and subscriptions).</li>
+    <li><strong>Contextual Recommendations:</strong> Proactive suggestions based on document analysis (e.g., "Your auto insurance expires next month. Would you like me to get comparison quotes?" or "Your pet's vaccination is overdue. Shall I call the vet?").</li>
+    <li><strong>Affiliate Service Integration:</strong> Optional integration with vetted service providers that can be contacted or engaged through the AI call module, enabling a concierge-like experience for common life management tasks.</li>
+  </ul>
+
+  <h3>8.4 Extensibility for Additional Verticals</h3>
+  <p>The platform's modular architecture is designed to support rapid deployment of additional domain-specific applications beyond the exemplary healthcare and life management modules. Potential vertical applications include but are not limited to: legal case management; small business operations; elder care coordination; education and credential management; travel and logistics; and real estate transaction management. Each vertical application leverages the same core engine while adding domain-specific knowledge, workflows, and integrations through the application interface layer.</p>
+</div>
+
+<!-- CLAIMS -->
+<div class="section" id="claims">
+  <h2><span class="num">VI</span> Claims</h2>
+  <p style="margin-bottom: 24px; color: var(--text-muted); font-size: 13px;">What is claimed is:</p>
+
+  <!-- Independent Claims -->
+  <h3>Independent Claims</h3>
+
+  <div class="claim">
+    <div class="claim-label">Claim 1</div>
+    <div class="claim-type">System &mdash; Independent</div>
+    <p>A voice-activated artificial intelligence assistant system, comprising:<br><br>
+    a mobile computing device having a processor, a memory, a microphone, a camera, a speaker, and a wireless communication interface;<br><br>
+    an on-device wake word detection module stored in the memory and executed by the processor, the wake word detection module configured to continuously monitor audio input from the microphone and to detect one or more predefined wake word phrases without requiring network connectivity;<br><br>
+    an on-device speech-to-text engine stored in the memory and executed by the processor, the speech-to-text engine configured to convert spoken audio to text entirely on the mobile computing device without transmitting audio data to any remote server;<br><br>
+    an on-device optical character recognition module stored in the memory and executed by the processor, the optical character recognition module configured to capture images of physical documents through the camera and to extract text content from captured images using on-device machine learning inference;<br><br>
+    an encrypted local document vault stored in the memory, the document vault organized in user-defined hierarchical categories and configured to store, for each document, a raw image, extracted text, structured fields, a vector embedding, and category metadata, wherein the document vault is encrypted using keys derived from user credentials and not stored on any remote server;<br><br>
+    a natural language query engine stored in the memory and executed by the processor, the query engine configured to receive text from the speech-to-text engine, to perform vector similarity search across the encrypted document vault, to retrieve one or more matching documents, and to extract relevant information from the retrieved documents;<br><br>
+    a voice response synthesizer stored in the memory and executed by the processor, the voice response synthesizer configured to convert extracted information to synthesized speech delivered through the speaker; and<br><br>
+    an autonomous call management module configured to initiate outbound telephone calls via a telephony application programming interface, to navigate automated telephone system menus using information stored in the document vault, to establish conference connections including a user and an artificial intelligence agent, and to maintain the artificial intelligence agent as a persistent participant in the telephone call with real-time access to the encrypted document vault.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 2</div>
+    <div class="claim-type">Method &mdash; Voice Query &mdash; Independent</div>
+    <p>A method for voice-activated document retrieval, the method comprising:<br><br>
+    detecting, by an on-device wake word detection module executing on a mobile computing device, a predefined wake word phrase in audio input from a microphone of the mobile computing device, the detecting performed without requiring network connectivity;<br><br>
+    converting, by an on-device speech-to-text engine executing on the mobile computing device, spoken audio following the detected wake word to text, the converting performed entirely on the mobile computing device without transmitting audio data to any remote server;<br><br>
+    parsing, by a natural language understanding module executing on the mobile computing device, the converted text to determine a user intent and one or more query parameters;<br><br>
+    querying, by a query engine executing on the mobile computing device, an encrypted local document vault using vector similarity search based on the determined query parameters, the encrypted local document vault storing a plurality of documents each comprising a raw image, extracted text, structured fields, a vector embedding, and hierarchical category metadata;<br><br>
+    retrieving one or more matching documents from the encrypted local document vault based on vector similarity scores;<br><br>
+    extracting, by the query engine, one or more relevant fields from the retrieved documents based on the determined user intent; and<br><br>
+    synthesizing, by an on-device voice response synthesizer, a spoken response containing the extracted fields and delivering the spoken response through a speaker of the mobile computing device.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 3</div>
+    <div class="claim-type">Method &mdash; AI Call Participation &mdash; Independent</div>
+    <p>A method for autonomous artificial intelligence-mediated telephone communication, the method comprising:<br><br>
+    receiving, by a voice-activated artificial intelligence assistant executing on a mobile computing device, a voice command to contact a specified entity;<br><br>
+    retrieving, from an encrypted local document vault on the mobile computing device, contact information associated with the specified entity and one or more documents relevant to an anticipated communication with the specified entity;<br><br>
+    initiating an outbound telephone call to the specified entity via a telephony application programming interface;<br><br>
+    navigating, by an artificial intelligence agent, one or more automated telephone system menus encountered during the outbound call, the navigating comprising providing information retrieved from the encrypted local document vault in response to prompts from the automated telephone system;<br><br>
+    detecting that a human representative has answered the telephone call;<br><br>
+    establishing a conference connection that includes a user of the mobile computing device and the artificial intelligence agent as participants in the telephone call;<br><br>
+    maintaining, by the artificial intelligence agent, persistent participation in the telephone call with real-time access to the encrypted local document vault, the artificial intelligence agent being configured to provide information from the document vault in response to queries from any participant in the telephone call;<br><br>
+    transcribing the telephone call in real-time with speaker identification that distinguishes among the user, the artificial intelligence agent, and the human representative; and<br><br>
+    upon completion of the telephone call, analyzing the transcription to extract action items, dates, monetary amounts, and commitments, and automatically generating one or more of: calendar events, reminders, and document updates based on the extracted information.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 4</div>
+    <div class="claim-type">Method &mdash; Document Capture &mdash; Independent</div>
+    <p>A method for voice-guided document capture and categorization, the method comprising:<br><br>
+    capturing, by a camera of a mobile computing device, an image of a physical document;<br><br>
+    performing, by an on-device optical character recognition module executing on the mobile computing device, text extraction on the captured image to produce extracted text, the text extraction performed entirely on the mobile computing device without transmitting the image or extracted text to any remote server;<br><br>
+    applying, by an on-device named entity recognition module, pattern matching and entity recognition to the extracted text to identify structured fields including one or more of: dates, monetary amounts, personal names, identification numbers, addresses, and contact information;<br><br>
+    initiating a voice interaction wizard that presents, through a speaker of the mobile computing device, one or more spoken prompts asking the user to specify a hierarchical category for the document, the prompts being adapted based on the content detected by the optical character recognition module to present contextually relevant category suggestions;<br><br>
+    receiving, through a microphone of the mobile computing device, a spoken response from the user specifying a hierarchical category;<br><br>
+    generating, by an on-device embedding model, a vector embedding of the extracted text content;<br><br>
+    encrypting, using encryption keys derived from user credentials and not stored on any remote server, a document record comprising the captured image, the extracted text, the identified structured fields, the vector embedding, the specified hierarchical category, and capture metadata; and<br><br>
+    storing the encrypted document record in a local document vault on the mobile computing device and updating a vector index to include the generated vector embedding for subsequent natural language voice queries.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 5</div>
+    <div class="claim-type">System &mdash; Platform &mdash; Independent</div>
+    <p>A modular artificial intelligence assistant platform system, comprising:<br><br>
+    a core voice processing engine comprising an on-device wake word detection module, an on-device speech-to-text engine, and an on-device text-to-speech synthesis engine, each configured to execute on a mobile computing device without requiring network connectivity for core processing functions;<br><br>
+    an encrypted document vault module configured to store a plurality of documents in an encrypted, hierarchically organized local database on the mobile computing device, each document comprising a raw image, extracted text, structured fields, a vector embedding, and category metadata, and the vault module further configured to support natural language queries through vector similarity search;<br><br>
+    an autonomous call management module configured to initiate outbound telephone calls, navigate automated telephone system menus, maintain an artificial intelligence agent as a persistent participant in telephone calls with real-time access to the encrypted document vault, and extract actionable intelligence from call transcriptions; and<br><br>
+    an application interface layer configured to enable one or more domain-specific application modules to extend the core voice processing engine, the encrypted document vault module, and the autonomous call management module with domain-specific document types, field extractors, vocabulary, workflows, compliance requirements, and external service integrations, without modification to the core voice processing engine, the encrypted document vault module, or the autonomous call management module.</p>
+  </div>
+
+  <!-- Dependent Claims -->
+  <h3>Dependent Claims</h3>
+
+  <div class="claim">
+    <div class="claim-label">Claim 6</div>
+    <div class="claim-type">Dependent on Claim 1</div>
+    <p>The system of claim 1, wherein the encrypted local document vault employs a zero-knowledge encryption scheme in which encryption keys are derived from user-provided credentials using a key derivation function selected from the group consisting of Argon2id, PBKDF2, and scrypt, and wherein the derived encryption keys are not transmitted to, stored on, or accessible by any remote server, such that the system operator is unable to decrypt vault contents.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 7</div>
+    <div class="claim-type">Dependent on Claim 1</div>
+    <p>The system of claim 1, wherein the on-device speech-to-text engine comprises a transformer-based speech recognition model optimized for mobile device execution through quantization and hardware-specific compilation, and wherein the on-device speech-to-text engine operates without internet connectivity for core voice processing functions, the system utilizing network connectivity only for telephone communication, calendar synchronization, and optional encrypted backup.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 8</div>
+    <div class="claim-type">Dependent on Claim 3</div>
+    <p>The method of claim 3, wherein navigating the one or more automated telephone system menus comprises: detecting, by the artificial intelligence agent, an automated menu prompt requesting personal information; identifying the type of personal information requested; retrieving the requested information from the encrypted local document vault, the requested information comprising one or more of: account numbers, policy numbers, dates of birth, Social Security numbers, membership identification numbers, and mailing addresses; and providing the retrieved information to the automated telephone system via dual-tone multi-frequency signaling or synthesized speech.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 9</div>
+    <div class="claim-type">Dependent on Claim 3</div>
+    <p>The method of claim 3, further comprising:<br><br>
+    detecting, by the artificial intelligence agent, that the outbound telephone call has been placed on hold by the automated telephone system;<br><br>
+    transitioning the artificial intelligence agent to a low-power monitoring state that detects resumption of human speech;<br><br>
+    providing the user with periodic status notifications indicating hold duration and estimated wait time;<br><br>
+    identifying the moment a human representative answers by detecting a transition from hold music or silence to human speech patterns; and<br><br>
+    providing the user with an immediate notification and option to join the telephone call as a conference participant, and maintaining the artificial intelligence agent as a passive listener that responds only when directly addressed by a participant or when document information is requested.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 10</div>
+    <div class="claim-type">Dependent on Claim 2</div>
+    <p>The method of claim 2, wherein the querying step comprises performing the vector similarity search across documents stored in two or more distinct hierarchical categories within the encrypted local document vault, thereby enabling cross-category document correlation for queries that require information synthesis from multiple organizational domains.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 11</div>
+    <div class="claim-type">Dependent on Claim 4</div>
+    <p>The method of claim 4, wherein the voice interaction wizard adapts its spoken prompts based on the content detected by the optical character recognition module, the adapting comprising: analyzing the extracted text to identify document type indicators; selecting contextually relevant category suggestions based on the identified document type indicators; and presenting the contextually relevant category suggestions through spoken prompts before presenting a full enumeration of available categories, thereby reducing the number of voice interactions required for categorization.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 12</div>
+    <div class="claim-type">Dependent on Claim 5</div>
+    <p>The system of claim 5, further comprising a first domain-specific application module connected to the application interface layer, the first domain-specific application module implementing healthcare-specific workflows including: specialized document type extractors for medical records, laboratory results, prescription documents, and explanation of benefits statements; medication schedule extraction and automated refill reminder generation; appointment coordination with post-call intelligence integration; and data handling controls satisfying Health Insurance Portability and Accountability Act requirements for protected health information.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 13</div>
+    <div class="claim-type">Dependent on Claim 5</div>
+    <p>The system of claim 5, further comprising a second domain-specific application module connected to the application interface layer, the second domain-specific application module implementing life management workflows including: multi-room document organization with pre-configured room templates for common life domains; service provider relationship management with automated call preparation using relevant documents from the vault; cross-category household intelligence queries that synthesize information spanning multiple life domains; and contextual recommendation generation based on proactive document analysis including expiration date monitoring and renewal suggestions.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 14</div>
+    <div class="claim-type">Dependent on Claim 3</div>
+    <p>The method of claim 3, further comprising:<br><br>
+    generating, upon completion of the telephone call, a structured post-call summary document comprising: an identification of all call participants, call duration, key topics discussed, decisions made, action items identified, and recommended next steps;<br><br>
+    encrypting and storing the post-call summary document in the encrypted local document vault under a hierarchical category associated with the specified entity or the subject matter of the call; and<br><br>
+    creating one or more follow-up reminders for action items identified in the transcription analysis, each reminder comprising a description of the action item, a due date or suggested follow-up date, and a reference to the associated call summary document and relevant vault documents.</p>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim 15</div>
+    <div class="claim-type">Dependent on Claim 1</div>
+    <p>The system of claim 1, wherein the autonomous call management module supports a warm-transfer operating mode comprising:<br><br>
+    initiating, by the artificial intelligence agent, the outbound telephone call without the user being an active participant;<br><br>
+    handling, by the artificial intelligence agent, all initial interactions including automated menu navigation, hold waiting, and initial greeting with a human representative;<br><br>
+    providing, by the artificial intelligence agent, basic account verification information to the human representative using information from the encrypted document vault;<br><br>
+    generating and delivering to the user a briefing summary of interactions that have occurred during the call prior to user participation; and<br><br>
+    conferencing the user into the telephone call while maintaining the artificial intelligence agent as a persistent participant with continued real-time access to the encrypted document vault.</p>
+  </div>
+</div>
+
+<!-- DRAWINGS DESCRIPTIONS -->
+<div class="section" id="drawings">
+  <h2><span class="num">VII</span> Drawings Descriptions</h2>
+  <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 13px;">The following descriptions correspond to formal drawings to be prepared for the non-provisional application.</p>
+
+  <div class="figure">
+    <div class="fig-label">Figure 1 &mdash; System Architecture Overview</div>
+    <p>A block diagram illustrating the overall system architecture of the voice-activated AI assistant. The diagram shows a mobile computing device at center containing the following on-device modules: Wake Word Detection Module (100), Speech-to-Text Engine (110), Intent Classification Module (120), OCR Module (130), Encrypted Document Vault (140) with Vector Index (141), Natural Language Query Engine (150), Voice Response Synthesizer (160), and Call Management Module (170). External connections are shown to: Telephony API Service (200) connected to PSTN (210); Calendar Service (300); and Optional Encrypted Cloud Backup (400). Arrows indicate data flow between modules, with emphasis on the on-device processing boundary that encompasses all core functions.</p>
+  </div>
+
+  <div class="figure">
+    <div class="fig-label">Figure 2 &mdash; Voice Query Data Flow</div>
+    <p>A flowchart illustrating the voice query processing pipeline. The flow proceeds from: Microphone Audio Input (step 500) &rarr; Wake Word Detection (step 510, decision: wake word detected?) &rarr; Speech-to-Text Conversion (step 520) &rarr; Intent Classification (step 530, decision: query type?) &rarr; Query Parameter Extraction (step 540) &rarr; Vector Similarity Search against Vault (step 550) &rarr; Document Retrieval and Decryption (step 560) &rarr; Relevant Field Extraction (step 570) &rarr; Response Formatting (step 580) &rarr; Voice Response Synthesis (step 590) &rarr; Speaker Output (step 595). A feedback loop shows Context Buffer Update (step 585) connecting the current query-response pair back to the Intent Classification step for contextual follow-up support.</p>
+  </div>
+
+  <div class="figure">
+    <div class="fig-label">Figure 3 &mdash; AI Call Participation Flow</div>
+    <p>A flowchart illustrating the autonomous call participation process. The flow proceeds from: Voice Command Received (step 600) &rarr; Contact Resolution from Vault (step 610) &rarr; Relevant Document Pre-Loading (step 620) &rarr; User Briefing and Confirmation (step 625) &rarr; Outbound Call Initiation via Telephony API (step 630) &rarr; IVR Menu Detection (step 640, decision: IVR or human?) &rarr; IVR Navigation with Vault Data (step 650) &rarr; Hold Detection and Monitoring (step 660) &rarr; Human Representative Detection (step 670) &rarr; User Notification (step 675) &rarr; Conference Establishment (step 680, decision: full AI or conference mode?) &rarr; Persistent AI Participation with Vault Access (step 690) &rarr; Real-Time Transcription with Speaker ID (step 700) &rarr; Call Completion (step 710) &rarr; Transcript Analysis (step 720) &rarr; Action Item Extraction (step 730) &rarr; Calendar Event Generation (step 740) &rarr; Reminder Creation (step 750) &rarr; Summary Storage in Vault (step 760).</p>
+  </div>
+
+  <div class="figure">
+    <div class="fig-label">Figure 4 &mdash; Document Capture Flow</div>
+    <p>A flowchart illustrating the document capture and categorization process. The flow proceeds from: Camera Activation (step 800) &rarr; Document Edge Detection (step 810) &rarr; Image Capture and Normalization (step 820, including perspective correction, contrast enhancement, de-skewing) &rarr; On-Device OCR Processing (step 830) &rarr; Named Entity Recognition and Field Extraction (step 840) &rarr; Voice Wizard Initiation (step 850) &rarr; Content-Aware Category Suggestion (step 860) &rarr; User Voice Response Capture (step 870) &rarr; Hierarchical Category Assignment (step 880) &rarr; Optional Tag Assignment (step 885) &rarr; Vector Embedding Generation (step 890) &rarr; Document Record Assembly (step 895) &rarr; Encryption (step 900) &rarr; Vault Storage (step 910) &rarr; Vector Index Update (step 920).</p>
+  </div>
+
+  <div class="figure">
+    <div class="fig-label">Figure 5 &mdash; Hierarchical Vault Structure</div>
+    <p>A diagram illustrating the hierarchical document vault organization. The diagram shows a tree structure with "Document Vault" (root) branching into user-defined rooms: Personal (with sub-categories: Identity, Correspondence), Work (with sub-categories: Employment, Certifications), Family (with sub-categories: Household, School), Health (with sub-categories: Insurance, Medical Records, Prescriptions, Lab Results), Pets (with sub-categories: Vet Records, Vaccinations), Financial (with sub-categories: Banking, Taxes, Bills), Home (with sub-categories: Lease/Mortgage, Utilities, Maintenance), and Vehicle (with sub-categories: Title/Registration, Insurance, Maintenance). Dotted arrows illustrate cross-room query paths, showing how a query about "pet insurance" can traverse both the Pets and Financial rooms. Each leaf node shows sample document icons with metadata indicators (date, fields, vector embedding).</p>
+  </div>
+
+  <div class="figure">
+    <div class="fig-label">Figure 6 &mdash; Multi-Application Platform Architecture</div>
+    <p>A layered architecture diagram showing the platform structure. The bottom layer (Core Engine) contains: Wake Word Module, STT Engine, TTS Engine, OCR Module, Document Vault, Query Engine, Call Management Module, and Post-Call Intelligence Module. The middle layer (Application Interface Layer) shows the API surface with extension points for: Document Types, Field Extractors, Vocabulary, Workflows, Compliance, and External Integrations. The top layer shows two exemplary application modules: Healthcare Application (with Medication Tracking, Appointment Coordination, HIPAA Compliance, Provider Network, Medical Terminology) and Life Management Application (with Multi-Room Organization, Service Provider Coordination, Household Intelligence, Contextual Recommendations, Affiliate Integration). Additional placeholder boxes indicate extensibility to further vertical applications.</p>
+  </div>
+</div>
+
+<!-- PRIOR ART DIFFERENTIATION -->
+<div class="section" id="prior-art">
+  <h2><span class="num">VIII</span> Prior Art Differentiation</h2>
+
+  <h3>8.1 Comparative Feature Analysis</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Present Invention</th>
+          <th>Apple Siri / Amazon Alexa / Google Assistant</th>
+          <th>Notion / Evernote</th>
+          <th>Google Keep / Apple Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>On-device voice processing (full pipeline)</td>
+          <td class="yes">Yes</td>
+          <td class="no">No (cloud-dependent)</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Zero-knowledge encrypted document vault</td>
+          <td class="yes">Yes</td>
+          <td class="no">No</td>
+          <td class="partial">Partial (server-side encryption)</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Voice-first natural language document query</td>
+          <td class="yes">Yes</td>
+          <td class="partial">Limited (no persistent docs)</td>
+          <td class="no">No (text-first)</td>
+          <td class="no">No (text-first)</td>
+        </tr>
+        <tr>
+          <td>Autonomous AI call participation</td>
+          <td class="yes">Yes (persistent conference)</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Post-call intelligence with auto calendar</td>
+          <td class="yes">Yes</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Autonomous IVR navigation</td>
+          <td class="yes">Yes (document-aware)</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Voice-guided OCR document capture</td>
+          <td class="yes">Yes (with categorization wizard)</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Cross-category semantic search</td>
+          <td class="yes">Yes (vector-indexed)</td>
+          <td class="no">No</td>
+          <td class="partial">Limited (text search)</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Multi-application platform architecture</td>
+          <td class="yes">Yes (extensible)</td>
+          <td class="no">Proprietary / closed</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+        <tr>
+          <td>Document-aware call assistance</td>
+          <td class="yes">Yes (real-time vault access)</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>8.2 Key Differentiators</h3>
+
+  <h4>8.2.1 No Existing System Combines On-Device Processing with Autonomous Call Participation</h4>
+  <p>The most significant novel aspect of the present invention is the combination of on-device voice processing with autonomous telephone call participation that has real-time access to a persistent encrypted document vault. While individual components of the system (voice assistants, document storage, telephony APIs) exist in isolation, no known prior art combines these elements into an integrated system where an AI agent can: initiate calls using voice commands; navigate IVR systems using stored personal information; participate in live calls as a persistent agent with real-time document access; and extract actionable intelligence from completed calls. This combination creates an entirely new category of AI assistant functionality that fundamentally changes how users interact with service providers over the telephone.</p>
+
+  <h4>8.2.2 Privacy-First Architecture</h4>
+  <p>Unlike existing voice assistants that transmit substantially all voice data to cloud servers for processing, the present invention performs all core processing on-device. This privacy-first architecture is not merely a design preference but an enabling feature for the system's handling of sensitive personal documents including medical records, financial information, and identity credentials. The zero-knowledge encryption scheme ensures that neither the system operator nor any third party can access vault contents, a capability that existing cloud-dependent voice assistants cannot provide.</p>
+
+  <h4>8.2.3 Voice-Guided Document Capture with Intelligent Categorization</h4>
+  <p>No existing system provides voice-guided document capture with content-aware categorization suggestions. While OCR capabilities exist in isolation (e.g., Google Lens, Adobe Scan), and voice assistants exist in isolation, no known prior art combines on-device OCR with a voice interaction wizard that adapts its categorization suggestions based on detected content and stores documents in an encrypted hierarchical vault with vector-indexed search.</p>
+
+  <h4>8.2.4 Platform Modularity for Domain-Specific Applications</h4>
+  <p>The application interface layer that enables domain-specific applications to extend the core engine without modifying it represents a novel architectural approach to AI assistant development. Unlike proprietary voice assistant ecosystems (Siri, Alexa, Google) that provide limited extension mechanisms through skills or actions, the present invention provides a comprehensive application interface that enables deep integration of domain-specific knowledge, document types, workflows, compliance requirements, and external services.</p>
+
+  <h3>8.3 Relevant Prior Art References</h3>
+  <p>The following references are believed to be relevant to the present invention and are distinguished as follows:</p>
+  <ul>
+    <li><strong>US Patent 10,134,398 (Amazon):</strong> Describes voice-activated device with cloud-based speech processing. Distinguished by the present invention's on-device processing architecture and lack of cloud dependency for core functions.</li>
+    <li><strong>US Patent 9,318,108 (Apple):</strong> Describes voice assistant with limited on-device processing and cloud handoff. Distinguished by the present invention's full on-device processing pipeline, encrypted document vault, and call participation capabilities.</li>
+    <li><strong>US Patent 10,553,218 (Google):</strong> Describes AI-powered call screening for incoming calls. Distinguished by the present invention's focus on outbound call initiation, IVR navigation, persistent conference participation with document access, and post-call intelligence.</li>
+    <li><strong>US Patent Application 2023/0186912 (Various):</strong> Describes AI-based call transcription and summarization. Distinguished by the present invention's integration of transcription with a persistent encrypted document vault, real-time document access during calls, and the combination with on-device voice processing.</li>
+  </ul>
+</div>
+
+<!-- ADDITIONAL DISCLOSURE -->
+<div class="section">
+  <h2><span class="num">IX</span> Additional Disclosure</h2>
+
+  <h3>9.1 Implementation Considerations</h3>
+  <p>In various embodiments, the system may be implemented using any combination of programming languages, frameworks, and libraries suitable for mobile application development. The on-device machine learning models may be implemented using frameworks including but not limited to TensorFlow Lite, Core ML, ONNX Runtime, or PyTorch Mobile. The telephony integration may be implemented using services including but not limited to Twilio Programmable Voice, Retell.ai, Vonage Voice API, or equivalent telephony platforms. The encrypted storage may be implemented using libraries including but not limited to SQLCipher, Realm encryption, or custom AES-256 implementations.</p>
+
+  <h3>9.2 Scope of the Invention</h3>
+  <p>While the foregoing description has focused on mobile device implementations, the invention is not limited thereto. The system may be implemented on any computing device with appropriate hardware capabilities, including but not limited to: tablet computers, laptop computers, desktop computers with microphone and speaker peripherals, smart displays, and dedicated hardware devices. The modular architecture described herein enables deployment across diverse hardware platforms.</p>
+
+  <h3>9.3 Regulatory Compliance</h3>
+  <p>The system is designed to support compliance with applicable regulations including but not limited to: the Health Insurance Portability and Accountability Act (HIPAA) for health-related applications; the General Data Protection Regulation (GDPR) for users in European jurisdictions; the California Consumer Privacy Act (CCPA); and applicable state and federal call recording consent laws. The zero-knowledge encryption architecture and on-device processing approach inherently support compliance by minimizing the transmission and server-side storage of personal data.</p>
+</div>
+
+<!-- OATH/DECLARATION -->
+<div class="section">
+  <h2><span class="num">X</span> Inventor Declaration</h2>
+  <p>I, Maximiliano Frank, of Chicago, Illinois, United States of America, hereby declare that I am the original and sole inventor of the subject matter claimed and described in this provisional patent application. I believe myself to be the original inventor of the subject matter for which patent protection is sought. I acknowledge that any willful false statement made in this declaration is punishable under 18 U.S.C. &sect;1001 by fine or imprisonment of not more than five (5) years, or both.</p>
+  <p style="margin-top: 32px; color: var(--text-muted);">
+    <br>___________________________________________<br>
+    Maximiliano Frank<br>
+    Date: April 2, 2026
+  </p>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <p>PRIVILEGED &amp; CONFIDENTIAL &mdash; ATTORNEY WORK PRODUCT DRAFT</p>
+  <p style="margin-top: 8px;">Prepared for provisional patent filing under 35 U.S.C. &sect;111(b)</p>
+  <p style="margin-top: 4px;">Assignee: MBACIO LLC (to be assigned to MBACIO Labs LLC upon formation)</p>
+  <p style="margin-top: 16px; font-size: 10px; color: var(--text-muted);">This document establishes a priority date and is intended to be followed by a non-provisional utility patent application within twelve (12) months of filing.</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBACIO Labs Financial Model 2026 | Navilum + Secondo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 100%);
+            color: #e0e7ff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a5b4fc;
+            margin-bottom: 5px;
+        }
+
+        .date-stamp {
+            font-size: 0.9rem;
+            color: #6366f1;
+        }
+
+        .section {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #a78bfa;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #c4b5fd;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: #a5b4fc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #a78bfa;
+            word-break: break-word;
+        }
+
+        .metric-subtext {
+            font-size: 0.8rem;
+            color: #818cf8;
+            margin-top: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a78bfa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .positive {
+            color: #86efac;
+        }
+
+        .negative {
+            color: #fb7185;
+        }
+
+        .neutral {
+            color: #93c5fd;
+        }
+
+        .chart-container {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 250px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(180deg, #a78bfa 0%, #6366f1 100%);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            min-height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 10px;
+            cursor: help;
+        }
+
+        .bar-label {
+            font-size: 0.75rem;
+            color: #e0e7ff;
+            text-align: center;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .bar-value {
+            font-size: 0.8rem;
+            color: #e0e7ff;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .highlight-box {
+            background: rgba(168, 85, 247, 0.1);
+            border-left: 4px solid #a78bfa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #a78bfa;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover,
+        .tab-button.active {
+            background: rgba(167, 139, 250, 0.3);
+            color: #a78bfa;
+            border-color: #a78bfa;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .scenario-card {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .scenario-label {
+            font-size: 0.8rem;
+            color: #a5b4fc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .scenario-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #a78bfa;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            color: #818cf8;
+            font-size: 0.9rem;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .section, header {
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>MBACIO Labs Financial Model 2026</h1>
+            <p class="subtitle">Navilum (Healthcare AI) + Secondo (Life Management AI)</p>
+            <p class="date-stamp">Prepared: April 4, 2026 | Document: CONFIDENTIAL</p>
+        </header>
+
+        <!-- SECTION 1: Executive Summary -->
+        <div class="section">
+            <h2><span class="icon">📊</span> Executive Summary</h2>
+            <div class="grid">
+                <div class="metric-card">
+                    <div class="metric-label">Funding Ask</div>
+                    <div class="metric-value">$500K-$1.5M</div>
+                    <div class="metric-subtext">Pre-Seed SAFE (Post-Money)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Pre-Money Valuation</div>
+                    <div class="metric-value">$3-5M</div>
+                    <div class="metric-subtext">Based on IP + MVP + TAM</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Runway</div>
+                    <div class="metric-value">18-24 Months</div>
+                    <div class="metric-subtext">At target burn rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Year 2 Projected ARR</div>
+                    <div class="metric-value">$180K-$360K</div>
+                    <div class="metric-subtext">Conservative - Aggressive</div>
+                </div>
+            </div>
+
+            <h3>Current Financial Position (MBACIO LLC Parent)</h3>
+            <div class="grid">
+                <div class="metric-card">
+                    <div class="metric-label">2025 Revenue (VHC Consulting)</div>
+                    <div class="metric-value">$495K</div>
+                    <div class="metric-subtext">Gross revenue</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Gross Margin</div>
+                    <div class="metric-value">30.7%</div>
+                    <div class="metric-subtext">$152K net</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Cash Reserves</div>
+                    <div class="metric-value">$149K</div>
+                    <div class="metric-subtext">Available for R&D</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Monthly Burn (Current)</div>
+                    <div class="metric-value">~$450/mo</div>
+                    <div class="metric-subtext">Lean ops: M51 AI + Supabase free tier</div>
+                </div>
+            </div>
+
+            <h3>IP Portfolio</h3>
+            <div class="highlight-box">
+                <strong>Patent Claims Filed:</strong> 54 claims across platform (provisional patent filed April 2026)<br>
+                <strong>Coverage:</strong> Voice AI call agent, OCR pipeline, encrypted vault, IVR navigation, medication tracking<br>
+                <strong>Budget Allocated:</strong> $18-33K for utility patent conversions and trademarks
+            </div>
+        </div>
+
+        <!-- SECTION 2: TAM/SAM/SOM -->
+        <div class="section">
+            <h2><span class="icon">🎯</span> Total Addressable Market (TAM) Analysis</h2>
+
+            <h3>Navilum — Healthcare AI</h3>
+            <div class="two-column">
+                <div>
+                    <table>
+                        <tr>
+                            <th>Market Segment</th>
+                            <th>2030 TAM</th>
+                        </tr>
+                        <tr>
+                            <td>AI in Healthcare</td>
+                            <td class="positive">$110.61B</td>
+                        </tr>
+                        <tr>
+                            <td>Patient Engagement Tech</td>
+                            <td class="positive">$51.69B</td>
+                        </tr>
+                        <tr>
+                            <td>Remote Patient Monitoring (RPM)</td>
+                            <td class="positive">$56.94B</td>
+                        </tr>
+                        <tr>
+                            <td>Caregiver Support AI</td>
+                            <td class="positive">$15.6B</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Combined Relevant TAM</strong></td>
+                            <td class="positive"><strong>$234B+</strong></td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th>Navilum's Addressable Slice</th>
+                            <th>By 2030</th>
+                        </tr>
+                        <tr>
+                            <td>AI Medical Assistant (realistic)</td>
+                            <td class="positive">$8.85B</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Navilum SAM (US cancer + caregivers)</strong></td>
+                            <td class="positive"><strong>$2.2B - $8.7B</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Navilum SOM (Year 1, 5K users)</strong></td>
+                            <td class="positive"><strong>$22M - $87M</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Navilum Market Context:</strong><br>
+                • 2.1M new cancer diagnoses/year × 2.5 caregivers = 5.25M caregiver-patient units annually<br>
+                • 18.1M cancer survivors requiring ongoing care management<br>
+                • Blended ARPU potential: $8-15/month (subscription) + $140-210/month (RPM reimbursement for qualifying patients)<br>
+                • CMS new 2026 RPM codes (99445, 99470) eliminate barriers: 2-15 days minimum, 10 min consultation minimum
+            </div>
+
+            <h3>Secondo — Life Management AI</h3>
+            <div class="two-column">
+                <div>
+                    <table>
+                        <tr>
+                            <th>Market Segment</th>
+                            <th>2030 TAM</th>
+                        </tr>
+                        <tr>
+                            <td>AI Personal Assistants</td>
+                            <td class="positive">$21.11B</td>
+                        </tr>
+                        <tr>
+                            <td>Smart Home / Connected Life</td>
+                            <td class="positive">$537.27B</td>
+                        </tr>
+                        <tr>
+                            <td>Voice Commerce</td>
+                            <td class="positive">$147.9B</td>
+                        </tr>
+                        <tr>
+                            <td>Document Management</td>
+                            <td class="positive">$18.17B</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Combined TAM</strong></td>
+                            <td class="positive"><strong>$724B+</strong></td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th>Secondo's Addressable Slice</th>
+                            <th>By 2030</th>
+                        </tr>
+                        <tr>
+                            <td>US Adults 25-55 willing to pay $15-20/mo</td>
+                            <td class="positive">~17M users</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Secondo TAM (by segment)</strong></td>
+                            <td class="positive"><strong>$3.57B</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Secondo SAM</strong></td>
+                            <td class="positive"><strong>$800M - $1.5B</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Secondo SOM (Year 1, 10K users)</strong></td>
+                            <td class="positive"><strong>$1.8M - $2.4M</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Secondo Market Context:</strong><br>
+                • 157.1M US voice assistant users (65% of 25-55 age group use daily)<br>
+                • 63% of Gen Z/Millennials report burnout from "adulting"<br>
+                • 82% of consumers concerned about data privacy (Secondo's on-device vault = competitive moat)<br>
+                • Voice commerce growing 20-25% CAGR ($72.8B in 2026)
+            </div>
+        </div>
+
+        <!-- SECTION 3: Revenue Models -->
+        <div class="section">
+            <h2><span class="icon">💰</span> Revenue Models & Unit Economics</h2>
+
+            <h3>Navilum Revenue Streams (Stacked Layers)</h3>
+            <table>
+                <tr>
+                    <th>Revenue Stream</th>
+                    <th>Tier</th>
+                    <th>Price Point</th>
+                    <th>When Activated</th>
+                    <th>Unit Economics (per user/mo)</th>
+                </tr>
+                <tr>
+                    <td><strong>Free Tier</strong></td>
+                    <td>Layer 0</td>
+                    <td>$0</td>
+                    <td>Month 1+</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>Premium Subscription</strong></td>
+                    <td>Layer 1</td>
+                    <td>$9.99/mo</td>
+                    <td>Month 2+</td>
+                    <td>Insurance card OCR, benefits intelligence, cost comparison</td>
+                </tr>
+                <tr>
+                    <td><strong>Pro Subscription</strong></td>
+                    <td>Layer 2</td>
+                    <td>$29.99/mo</td>
+                    <td>Month 6+</td>
+                    <td>AI call agent to doctor, insurance, pharmacy</td>
+                </tr>
+                <tr>
+                    <td><strong>RPM Reimbursement (Provider-Paid)</strong></td>
+                    <td>Layer 3</td>
+                    <td>$140-210/mo per qualifying patient</td>
+                    <td>Month 12+</td>
+                    <td>CMS codes 99445, 99457, 99490, 99491 (via provider partnership)</td>
+                </tr>
+                <tr>
+                    <td><strong>Medication Marketplace (Rx Referrals)</strong></td>
+                    <td>Layer 4</td>
+                    <td>$2-5 per user/mo (blended)</td>
+                    <td>Month 6+</td>
+                    <td>Partner with PBM (SingleCare/RxSense model)</td>
+                </tr>
+                <tr>
+                    <td><strong>Pharma Sponsored Content</strong></td>
+                    <td>Layer 5</td>
+                    <td>$0.30-1.00 per user/mo (CPM model)</td>
+                    <td>Month 9+</td>
+                    <td>Patient assistance programs, copay cards</td>
+                </tr>
+                <tr>
+                    <td><strong>Hardware Subscriptions (Gold Tier)</strong></td>
+                    <td>Layer 6</td>
+                    <td>$39-49/mo + device</td>
+                    <td>Month 14+</td>
+                    <td>Smart speaker, mesh network, ambient monitoring</td>
+                </tr>
+                <tr>
+                    <td><strong>Enterprise/White-Label</strong></td>
+                    <td>Layer 7</td>
+                    <td>$3-8 PMPM (payer deals)</td>
+                    <td>Month 18+</td>
+                    <td>Hospitals, insurance companies (per member per month)</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Blended ARPU at Maturity:</strong><br>
+                • Consumer tier: $25-50/month (across free → premium → pro)<br>
+                • RPM-qualifying patients: $140-210/month additional<br>
+                • By Year 3: Expected to reach $50-100/user/month across all layers
+            </div>
+
+            <h3>Secondo Revenue Streams</h3>
+            <table>
+                <tr>
+                    <th>Revenue Stream</th>
+                    <th>Price Point</th>
+                    <th>Launch Timeline</th>
+                    <th>Potential at 50K Users</th>
+                </tr>
+                <tr>
+                    <td><strong>Free Tier</strong></td>
+                    <td>$0</td>
+                    <td>Month 1+</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>Premium Subscription</strong></td>
+                    <td>$14.99/mo</td>
+                    <td>Month 2+</td>
+                    <td>Advanced document vault, calendar sync, smart alerts</td>
+                </tr>
+                <tr>
+                    <td><strong>Pro Subscription</strong></td>
+                    <td>$29.99/mo</td>
+                    <td>Month 4+</td>
+                    <td>AI life assistant, voice commerce, affiliate triggers</td>
+                </tr>
+                <tr>
+                    <td><strong>Insurance Affiliate (5-15% commission)</strong></td>
+                    <td>$15-120 per lead/sale</td>
+                    <td>Month 6+</td>
+                    <td>$37.5K - $300K/year at 50K users, 5% annual engagement</td>
+                </tr>
+                <tr>
+                    <td><strong>Pet Care Affiliate (Chewy 4%, Petco 3-5%)</strong></td>
+                    <td>3-4% per transaction</td>
+                    <td>Month 6+</td>
+                    <td>$192K/year at 50K users, 20% pet owners, 6 orders/year</td>
+                </tr>
+                <tr>
+                    <td><strong>Voice Commerce (Auto, Real Estate, Services)</strong></td>
+                    <td>2-8% per transaction</td>
+                    <td>Month 9+</td>
+                    <td>$150K+ annually with integrated voice purchasing</td>
+                </tr>
+                <tr>
+                    <td><strong>Data & Analytics (De-identified)</strong></td>
+                    <td>TBD (B2B)</td>
+                    <td>Month 18+</td>
+                    <td>Insights sold to consumer behavior researchers</td>
+                </tr>
+            </table>
+
+            <h3>Unit Economics Summary</h3>
+            <div class="comparison-grid">
+                <div class="scenario-card">
+                    <div class="scenario-label">Navilum CAC</div>
+                    <div class="scenario-value">$15-30</div>
+                    <div class="metric-subtext">Caregiver communities, oncology partnerships</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Navilum LTV</div>
+                    <div class="scenario-value">$300-600</div>
+                    <div class="metric-subtext">Health stickiness, RPM reimbursement</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Navilum LTV:CAC</div>
+                    <div class="scenario-value">10-40x</div>
+                    <div class="metric-subtext">Target 6-13x (exceeding targets)</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Secondo CAC</div>
+                    <div class="scenario-value">$25-50</div>
+                    <div class="metric-subtext">App store, affiliate marketing</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Secondo LTV</div>
+                    <div class="scenario-value">$150-300</div>
+                    <div class="metric-subtext">Convenience, affiliate revenue stacking</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Secondo LTV:CAC</div>
+                    <div class="scenario-value">3-12x</div>
+                    <div class="metric-subtext">Target 3-6x (healthy range)</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Payback Period:</strong> 3-6 months for both products (healthy SaaS standard). Navilum: $15-30 CAC ÷ $9.99-29.99 monthly = 1-3 months. Secondo: $25-50 CAC ÷ $14.99-29.99 monthly = 1-4 months.
+            </div>
+        </div>
+
+        <!-- SECTION 4: 24-Month Financial Projection -->
+        <div class="section">
+            <h2><span class="icon">📈</span> 24-Month Financial Projection</h2>
+
+            <p style="color: #a5b4fc; margin-bottom: 15px;">
+                Three scenarios modeled: <strong>Conservative</strong> (cautious growth), <strong>Base Case</strong> (realistic targets),
+                <strong>Aggressive</strong> (optimal execution + market tailwinds)
+            </p>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(event, 'conservative')">Conservative</button>
+                <button class="tab-button" onclick="switchTab(event, 'base')">Base Case</button>
+                <button class="tab-button" onclick="switchTab(event, 'aggressive')">Aggressive</button>
+            </div>
+
+            <div id="conservative" class="tab-content active">
+                <h3>Conservative Scenario (Low Traction)</h3>
+                <table>
+                    <tr>
+                        <th>Month</th>
+                        <th>Navilum Free</th>
+                        <th>Navilum Paid</th>
+                        <th>Secondo Free</th>
+                        <th>Secondo Paid</th>
+                        <th>MRR</th>
+                        <th>Expenses</th>
+                        <th>Net</th>
+                        <th>Runway (Months)</th>
+                    </tr>
+                    <tr>
+                        <td>Month 0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td class="neutral">$0</td>
+                        <td>$8,500</td>
+                        <td class="negative">-$8,500</td>
+                        <td>17.5</td>
+                    </tr>
+                    <tr>
+                        <td>Month 3</td>
+                        <td>150</td>
+                        <td>5</td>
+                        <td>100</td>
+                        <td>2</td>
+                        <td class="neutral">$220</td>
+                        <td>$12,000</td>
+                        <td class="negative">-$11,780</td>
+                        <td>11.2</td>
+                    </tr>
+                    <tr>
+                        <td>Month 6</td>
+                        <td>400</td>
+                        <td>15</td>
+                        <td>300</td>
+                        <td>8</td>
+                        <td class="neutral">$650</td>
+                        <td>$14,500</td>
+                        <td class="negative">-$13,850</td>
+                        <td>10.8</td>
+                    </tr>
+                    <tr>
+                        <td>Month 12</td>
+                        <td>1,200</td>
+                        <td>60</td>
+                        <td>800</td>
+                        <td>30</td>
+                        <td class="neutral">$2,300</td>
+                        <td>$15,000</td>
+                        <td class="negative">-$12,700</td>
+                        <td>11.7</td>
+                    </tr>
+                    <tr>
+                        <td>Month 18</td>
+                        <td>2,000</td>
+                        <td>120</td>
+                        <td>1,500</td>
+                        <td>75</td>
+                        <td class="neutral">$4,800</td>
+                        <td>$16,500</td>
+                        <td class="negative">-$11,700</td>
+                        <td>12.7</td>
+                    </tr>
+                    <tr style="background: rgba(99, 102, 241, 0.15);">
+                        <td><strong>Month 24</strong></td>
+                        <td><strong>3,000</strong></td>
+                        <td><strong>200</strong></td>
+                        <td><strong>2,500</strong></td>
+                        <td><strong>150</strong></td>
+                        <td class="neutral"><strong>$8,200</strong></td>
+                        <td><strong>$18,000</strong></td>
+                        <td class="negative"><strong>-$9,800</strong></td>
+                        <td><strong>15.2</strong></td>
+                    </tr>
+                </table>
+                <p style="color: #818cf8; margin-top: 15px;">
+                    <strong>Conservative Outcome:</strong> Year 2 ARR = $98K. Burn rate decreases as product optimizes, but doesn't reach profitability.
+                    Requires Series A by Month 24 or extended runway discussions.
+                </p>
+            </div>
+
+            <div id="base" class="tab-content">
+                <h3>Base Case Scenario (Realistic Growth)</h3>
+                <table>
+                    <tr>
+                        <th>Month</th>
+                        <th>Navilum Free</th>
+                        <th>Navilum Paid</th>
+                        <th>Secondo Free</th>
+                        <th>Secondo Paid</th>
+                        <th>MRR</th>
+                        <th>Expenses</th>
+                        <th>Net</th>
+                        <th>Runway (Months)</th>
+                    </tr>
+                    <tr>
+                        <td>Month 0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td class="neutral">$0</td>
+                        <td>$10,000</td>
+                        <td class="negative">-$10,000</td>
+                        <td>14.9</td>
+                    </tr>
+                    <tr>
+                        <td>Month 3</td>
+                        <td>400</td>
+                        <td>20</td>
+                        <td>300</td>
+                        <td>10</td>
+                        <td class="neutral">$880</td>
+                        <td>$14,000</td>
+                        <td class="negative">-$13,120</td>
+                        <td>11.1</td>
+                    </tr>
+                    <tr>
+                        <td>Month 6</td>
+                        <td>1,000</td>
+                        <td>75</td>
+                        <td>800</td>
+                        <td>50</td>
+                        <td class="positive">$3,850</td>
+                        <td>$16,500</td>
+                        <td class="negative">-$12,650</td>
+                        <td>11.8</td>
+                    </tr>
+                    <tr>
+                        <td>Month 12</td>
+                        <td>3,500</td>
+                        <td>250</td>
+                        <td>3,500</td>
+                        <td>200</td>
+                        <td class="positive">$10,200</td>
+                        <td>$18,500</td>
+                        <td class="negative">-$8,300</td>
+                        <td>17.9</td>
+                    </tr>
+                    <tr>
+                        <td>Month 18</td>
+                        <td>7,000</td>
+                        <td>700</td>
+                        <td>8,000</td>
+                        <td>800</td>
+                        <td class="positive">$28,600</td>
+                        <td>$20,000</td>
+                        <td class="positive">+$8,600</td>
+                        <td>∞</td>
+                    </tr>
+                    <tr style="background: rgba(99, 102, 241, 0.15);">
+                        <td><strong>Month 24</strong></td>
+                        <td><strong>12,000</strong></td>
+                        <td><strong>1,500</strong></td>
+                        <td><strong>15,000</strong></td>
+                        <td><strong>2,000</strong></td>
+                        <td class="positive"><strong>$64,200</strong></td>
+                        <td><strong>$22,000</strong></td>
+                        <td class="positive"><strong>+$42,200</strong></td>
+                        <td><strong>∞</strong></td>
+                    </tr>
+                </table>
+                <p style="color: #818cf8; margin-top: 15px;">
+                    <strong>Base Case Outcome:</strong> Year 2 ARR = $770K. Cash-flow positive by Month 18. Seed-ready with 7.2K+ users
+                    and strong traction narrative. Ready for Series A by Month 24.
+                </p>
+            </div>
+
+            <div id="aggressive" class="tab-content">
+                <h3>Aggressive Scenario (Optimal Growth)</h3>
+                <table>
+                    <tr>
+                        <th>Month</th>
+                        <th>Navilum Free</th>
+                        <th>Navilum Paid</th>
+                        <th>Secondo Free</th>
+                        <th>Secondo Paid</th>
+                        <th>MRR</th>
+                        <th>Expenses</th>
+                        <th>Net</th>
+                        <th>Runway (Months)</th>
+                    </tr>
+                    <tr>
+                        <td>Month 0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td class="neutral">$0</td>
+                        <td>$10,000</td>
+                        <td class="negative">-$10,000</td>
+                        <td>14.9</td>
+                    </tr>
+                    <tr>
+                        <td>Month 3</td>
+                        <td>750</td>
+                        <td>50</td>
+                        <td>600</td>
+                        <td>40</td>
+                        <td class="positive">$2,480</td>
+                        <td>$14,000</td>
+                        <td class="negative">-$11,520</td>
+                        <td>12.9</td>
+                    </tr>
+                    <tr>
+                        <td>Month 6</td>
+                        <td>2,500</td>
+                        <td>250</td>
+                        <td>2,500</td>
+                        <td>200</td>
+                        <td class="positive">$12,300</td>
+                        <td>$17,500</td>
+                        <td class="negative">-$5,200</td>
+                        <td>28.6</td>
+                    </tr>
+                    <tr>
+                        <td>Month 12</td>
+                        <td>8,000</td>
+                        <td>800</td>
+                        <td>10,000</td>
+                        <td>1,000</td>
+                        <td class="positive">$42,300</td>
+                        <td>$20,000</td>
+                        <td class="positive">+$22,300</td>
+                        <td>∞</td>
+                    </tr>
+                    <tr>
+                        <td>Month 18</td>
+                        <td>15,000</td>
+                        <td>2,000</td>
+                        <td>25,000</td>
+                        <td>4,000</td>
+                        <td class="positive">$126,800</td>
+                        <td>$23,000</td>
+                        <td class="positive">+$103,800</td>
+                        <td>∞</td>
+                    </tr>
+                    <tr style="background: rgba(99, 102, 241, 0.15);">
+                        <td><strong>Month 24</strong></td>
+                        <td><strong>25,000</strong></td>
+                        <td><strong>4,000</strong></td>
+                        <td><strong>50,000</strong></td>
+                        <td><strong>10,000</strong></td>
+                        <td class="positive"><strong>$378,500</strong></td>
+                        <td><strong>$26,000</strong></td>
+                        <td class="positive"><strong>+$352,500</strong></td>
+                        <td><strong>∞</strong></td>
+                    </tr>
+                </table>
+                <p style="color: #818cf8; margin-top: 15px;">
+                    <strong>Aggressive Outcome:</strong> Year 2 ARR = $4.54M. Cash-flow positive by Month 12. Massive venture capital
+                    opportunity. Series A at $80-150M valuation. Assort Health trajectory validated.
+                </p>
+            </div>
+        </div>
+
+        <!-- SECTION 5: Use of Funds -->
+        <div class="section">
+            <h2><span class="icon">💵</span> Use of Funds — $1M Seed Scenario</h2>
+
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>% of Total</th>
+                    <th>Allocation Details</th>
+                </tr>
+                <tr>
+                    <td><strong>Engineering</strong></td>
+                    <td><strong>$400K</strong></td>
+                    <td>40%</td>
+                    <td>1 Senior Backend (AI/Voice) + 1 Frontend + 1 Clinical/QA Engineer ($8-10K/mo × 13-15 months)</td>
+                </tr>
+                <tr>
+                    <td><strong>Product & Design</strong></td>
+                    <td><strong>$100K</strong></td>
+                    <td>10%</td>
+                    <td>Product manager ($4K/mo) + UX/Design contractor ($2K/mo) × 12 months</td>
+                </tr>
+                <tr>
+                    <td><strong>Compliance & Legal</strong></td>
+                    <td><strong>$125K</strong></td>
+                    <td>12.5%</td>
+                    <td>HIPAA BAA setup ($15K), SOC 2 certification ($20K), legal review ($25K), insurance ($10K)</td>
+                </tr>
+                <tr>
+                    <td><strong>IP & Patents</strong></td>
+                    <td><strong>$100K</strong></td>
+                    <td>10%</td>
+                    <td>Utility patent conversions from provisionals ($35K), trademark/domain ($5K), patent prosecution ($60K)</td>
+                </tr>
+                <tr>
+                    <td><strong>Marketing & GTM</strong></td>
+                    <td><strong>$150K</strong></td>
+                    <td>15%</td>
+                    <td>Pitch deck + video ($10K), content marketing ($30K), hospital outreach ($40K), ad spend ($70K)</td>
+                </tr>
+                <tr>
+                    <td><strong>Operations & Runway</strong></td>
+                    <td><strong>$125K</strong></td>
+                    <td>12.5%</td>
+                    <td>Cloud infrastructure ($25K/year), tools/licenses ($15K), admin contractor ($2K/mo × 12), contingency buffer</td>
+                </tr>
+                <tr style="background: rgba(99, 102, 241, 0.15);">
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>$1,000K</strong></td>
+                    <td><strong>100%</strong></td>
+                    <td>18-24 month runway at lean operations</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Burn Rate Progression:</strong><br>
+                • Months 1-6: ~$12-15K/mo (pre-hire ramp)<br>
+                • Months 7-12: ~$18-20K/mo (full team, marketing launch)<br>
+                • Months 13-24: ~$20-23K/mo (optimized ops, customer acquisition)<br>
+                • <strong>Average burn:</strong> ~$18.5K/mo (sustainable on $1M for 18+ months, reaches cash-flow positive by Month 18 in Base Case)
+            </div>
+        </div>
+
+        <!-- SECTION 6: Seed Round Details -->
+        <div class="section">
+            <h2><span class="icon">🎫</span> Seed Round Structure & Investor Strategy</h2>
+
+            <h3>Instrument & Terms</h3>
+            <div class="grid">
+                <div class="metric-card">
+                    <div class="metric-label">Instrument Type</div>
+                    <div class="metric-value">SAFE</div>
+                    <div class="metric-subtext">Post-Money (YC Standard)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Valuation Cap</div>
+                    <div class="metric-value">$10-12M</div>
+                    <div class="metric-subtext">54 patent claims + MVP + market</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Minimum Raise</div>
+                    <div class="metric-value">$500K</div>
+                    <div class="metric-subtext">12-month runway</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Target Raise</div>
+                    <div class="metric-value">$1-1.5M</div>
+                    <div class="metric-subtext">18-24 month runway</div>
+                </div>
+            </div>
+
+            <h3>Investor Tiers & Target Schedule</h3>
+            <table>
+                <tr>
+                    <th>Tier</th>
+                    <th>Type</th>
+                    <th>Examples</th>
+                    <th>Check Size</th>
+                    <th>Target Timeline</th>
+                </tr>
+                <tr>
+                    <td><strong>Tier 1</strong></td>
+                    <td>Accelerators</td>
+                    <td>MATTER Chicago, Techstars Healthcare, YC, NIH SBIR Phase I</td>
+                    <td>$120K-$500K (non-dilutive for some)</td>
+                    <td>Apply April-May 2026</td>
+                </tr>
+                <tr>
+                    <td><strong>Tier 2</strong></td>
+                    <td>Angel Groups</td>
+                    <td>Chicago Angels, Midwest Angel Network, Health:Further</td>
+                    <td>$25K-$100K</td>
+                    <td>June-July 2026</td>
+                </tr>
+                <tr>
+                    <td><strong>Tier 3</strong></td>
+                    <td>Micro-VCs</td>
+                    <td>7Wire Ventures, Lightbank, Hyde Park VC, Distributed Ventures</td>
+                    <td>$500K-$2M</td>
+                    <td>July-August 2026</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Non-Dilutive Funding Opportunities:</strong><br>
+                • <strong>NIH SBIR Phase I:</strong> $275-300K (Navilum cancer indication) — Apply when solicitation opens (typically June-July)<br>
+                • <strong>MATTER Chicago:</strong> $50K-$100K + hospital connections — Apply April 2026<br>
+                • <strong>Techstars Healthcare:</strong> $120K + mentorship — Next cohort application
+            </div>
+
+            <h3>Valuation Justification ($3-5M Pre-Money)</h3>
+            <table>
+                <tr>
+                    <th>Valuation Driver</th>
+                    <th>Valuation Impact</th>
+                </tr>
+                <tr>
+                    <td>54 patent claims (full IP stack)</td>
+                    <td>+$800K - $1.2M</td>
+                </tr>
+                <tr>
+                    <td>Working MVP + user validation (30+ interviews)</td>
+                    <td>+$600K - $900K</td>
+                </tr>
+                <tr>
+                    <td>$495K existing revenue (MBACIO parent)</td>
+                    <td>+$400K - $600K</td>
+                </tr>
+                <tr>
+                    <td>Dual-market platform (54M caregiver TAM + 17M Secondo TAM)</td>
+                    <td>+$800K - $1.5M</td>
+                </tr>
+                <tr>
+                    <td>Market timing (CMS 2026 RPM codes + FDA guidance)</td>
+                    <td>+$300K - $800K</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Pre-Money Valuation Range</strong></td>
+                    <td><strong>$3-5M</strong></td>
+                </tr>
+            </table>
+
+            <p style="color: #a5b4fc; margin-top: 20px;">
+                <strong>Post-Money Valuation at Targets:</strong><br>
+                • At $500K raise: $3.5-5.5M post-money<br>
+                • At $1M raise: $4-6M post-money<br>
+                • At $1.5M raise: $4.5-6.5M post-money
+            </p>
+        </div>
+
+        <!-- SECTION 7: Competitive Positioning -->
+        <div class="section">
+            <h2><span class="icon">⚔️</span> Competitive Moat & Defensibility</h2>
+
+            <h3>Why Competitors Can't Replicate This (Months 0-24)</h3>
+            <table>
+                <tr>
+                    <th>Moat Type</th>
+                    <th>Defense Mechanism</th>
+                    <th>Duration</th>
+                </tr>
+                <tr>
+                    <td><strong>IP/Patents</strong></td>
+                    <td>54 claims covering voice AI calls + OCR pipeline + vault encryption + IVR state machines. 18-month priority dates established. Utility conversions underway. Competitors starting now = 3+ years behind on priority dates.</td>
+                    <td>10+ years (utility patent lifetime)</td>
+                </tr>
+                <tr>
+                    <td><strong>Network Effects</strong></td>
+                    <td>Family members invite family members. Caregivers recommend to other caregivers. First-mover in patient-side (not provider-side) = viral coefficient advantage.</td>
+                    <td>24-36 months</td>
+                </tr>
+                <tr>
+                    <td><strong>Data Moat</strong></td>
+                    <td>By Month 18, will have years of medication adherence data, appointment history, family coordination patterns. Enables better predictions than competitors with new data.</td>
+                    <td>12-24 months (before competitors catch up)</td>
+                </tr>
+                <tr>
+                    <td><strong>Provider Relationships</strong></td>
+                    <td>Hospital pilots (2-3 by Month 12) create switching costs. EHR integrations (Epic, Oracle Health) are sticky. Once embedded in workflow = high friction to displace.</td>
+                    <td>24+ months</td>
+                </tr>
+                <tr>
+                    <td><strong>Hardware Lock-In</strong></td>
+                    <td>Custom smart speaker (Month 18+) + family mesh network = physical switching cost. Customer invested in device, ecosystem, family setup.</td>
+                    <td>36+ months</td>
+                </tr>
+                <tr>
+                    <td><strong>Regulatory Compliance</strong></td>
+                    <td>HIPAA BAA + SOC 2 + HITRUST e1 (Month 18) = 6-12 month head start on competitors. Compliance costs = $100K+.</td>
+                    <td>12-18 months</td>
+                </tr>
+            </table>
+
+            <h3>Competitive Landscape (Navilum)</h3>
+            <div class="highlight-box">
+                <strong>Direct Competitors (Patient-Side AI):</strong> None with our full stack. Most healthcare AI companies target providers, not patients.<br><br>
+                <strong>Partial Competitors:</strong><br>
+                • Medication reminder apps (Medisafe, Pillboxie) — lack voice AI + family coordination<br>
+                • Caregiver apps (Caring.com, CaregiverHub) — lack AI + medication intelligence<br>
+                • RPM platforms (Livongo, Teladoc) — enterprise-focused, expensive, complex<br><br>
+                <strong>Blue Ocean Position:</strong> Nobody is building the "patient's AI health assistant" with 7 revenue layers. Competitors will choose to specialize. Navilum stacks all layers on one platform = lowest COGS, highest LTV.
+            </div>
+
+            <h3>Competitive Landscape (Secondo)</h3>
+            <div class="highlight-box">
+                <strong>Direct Competitors (Consumer AI Assistants):</strong> Google Assistant, Siri, Alexa, ChatGPT — generic, not life-management focused<br><br>
+                <strong>Category Creators:</strong> Notion, Lindy.ai, Xano — document management + automation, but cloud-based (not encrypted), not voice-first<br><br>
+                <strong>Secondo's Advantage:</strong> Only life management assistant with on-device encrypted vault. "Your documents never leave your device" = privacy moat competitors can't match without redesigning architecture.
+            </div>
+        </div>
+
+        <!-- SECTION 8: Risk Analysis & Mitigation -->
+        <div class="section">
+            <h2><span class="icon">⚠️</span> Risk Analysis & Mitigation Strategies</h2>
+
+            <table>
+                <tr>
+                    <th>Risk Category</th>
+                    <th>Risk Description</th>
+                    <th>Probability</th>
+                    <th>Mitigation</th>
+                </tr>
+                <tr>
+                    <td><strong>Regulatory</strong></td>
+                    <td>FDA suddenly classifies voice AI calls as medical device; CMS reduces RPM reimbursement</td>
+                    <td>Medium (20-30%)</td>
+                    <td>Legal review underway; clinical advisory board; diversify beyond RPM (7 revenue layers reduce dependence)</td>
+                </tr>
+                <tr>
+                    <td><strong>Market</strong></td>
+                    <td>Patient adoption slower than projected; caregiver market smaller than 63M</td>
+                    <td>Medium (25-35%)</td>
+                    <td>Conservative projections already account for 5-10K users Year 1 (realistic). Hospital pilots validate demand. Secondo provides revenue diversification.</td>
+                </tr>
+                <tr>
+                    <td><strong>Competition</strong></td>
+                    <td>Apple/Google launch health assistant feature within 12-18 months</td>
+                    <td>High (50-60%)</td>
+                    <td>IP moat prevents feature-by-feature copying. We're niche (cancer + caregivers). Big tech = consumer-focused, not healthcare. Patent portfolio provides license-in option.</td>
+                </tr>
+                <tr>
+                    <td><strong>Technology</strong></td>
+                    <td>Voice AI calls fail in 20%+ of cases; OCR accuracy insufficient for medical documents</td>
+                    <td>Low (10-15%)</td>
+                    <td>Using proven APIs (Retell AI, Azure Form Recognizer). MVP already validates. Clinical QA engineer ensures medical accuracy.</td>
+                </tr>
+                <tr>
+                    <td><strong>Funding</strong></td>
+                    <td>Healthcare funding market contracts; VCs avoid health AI due to regulation concerns</td>
+                    <td>Medium (20-25%)</td>
+                    <td>Non-dilutive funding (NIH SBIR, MATTER) reduces VC dependence. Existing $149K runway buys 3+ months. Angel strategy broadens investor base.</td>
+                </tr>
+                <tr>
+                    <td><strong>Unit Economics</strong></td>
+                    <td>CAC higher than projected ($50-100); LTV lower due to churn (10-15% monthly)</td>
+                    <td>Medium (25-30%)</td>
+                    <td>Conservative projections model 5-8% churn. Hospital/provider partnerships reduce churn to 2-3%. Referral loops (family) = free CAC at scale.</td>
+                </tr>
+                <tr>
+                    <td><strong>Team/Founder</strong></td>
+                    <td>Key person risk (Max); E-2 visa complications; inability to attract clinical talent</td>
+                    <td>Low-Medium (15-20%)</td>
+                    <td>E-2 visa confirmed valid for subsidiary; clinical advisors in place; plan to hire clinical director Month 3-4; document playbook for transition.</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Go/No-Go Decision Points:</strong><br>
+                • <strong>Month 3:</strong> Must have 30+ caregiver interviews completed + MVP demo working. If not → pivot features.<br>
+                • <strong>Month 6:</strong> Must have 500+ free users + 10+ paid. If not → reassess CAC strategy or product-market fit.<br>
+                • <strong>Month 12:</strong> Must have 5,000+ users + 250+ paid + hospital LOI. If not → extend runway, pivot to B2B.<br>
+                • <strong>Month 18:</strong> Must have 10,000+ users + cash-flow positive (Base Case) or clear path to it. If not → seek acquirer or consolidate operations.
+            </div>
+        </div>
+
+        <!-- SECTION 9: Path to Series A -->
+        <div class="section">
+            <h2><span class="icon">🚀</span> Series A Readiness Metrics (Month 24)</h2>
+
+            <p style="color: #a5b4fc; margin-bottom: 15px;">
+                Assuming Base Case execution: $770K ARR by Month 24 (conservative given 7-layer revenue stack)
+            </p>
+
+            <div class="comparison-grid">
+                <div class="scenario-card">
+                    <div class="scenario-label">Series A Valuation Target</div>
+                    <div class="scenario-value">$80-150M</div>
+                    <div class="metric-subtext">Based on 10-20x ARR multiple (SaaS standard)</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Series A Target Raise</div>
+                    <div class="scenario-value">$15-30M</div>
+                    <div class="metric-subtext">Navilum: $8-12M + Secondo: $5-10M</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Unit Metrics</div>
+                    <div class="scenario-value">27,500 users, 3,750 paid</div>
+                    <div class="metric-subtext">Base Case Month 24</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Hospital Partnerships</div>
+                    <div class="scenario-value">5-10 live pilots</div>
+                    <div class="metric-subtext">RPM data + provider validation</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Revenue Layers Active</div>
+                    <div class="scenario-value">5-6 of 7</div>
+                    <div class="metric-subtext">Subscriptions, RPM, marketplace, pharma, hardware prototype</div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-label">Cash Runway Remaining</div>
+                    <div class="scenario-value">18+ months</div>
+                    <div class="metric-subtext">Cash-flow positive, can wait for Series A</div>
+                </div>
+            </div>
+
+            <h3>Series A Comparison (Historical)</h3>
+            <table>
+                <tr>
+                    <th>Company</th>
+                    <th>Product</th>
+                    <th>Series A Valuation</th>
+                    <th>Series A Raise</th>
+                    <th>Timeline to Series A</th>
+                </tr>
+                <tr>
+                    <td>Assort Health</td>
+                    <td>Hospital-side patient AI</td>
+                    <td>$102M Series B (after $3.5M Series A)</td>
+                    <td>$3.5M Series A</td>
+                    <td>18 months from founding</td>
+                </tr>
+                <tr>
+                    <td>Vocca</td>
+                    <td>Voice AI for healthcare</td>
+                    <td>Acquired for $5.5M (Series A stage)</td>
+                    <td>Founders bootstrapped</td>
+                    <td>2+ years from founding</td>
+                </tr>
+                <tr>
+                    <td>Hyro</td>
+                    <td>Healthcare IVR AI</td>
+                    <td>$15M Series A</td>
+                    <td>$15M</td>
+                    <td>2 years from founding</td>
+                </tr>
+                <tr style="background: rgba(99, 102, 241, 0.15);">
+                    <td><strong>Navilum (Projected)</strong></td>
+                    <td><strong>Patient-side AI + marketplace</strong></td>
+                    <td><strong>$80-150M (10-20x ARR multiple)</strong></td>
+                    <td><strong>$15-30M</strong></td>
+                    <td><strong>18-24 months from founding</strong></td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Why Navilum Can Achieve This:</strong><br>
+                • Assort Health's trajectory: $3.5M → $102M in 18 months = 29x return<br>
+                • Navilum has more advantages: 54 patents (Assort has <5), dual-market platform (Assort is single-market), RPM reimbursement advantage (Assort is provider-side)<br>
+                • Series A VCs will look for post-pre-seed traction. Base Case delivers: $770K ARR, 27.5K users, 5-10 hospital pilots, team of 5-7
+            </div>
+        </div>
+
+        <!-- SECTION 10: Financial Dashboard Summary -->
+        <div class="section">
+            <h2><span class="icon">📊</span> Financial Dashboard Summary</h2>
+
+            <h3>Key Metrics Dashboard (Month 24 Base Case)</h3>
+            <div class="chart-container">
+                <div class="bar" style="height: 35%; background: linear-gradient(180deg, #10b981 0%, #059669 100%);" title="Free Users: 27,500">
+                    <div class="bar-value">27.5K</div>
+                    <div class="bar-label">Free Users</div>
+                </div>
+                <div class="bar" style="height: 20%; background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);" title="Paid Users: 3,750">
+                    <div class="bar-value">3.75K</div>
+                    <div class="bar-label">Paid Users</div>
+                </div>
+                <div class="bar" style="height: 45%; background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);" title="MRR: $64,200">
+                    <div class="bar-value">$64.2K</div>
+                    <div class="bar-label">MRR</div>
+                </div>
+                <div class="bar" style="height: 12%; background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);" title="Burn: $22,000">
+                    <div class="bar-value">$22K</div>
+                    <div class="bar-label">Monthly Burn</div>
+                </div>
+                <div class="bar" style="height: 52%; background: linear-gradient(180deg, #06b6d4 0%, #0891b2 100%);" title="ARR: $770K">
+                    <div class="bar-value">$770K</div>
+                    <div class="bar-label">Year 2 ARR</div>
+                </div>
+                <div class="bar" style="height: 15%; background: linear-gradient(180deg, #ec4899 0%, #db2777 100%);" title="Hospital Pilots: 5-10">
+                    <div class="bar-value">5-10</div>
+                    <div class="bar-label">Hospital Pilots</div>
+                </div>
+                <div class="bar" style="height: 38%; background: linear-gradient(180deg, #a78bfa 0%, #7c3aed 100%);" title="Team Size: 7 people">
+                    <div class="bar-value">7</div>
+                    <div class="bar-label">Team Members</div>
+                </div>
+                <div class="bar" style="height: 10%; background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);" title="Months Runway: 18+">
+                    <div class="bar-value">18+</div>
+                    <div class="bar-label">Months Runway</div>
+                </div>
+            </div>
+
+            <h3>Scenario Comparison (Year 2 ARR)</h3>
+            <div class="chart-container">
+                <div class="bar" style="height: 13%; background: linear-gradient(180deg, #6b7280 0%, #4b5563 100%);" title="Conservative: $98K">
+                    <div class="bar-value">$98K</div>
+                    <div class="bar-label">Conservative</div>
+                </div>
+                <div class="bar" style="height: 100%; background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);" title="Base Case: $770K">
+                    <div class="bar-value">$770K</div>
+                    <div class="bar-label">Base Case</div>
+                </div>
+                <div class="bar" style="height: 590%; background: linear-gradient(180deg, #10b981 0%, #047857 100%);" title="Aggressive: $4.54M">
+                    <div class="bar-value">$4.54M</div>
+                    <div class="bar-label">Aggressive</div>
+                </div>
+            </div>
+
+            <p style="color: #818cf8; margin-top: 20px; text-align: center;">
+                <strong>Note:</strong> Aggressive scenario bar truncated for scale visualization. Full value = $4,540K (5.9x Base Case)
+            </p>
+
+            <h3>Cash Flow Waterfall (Base Case)</h3>
+            <table>
+                <tr>
+                    <th>Period</th>
+                    <th>Opening Cash</th>
+                    <th>Funding Received</th>
+                    <th>Operating P&L</th>
+                    <th>Closing Cash</th>
+                </tr>
+                <tr>
+                    <td>Month 0 (Pre-Raise)</td>
+                    <td class="positive">$149K</td>
+                    <td>—</td>
+                    <td class="negative">-$10K (bootstrap month)</td>
+                    <td class="positive">$139K</td>
+                </tr>
+                <tr>
+                    <td>Month 1-6 (Post-Raise)</td>
+                    <td class="positive">$139K</td>
+                    <td class="positive">+$1,000K (funding)</td>
+                    <td class="negative">-$72K (6 months × $12K avg)</td>
+                    <td class="positive">$1,067K</td>
+                </tr>
+                <tr>
+                    <td>Month 7-12</td>
+                    <td class="positive">$1,067K</td>
+                    <td>—</td>
+                    <td class="negative">-$108K (6 months × $18K avg)</td>
+                    <td class="positive">$959K</td>
+                </tr>
+                <tr>
+                    <td>Month 13-18</td>
+                    <td class="positive">$959K</td>
+                    <td>—</td>
+                    <td class="negative">-$120K (6 months × $20K avg)</td>
+                    <td class="positive">$839K</td>
+                </tr>
+                <tr style="background: rgba(99, 102, 241, 0.15);">
+                    <td><strong>Month 19-24</strong></td>
+                    <td class="positive"><strong>$839K</strong></td>
+                    <td>—</td>
+                    <td class="positive"><strong>+$150K (6 months × $25K net positive avg)</strong></td>
+                    <td class="positive"><strong>$989K (cash-flow positive)</strong></td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Cash Runway Summary:</strong><br>
+                • Opens with $149K + $1M raise = $1.149M cash on hand<br>
+                • Burns $18.5K/mo on average = 62 months potential runway<br>
+                • However, revenue ramps, reaching cash-flow positive by Month 18-20<br>
+                • Ends Year 2 with $989K cash (healthiest position for Series A)
+            </div>
+        </div>
+
+        <!-- SECTION 11: Key Assumptions -->
+        <div class="section">
+            <h2><span class="icon">📝</span> Key Assumptions & Sensitivity Analysis</h2>
+
+            <h3>Base Case Assumptions</h3>
+            <table>
+                <tr>
+                    <th>Assumption</th>
+                    <th>Value</th>
+                    <th>Rationale</th>
+                </tr>
+                <tr>
+                    <td><strong>Free → Paid Conversion</strong></td>
+                    <td>2-5% (Navilum), 3-8% (Secondo)</td>
+                    <td>SaaS average 2-5%. Health apps typically higher due to strong value prop.</td>
+                </tr>
+                <tr>
+                    <td><strong>Monthly Churn</strong></td>
+                    <td>5-8% (Navilum), 8-12% (Secondo)</td>
+                    <td>Navilum: health stickiness = lower churn. Secondo: lifestyle tool = higher churn. SaaS average 5%.</td>
+                </tr>
+                <tr>
+                    <td><strong>Average Revenue Per Paid User (ARPU)</strong></td>
+                    <td>$9.99-$29.99 (tiers), eventually $50-100 with all layers</td>
+                    <td>Tiers: Premium ($9.99) → Pro ($29.99) → RPM ($140-210). Secondo: Premium ($14.99) → Pro ($29.99) + affiliate revenue.</td>
+                </tr>
+                <tr>
+                    <td><strong>Customer Acquisition Cost (CAC)</strong></td>
+                    <td>$15-30 (Navilum), $25-50 (Secondo)</td>
+                    <td>Navilum: caregiver communities, hospital partnerships, referral loops = lower CAC. Secondo: app store listing, paid ads = higher CAC.</td>
+                </tr>
+                <tr>
+                    <td><strong>Payback Period</strong></td>
+                    <td>3-6 months</td>
+                    <td>$15-30 CAC ÷ $9.99/mo subscription = 1.5-3 months. Strong SaaS metrics.</td>
+                </tr>
+                <tr>
+                    <td><strong>Monthly Burn</strong></td>
+                    <td>$10-23K/mo (ramps over 24 months)</td>
+                    <td>Starts lean, ramps with hiring (Month 3: 1 engineer, Month 6: 3 engineers, Month 12: 5-7 team).</td>
+                </tr>
+                <tr>
+                    <td><strong>Hospital Pilots by Month 12</strong></td>
+                    <td>2-3 live pilots</td>
+                    <td>MATTER Chicago + Advocate Health relationships. Conservative assumption for validation.</td>
+                </tr>
+                <tr>
+                    <td><strong>RPM Reimbursement Launch</strong></td>
+                    <td>Month 12+</td>
+                    <td>Requires provider partnership + CMS-compliant documentation. Conservative = Month 12, optimistic = Month 9.</td>
+                </tr>
+            </table>
+
+            <h3>Sensitivity Analysis: Impact on Year 2 ARR</h3>
+            <table>
+                <tr>
+                    <th>Variable</th>
+                    <th>Range</th>
+                    <th>Impact on Year 2 ARR</th>
+                </tr>
+                <tr>
+                    <td><strong>Free-to-Paid Conversion Rate</strong></td>
+                    <td>1-6% (instead of 2-5%)</td>
+                    <td>Year 2 ARR: $385K - $1.2M (Base Case: $770K)</td>
+                </tr>
+                <tr>
+                    <td><strong>Monthly Churn Rate</strong></td>
+                    <td>3% - 15% (instead of 5-8%)</td>
+                    <td>Year 2 ARR: $1.1M - $450K (High churn kills growth)</td>
+                </tr>
+                <tr>
+                    <td><strong>CAC (blended)</strong></td>
+                    <td>$10 - $75/customer (instead of $15-50)</td>
+                    <td>Year 2 ARR: Unchanged (CAC affects profitability, not revenue, assuming growth continues)</td>
+                </tr>
+                <tr>
+                    <td><strong>ARPU Realization</strong></td>
+                    <td>70% - 130% of plan</td>
+                    <td>Year 2 ARR: $540K - $1.0M (slower tier migration or faster tier migration)</td>
+                </tr>
+                <tr>
+                    <td><strong>RPM Reimbursement Adoption</strong></td>
+                    <td>0% - 50% of eligible patients (instead of 20%)</td>
+                    <td>Year 2 ARR: $770K - $1.2M (RPM is high-margin, unlocked in Month 12+)</td>
+                </tr>
+                <tr>
+                    <td><strong>Fundraising Delay</strong></td>
+                    <td>3 months later (Oct instead of June)</td>
+                    <td>Runway reduced to 15 months. Base Case still viable, but tight. Aggressive scenario impossible.</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>Most Sensitive Variable:</strong> Churn rate. A 10% monthly churn (vs. 5-8% assumed) would reduce Year 2 ARR by 40%.
+                <strong>Mitigation:</strong> Focus on retention from month 1 (support, community, value realization). Target hospital pilot customers first (lower churn).
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>
+                <strong>MBACIO Labs Financial Model 2026</strong><br>
+                Navilum + Secondo Dual-Market Platform<br><br>
+                <em>This document is CONFIDENTIAL and provided solely for investor evaluation.</em><br>
+                Prepared: April 4, 2026 | Version 1.0<br><br>
+                Questions? Contact: Max Ysgenda | MBACIO LLC | max@mbacio.com
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

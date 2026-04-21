@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secondo — Project Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #080812;
+  --bg2: #0d0d1f;
+  --bg-card: #111127;
+  --bg-card-h: #181836;
+  --coral: #ff6b6b;
+  --teal: #00d4c8;
+  --blue: #4f8ef7;
+  --purple: #9b6dff;
+  --green: #00e676;
+  --yellow: #ffd740;
+  --red: #ff4444;
+  --amber: #f5a623;
+  --orange: #ff9248;
+  --text: #eef2ff;
+  --text2: #8b8faf;
+  --text3: #4a4d6a;
+  --border: #1a1a38;
+  --grad: linear-gradient(135deg, #ff6b6b, #ff9248, #ffd740);
+  --grad-cool: linear-gradient(135deg, #00d4c8, #4f8ef7, #9b6dff);
+  --r: 12px;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 52px 24px 40px;
+  background: linear-gradient(180deg, #140a18, #0c0818, var(--bg));
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 25% 50%, rgba(255,107,107,.08), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 75% 50%, rgba(79,142,247,.06), transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--coral); margin-bottom: 14px;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--coral); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+.hero h1 {
+  font-size: clamp(28px, 4vw, 48px); font-weight: 700;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero .sub { color: var(--text2); font-size: 16px; margin-top: 8px; }
+.hero .tagline { color: var(--orange); font-size: 13px; margin-top: 12px; font-weight: 600; font-style: italic; }
+
+/* date updated */
+.updated { display: inline-block; font-size: 11px; color: var(--text3); margin-top: 14px; background: var(--bg-card); border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px; }
+
+/* NAV */
+.nav {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  padding: 12px 24px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(16px);
+}
+.nav a {
+  font-size: 11px; font-weight: 600; color: var(--text2);
+  text-decoration: none; padding: 5px 12px; border-radius: 6px;
+  border: 1px solid transparent; transition: all .18s; letter-spacing: .02em;
+}
+.nav a:hover { border-color: var(--border); background: var(--bg-card); color: var(--coral); }
+
+/* WRAP / SECTION */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+section { padding: 44px 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+.sec-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--coral); margin-bottom: 4px;
+}
+section h2 { font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; margin-bottom: 6px; }
+.sec-desc { color: var(--text2); font-size: 13px; margin-bottom: 24px; max-width: 640px; }
+.divider { width: 48px; height: 3px; background: var(--grad); border-radius: 2px; margin: 10px 0 22px; }
+
+/* GRIDS */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.grid4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+
+/* CARD */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.card:hover { border-color: #2a2a55; transform: translateY(-2px); }
+.card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.card p { font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+/* LAYER CARD */
+.layer-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.layer-icon { font-size: 24px; flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+.layer-body { flex: 1; min-width: 0; }
+.layer-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.layer-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.layer-meta { font-size: 11px; color: var(--text3); margin-top: 6px; font-family: monospace; }
+.layer-badge { margin-top: 8px; }
+
+/* STATUS BADGES */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+}
+.b-live { background: #00e67618; border: 1px solid #00e67644; color: var(--green); }
+.b-pending { background: #ffd74018; border: 1px solid #ffd74044; color: var(--yellow); }
+.b-stub { background: #f5a62318; border: 1px solid #f5a62344; color: var(--amber); }
+.b-missing { background: #ff444418; border: 1px solid #ff444444; color: var(--red); }
+.b-blocked { background: #ff444418; border: 1px solid #ff444444; color: var(--red); }
+.b-partial { background: #4f8ef718; border: 1px solid #4f8ef744; color: var(--blue); }
+.b-patent { background: #9b6dff18; border: 1px solid #9b6dff44; color: var(--purple); }
+.b-teal { background: #00d4c818; border: 1px solid #00d4c844; color: var(--teal); }
+.b-critical { background: #ff444422; border: 1px solid #ff444466; color: #ff7070; font-size: 10px; }
+
+.status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.sd-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.sd-yellow { background: var(--yellow); }
+.sd-amber { background: var(--amber); }
+.sd-red { background: var(--red); }
+.sd-blue { background: var(--blue); }
+.sd-gray { background: var(--text3); }
+
+/* SCREEN TABLE */
+.screen-list { display: flex; flex-direction: column; gap: 8px; }
+.screen-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+.screen-name { font-size: 13px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.screen-desc { font-size: 12px; color: var(--text2); }
+.screen-issues { font-size: 11px; color: var(--red); margin-top: 4px; }
+
+/* DEMO PATH */
+.demo-step {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+  background: linear-gradient(135deg, #ff6b6b33, #ff924833);
+  color: var(--coral); border: 1px solid #ff6b6b44;
+}
+.step-body h4 { font-size: 13px; font-weight: 700; color: var(--text); }
+.step-body p { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.step-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-top: 8px; display: inline-block; padding: 2px 8px; border-radius: 8px; }
+.st-done { background: #00e67614; color: var(--green); border: 1px solid #00e67630; }
+.st-wip { background: #4f8ef714; color: var(--blue); border: 1px solid #4f8ef730; }
+.st-missing { background: #ff444414; color: var(--red); border: 1px solid #ff444430; }
+
+/* PLANB TABLE */
+.planb-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.planb-table th {
+  text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text3);
+  border-bottom: 1px solid var(--border); background: var(--bg2);
+}
+.planb-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.planb-table tr:last-child td { border-bottom: none; }
+.planb-table tr:hover td { background: #ffffff03; }
+.planb-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+.tbl-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+
+/* WARN BOX */
+.warn { background: #ff444412; border: 1px solid #ff444433; border-radius: var(--r); padding: 16px 20px; margin-bottom: 20px; }
+.warn-title { color: var(--red); font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+.warn p { color: #ff8888; font-size: 12px; }
+
+.info { background: #4f8ef710; border: 1px solid #4f8ef730; border-radius: var(--r); padding: 16px 20px; margin-bottom: 20px; }
+.info-title { color: var(--blue); font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+.info p { color: var(--text2); font-size: 12px; }
+
+.success { background: #00e67610; border: 1px solid #00e67630; border-radius: var(--r); padding: 16px 20px; margin-bottom: 20px; }
+.success-title { color: var(--green); font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+.success p { color: #88ffbb; font-size: 12px; }
+
+/* PROGRESS BAR */
+.progress-outer { background: var(--border); border-radius: 4px; height: 6px; overflow: hidden; margin-top: 8px; }
+.progress-inner { height: 100%; border-radius: 4px; background: var(--grad); transition: width .4s; }
+
+/* KPI */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.kpi { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 16px 18px; text-align: center; }
+.kpi-val { font-size: 22px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.kpi-val.bad { background: none; -webkit-text-fill-color: var(--red); color: var(--red); }
+.kpi-val.warn-val { background: none; -webkit-text-fill-color: var(--amber); color: var(--amber); }
+.kpi-label { font-size: 11px; color: var(--text3); margin-top: 4px; font-weight: 500; }
+
+/* ONBOARDING FLOW */
+.flow-steps { display: flex; gap: 0; overflow-x: auto; padding-bottom: 8px; }
+.flow-step {
+  flex-shrink: 0; width: 180px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 16px; margin-right: 2px; position: relative; text-align: center;
+}
+.flow-step:first-child { border-radius: var(--r) 0 0 var(--r); }
+.flow-step:last-child { border-radius: 0 var(--r) var(--r) 0; }
+.flow-arrow { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 18px; z-index: 2; }
+.flow-icon { font-size: 28px; margin-bottom: 8px; }
+.flow-name { font-size: 12px; font-weight: 700; color: var(--text); }
+.flow-sub { font-size: 10px; color: var(--text2); margin-top: 4px; }
+.flow-status { margin-top: 8px; }
+
+/* FOOTER */
+footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 24px; text-align: center; color: var(--text3); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow"><span class="dot"></span> Secondo — Patent Demo Readiness</div>
+  <h1>Project Command Center</h1>
+  <p class="sub">Voice-first second-brain. AI-mediated calls. April 28 patent demo.</p>
+  <p class="tagline">"Life's hard. Secondo remembers — and deals with it."</p>
+  <div class="updated">Last updated: April 20, 2026 — Pre-Andy briefing — iOS prod build ✓ · vault-lookup v5 ✓ · 30 night-shift ideas merged ✓</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#reality">Reality Check</a>
+  <a href="#layers">Layer Status</a>
+  <a href="#screens">Screens</a>
+  <a href="#demo-path">Demo Path</a>
+  <a href="#business">Business</a>
+  <a href="#legal">Legal &amp; Entity</a>
+  <a href="#ask">The Ask</a>
+  <a href="#blockers">Blockers</a>
+  <a href="#next">Next 7 Days</a>
+  <a href="secondo-stack-layers.html">Stack Layers ↗</a>
+  <a href="secondo-patent-claims.html">Patent Claims ↗</a>
+  <a href="secondo-validation.html">Validation ↗</a>
+  <a href="platform-patent-specification.html">Platform Spec ↗</a>
+  <a href="deck.html">Investor Deck ↗</a>
+</nav>
+
+<!-- REALITY CHECK -->
+<section id="reality">
+<div class="wrap">
+  <div class="sec-eyebrow">Honest assessment</div>
+  <h2>Where We Actually Are</h2>
+  <div class="divider"></div>
+
+  <div class="success">
+    <div class="success-title">Patent-demo flow 80% complete. iOS production build shipped 4/17. 30 night-shift features merged 4/18.</div>
+    <p>Vault-lookup v5 deployed (5/5 NL smoke tests pass). First iOS production build live on Apple Team UUH73UUQ7D (EAS 572b57f0, ASC 6762532059 "Secondo AI"). 30+ idea features shipped in 48h (personas, debate orchestrator, knowledge-graph, meeting liaison, intent router, LLM router). Remaining to patent-demo: polish Retell <code>lookup_vault</code> end-to-end on real device, GEICO phone swap, demo recording.</p>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">7</div><div class="kpi-label">Days to April 28</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:var(--green)">80%</div><div class="kpi-label">Demo-path complete</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:var(--green)">30+</div><div class="kpi-label">Features shipped 7d</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:var(--green)">v5</div><div class="kpi-label">vault-lookup live</div></div>
+    <div class="kpi"><div class="kpi-val" style="color:var(--green)">iOS</div><div class="kpi-label">Prod build live</div></div>
+    <div class="kpi"><div class="kpi-val">$1M</div><div class="kpi-label">SAFE round target</div></div>
+    <div class="kpi"><div class="kpi-val">2</div><div class="kpi-label">Provisional patents</div></div>
+    <div class="kpi"><div class="kpi-val warn-val">1</div><div class="kpi-label">Rob reply unsent</div></div>
+  </div>
+
+  <div class="progress-outer" style="height:10px;margin-bottom:6px"><div class="progress-inner" style="width:80%;background:linear-gradient(90deg,var(--teal),var(--green))"></div></div>
+  <p style="font-size:11px;color:var(--text3)">Overall demo readiness — 80% — iOS prod build ✓, vault lookup v5 ✓, Apple Sign In ✓, ideas swarm ✓ — polish + device E2E + recording remain</p>
+</div>
+</section>
+
+<!-- LAYER STATUS -->
+<section id="layers">
+<div class="wrap">
+  <div class="sec-eyebrow">Infrastructure</div>
+  <h2>Layer Status — Live Tests</h2>
+  <div class="sec-desc">Tested April 12, 2026. Each result is from a real API call, not assumptions.</div>
+  <div class="divider"></div>
+
+  <div class="grid2">
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">🔐</div>
+      <div class="layer-body">
+        <div class="layer-name">Supabase Auth + Database</div>
+        <div class="layer-sub">Project: hyudrgfqhawehzbktntp</div>
+        <div class="layer-meta">8 docs · 8 providers · 6 rooms · 0 alerts<br>Email confirm: DISABLED (frictionless)</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>LIVE</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">🎙</div>
+      <div class="layer-body">
+        <div class="layer-name">ElevenLabs TTS</div>
+        <div class="layer-sub">Voice: Rachel (21m00Tcm4TlvDq8ikWAM) · Pro plan</div>
+        <div class="layer-meta">27,542 / 943,864 chars used · Model: turbo_v2_5</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>LIVE</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">📞</div>
+      <div class="layer-body">
+        <div class="layer-name">Retell AI Agent</div>
+        <div class="layer-sub">Agent: Secondo Assistant · agent_5fc865d53a476b5d6d258e593c</div>
+        <div class="layer-meta">Voice: 11labs-Marissa · System prompt: configured<br>Vault tool: lookup_vault with JWT URL injection (?jwt={{user_jwt}})</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>LIVE</span> <span class="badge b-live"><span class="status-dot sd-green"></span>VAULT TOOL WIRED</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">📱</div>
+      <div class="layer-body">
+        <div class="layer-name">Twilio Voice + SMS</div>
+        <div class="layer-sub">+18723094389 · Account: MBACIO (active)</div>
+        <div class="layer-meta">Messaging Service: MG98398c50c26d40d6ddcb5ee102418297<br>A2P Brand: BN2950da1a655a5d07c65eb7aa27fccc70</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>VOICE LIVE</span> <span class="badge b-pending">A2P SMS: PENDING</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">🎤</div>
+      <div class="layer-body">
+        <div class="layer-name">Wake Word (Plan B shipped)</div>
+        <div class="layer-sub">@react-native-community/voice · Apple Speech Framework</div>
+        <div class="layer-meta">Continuous listening, detects "secondo" / "hey secondo" in transcript<br>Picovoice key still pending — deferred; Plan B ships in production</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>LIVE (Plan B)</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#4f8ef714;color:var(--blue)">🧠</div>
+      <div class="layer-body">
+        <div class="layer-name">whisper.rn STT</div>
+        <div class="layer-sub">On-device · whisper-tiny GGML model</div>
+        <div class="layer-meta">Installed · VoiceSession wired · Records via expo-av<br>Model file: needs bundle at first-run</div>
+        <div class="layer-badge"><span class="badge b-partial"><span class="status-dot sd-blue"></span>WIRED — Needs model download test</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">⚡</div>
+      <div class="layer-body">
+        <div class="layer-name">Vault Lookup Edge Function</div>
+        <div class="layer-sub">Supabase Edge Function: vault-lookup v5</div>
+        <div class="layer-meta">3 auth paths: Bearer header / ?jwt= URL / body.user_jwt<br>FTS → title FTS → ILIKE fallback · buildAnswer() speaks expiry/policy/address</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>DEPLOYED — PATENT CLAIM P1-C1</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">📋</div>
+      <div class="layer-body">
+        <div class="layer-name">OCR / Document Scan</div>
+        <div class="layer-sub">react-native-document-scanner-plugin (VisionKit + MLKit)</div>
+        <div class="layer-meta">Real pipeline: DocumentScanner → TextRecognition → 8 type patterns<br>Expiry extraction · Saves to Supabase with doc_type + category + tags</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>REAL — Full OCR pipeline</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#ffd74018;color:var(--yellow)">📅</div>
+      <div class="layer-body">
+        <div class="layer-name">Expo Calendar (Action Items)</div>
+        <div class="layer-sub">ExpoCalendarAdapter · expo-calendar package</div>
+        <div class="layer-meta">Adapter written · Connected to CallAgent<br>Permission request: not tested on device</div>
+        <div class="layer-badge"><span class="badge b-partial"><span class="status-dot sd-blue"></span>WIRED — Untested on device</span></div>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-icon" style="background:#00e67614;color:var(--green)">🍎</div>
+      <div class="layer-body">
+        <div class="layer-name">Apple Developer / iOS Production</div>
+        <div class="layer-sub">Team UUH73UUQ7D · Individual · renews 2027-04-15</div>
+        <div class="layer-meta">EAS build 572b57f0 (shipped 4/17) · ASC app 6762532059 "Secondo AI"<br>Dist cert 1FD0AA454764F90624B699E58A356EE9 · provisioning KMRHH57792 cached on EAS (exp 2027-04-17) · future builds non-interactive</div>
+        <div class="layer-badge"><span class="badge b-live"><span class="status-dot sd-green"></span>iOS PROD BUILD LIVE</span> <span class="badge b-pending">TestFlight invite-out gated on Phase 10 Track A</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- SCREENS STATUS -->
+<section id="screens">
+<div class="wrap">
+  <div class="sec-eyebrow">App screens</div>
+  <h2>Screen-by-Screen Status</h2>
+  <div class="divider"></div>
+
+  <div class="screen-list">
+    <div class="screen-row">
+      <div class="screen-name">🔒 Sign In</div>
+      <div><div class="screen-desc">Supabase email/password auth. Session persisted via expo-secure-store.</div></div>
+      <span class="badge b-live">REAL</span>
+    </div>
+    <div class="screen-row">
+      <div class="screen-name">✍️ Sign Up</div>
+      <div><div class="screen-desc">Creates Supabase account. Password validation (8+ chars). No email confirm (disabled).</div></div>
+      <span class="badge b-live">REAL</span>
+    </div>
+    <div class="screen-row" style="border-color:#00e67644">
+      <div class="screen-name" style="color:var(--green)">🚪 Onboarding</div>
+      <div><div class="screen-desc">welcome.tsx: animated value prop (vault, AI calls, voice). permissions.tsx: mic (required) + notifications + calendar with rationale.</div>
+      <div class="screen-issues" style="color:var(--teal)">AuthGate routes: first-run → /welcome → /onboarding/permissions → /sign-up. Returning user → /sign-in. hasOnboarded flag in SecureStore.</div></div>
+      <span class="badge b-live">2 SCREENS BUILT</span>
+    </div>
+    <div class="screen-row">
+      <div class="screen-name">🏛 Mind Palace</div>
+      <div><div class="screen-desc">7 rooms, TanStack Query + Supabase. Rooms display correctly.</div></div>
+      <span class="badge b-live">REAL</span>
+    </div>
+    <div class="screen-row">
+      <div class="screen-name">🗄 Vault</div>
+      <div><div class="screen-desc">8 documents seeded (GEICO, BCBS, lease, Tesla title, W-2, etc.). useDocuments hook wired.</div></div>
+      <span class="badge b-live">REAL</span>
+    </div>
+    <div class="screen-row">
+      <div class="screen-name">📷 Scan</div>
+      <div><div class="screen-desc">Real VisionKit document scanner → MLKit TextRecognition → 8 doc type patterns (insurance, ID, Rx, lease, title, tax, vet) → expiry extraction → Supabase save.</div></div>
+      <span class="badge b-live">REAL</span>
+    </div>
+    <div class="screen-row" style="border-color:#00e67644">
+      <div class="screen-name">📞 Calls</div>
+      <div><div class="screen-desc">Retell AI calling wired. Voice intent parsing (regex). ElevenLabs TTS. Call state machine complete. Vault-lookup Edge Function deployed — AI answers rep questions from user's documents mid-call.</div></div>
+      <span class="badge b-live">REAL</span>
+    </div>
+    <div class="screen-row">
+      <div class="screen-name">⚙️ Settings</div>
+      <div><div class="screen-desc">UI scaffold only. Toggle states are local — nothing persists to Supabase or device storage.</div></div>
+      <span class="badge b-stub">STUB</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ONBOARDING GAP -->
+<section id="onboarding">
+<div class="wrap">
+  <div class="sec-eyebrow">Critical missing piece</div>
+  <h2>Onboarding Flow — The #1 Gap</h2>
+  <div class="sec-desc">Per the app success insight: onboarding is what converts installs to active users. Without it, the patent demo shows counsel a blank sign-in screen.</div>
+  <div class="divider"></div>
+
+  <div class="warn" style="margin-bottom:24px;border-color:#00e67633;background:#00e67608">
+    <div class="warn-title" style="color:var(--green)">Onboarding flow is built. welcome.tsx + permissions.tsx deployed.</div>
+    <p>First-run user now sees: animated welcome screen (value prop: vault, AI calls, voice) → permissions screen (mic required, notifications + calendar optional with rationale) → sign-up. AuthGate uses SecureStore flag to route correctly. Returning users still go to sign-in.</p>
+  </div>
+
+  <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px">Built flow:</p>
+  <div class="flow-steps">
+    <div class="flow-step" style="border-color:var(--green)44">
+      <div class="flow-arrow">›</div>
+      <div class="flow-icon">👋</div>
+      <div class="flow-name">Welcome</div>
+      <div class="flow-sub">Value prop. "Secondo remembers."</div>
+      <div class="flow-status"><span class="badge b-live" style="font-size:9px">BUILT</span></div>
+    </div>
+    <div class="flow-step" style="border-color:var(--green)44">
+      <div class="flow-arrow">›</div>
+      <div class="flow-icon">🎤</div>
+      <div class="flow-name">Mic Permission</div>
+      <div class="flow-sub">Why we need it + request</div>
+      <div class="flow-status"><span class="badge b-live" style="font-size:9px">BUILT</span></div>
+    </div>
+    <div class="flow-step" style="border-color:var(--green)44">
+      <div class="flow-arrow">›</div>
+      <div class="flow-icon">🔔</div>
+      <div class="flow-name">Notifications</div>
+      <div class="flow-sub">Call alerts + expiry</div>
+      <div class="flow-status"><span class="badge b-live" style="font-size:9px">BUILT</span></div>
+    </div>
+    <div class="flow-step" style="border-color:var(--green)44">
+      <div class="flow-arrow">›</div>
+      <div class="flow-icon">📅</div>
+      <div class="flow-name">Calendar</div>
+      <div class="flow-sub">Action items → events</div>
+      <div class="flow-status"><span class="badge b-live" style="font-size:9px">BUILT</span></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-arrow">›</div>
+      <div class="flow-icon">✍️</div>
+      <div class="flow-name">Create Account</div>
+      <div class="flow-sub">Email + password</div>
+      <div class="flow-status"><span class="badge b-live" style="font-size:9px">EXISTS</span></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-arrow">›</div>
+      <div class="flow-icon">📋</div>
+      <div class="flow-name">First Scan</div>
+      <div class="flow-sub">"Scan your insurance card"</div>
+      <div class="flow-status"><span class="badge b-missing" style="font-size:9px">MISSING</span></div>
+    </div>
+    <div class="flow-step" style="border-color:var(--green)44">
+      <div class="flow-icon">🏛</div>
+      <div class="flow-name">Palace Ready</div>
+      <div class="flow-sub">Enter the app</div>
+      <div class="flow-status"><span class="badge b-live" style="font-size:9px">EXISTS</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PATENT DEMO PATH -->
+<section id="demo-path">
+<div class="wrap">
+  <div class="sec-eyebrow">April 28 target</div>
+  <h2>End-to-End Demo Flow</h2>
+  <div class="sec-desc">The 5-step sequence counsel needs to see. Each step maps to a patent claim.</div>
+  <div class="divider"></div>
+
+  <div class="demo-step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>User says "Call GEICO" (or taps Listen → speaks)</h4>
+      <p>VoiceSession records → whisper.rn transcribes → intent parser matches "call geico" → CallAgent.initiateCall(). Patent: P1-C1 (independent claim)</p>
+      <span class="step-tag st-wip">Partial — manual button works, voice intent exists, wake word blocked</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Retell AI agent calls +18723094389 and connects to GEICO</h4>
+      <p>Retell dials outbound via Twilio. Agent introduces: "Hi, calling on behalf of [user] via Secondo AI." Patent: P1-C2</p>
+      <span class="step-tag st-done">WORKING — Retell + Twilio live</span>
+    </div>
+  </div>
+  <div class="demo-step" style="border-color:#00e67444">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>GEICO rep asks "What's the policy number?" → AI answers from vault</h4>
+      <p>Retell agent calls <code>lookup_vault</code> custom tool → vault-lookup v5 Edge Function queries Supabase (RLS-scoped via JWT URL injection) → returns policy/expiry/address → agent speaks it. Patent: P1-C1 loop, P1-C3</p>
+      <span class="step-tag st-done">DONE — vault-lookup v5 deployed + Retell tool wired</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>App shows live text overlay of what AI is saying</h4>
+      <p>calls.tsx shows real-time document context pulled while call is active. Teal bar with policy details. Patent: P1-C3 (text overlay)</p>
+      <span class="step-tag st-wip">Partial — UI exists, vault query on call-start works</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h4>Call ends → action items extracted → calendar event created</h4>
+      <p>CallAgent.finalizeCall() extracts "renewal confirmed for $892/year" → ExpoCalendarAdapter creates event. Patent: P1-C4</p>
+      <span class="step-tag st-wip">Partial — adapter built, needs device test</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PLAN B -->
+<section id="planb">
+<div class="wrap">
+  <div class="sec-eyebrow">Wake word contingency</div>
+  <h2>Plan B — If Picovoice Never Approves</h2>
+  <div class="sec-desc">Three alternatives. Ranked by demo quality, implementation time, and risk.</div>
+  <div class="divider"></div>
+
+  <div class="tbl-wrap">
+    <table class="planb-table">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>How it works</th>
+          <th>Demo quality</th>
+          <th>Build time</th>
+          <th>Risk</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A — Manual "Listen" button<br><small style="color:var(--text3)">(already exists)</small></td>
+          <td style="color:var(--text2)">User taps the button, speaks, STT runs. No wake word at all.</td>
+          <td><span class="badge b-stub">OK for demo</span></td>
+          <td><span class="badge b-live">0 hours</span></td>
+          <td style="color:var(--green)">None</td>
+          <td style="color:var(--amber);font-weight:700">USE NOW as default</td>
+        </tr>
+        <tr style="background:#00d4c808">
+          <td>B — @react-native-community/voice<br><small style="color:var(--teal)">(Apple Speech Framework)</small></td>
+          <td style="color:var(--text2)">Continuous listening via iOS Speech. Detect "Secondo" keyword in transcript. No API key, no Porcupine. Uses Apple's own STT engine.</td>
+          <td><span class="badge b-live">Near-identical to Porcupine</span></td>
+          <td><span class="badge b-pending">4–6 hours</span></td>
+          <td style="color:var(--green)">Low — mature package</td>
+          <td style="color:var(--green);font-weight:700">RECOMMENDED Plan B</td>
+        </tr>
+        <tr>
+          <td>C — expo-speech + polling<br><small style="color:var(--text3)">(continuous whisper.rn)</small></td>
+          <td style="color:var(--text2)">Run whisper.rn in a short-burst loop (3s clips). Detect "Secondo" or "hey secondo" in transcript. Same STT already in the app.</td>
+          <td><span class="badge b-partial">Good if latency acceptable</span></td>
+          <td><span class="badge b-pending">6–8 hours</span></td>
+          <td style="color:var(--amber)">Battery drain, latency</td>
+          <td style="color:var(--text2);font-weight:700">Fallback to B</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="success" style="margin-top:20px">
+    <div class="success-title">Recommendation: Ship Plan B (Option B) this week regardless of Picovoice.</div>
+    <p>@react-native-community/voice uses iOS Speech Recognition (the same engine Siri uses). It is free, no API key, works offline for keyword detection, and ships in production apps. Install today, detect "Secondo" in the continuous transcript stream, trigger VoiceSession. The patent claim language says "voice activation" — it does not require Picovoice specifically.</p>
+  </div>
+</div>
+</section>
+
+<!-- BLOCKERS -->
+<section id="blockers">
+<div class="wrap">
+  <div class="sec-eyebrow">What's blocking the demo</div>
+  <h2>Ranked Blockers</h2>
+  <div class="divider"></div>
+
+  <div class="grid2">
+    <div class="card" style="border-color:#00e67444">
+      <span class="badge b-live">DONE — Patent critical</span>
+      <h3 style="margin-top:10px;color:var(--green)">vault-lookup Edge Function ✓</h3>
+      <p>Deployed as vault-lookup v5. Three auth paths (Bearer / URL ?jwt= / body). FTS → title FTS → ILIKE fallback. buildAnswer() returns ready-to-speak strings for expiry, policy numbers, and addresses. Retell tool wired with JWT URL injection.</p>
+    </div>
+    <div class="card" style="border-color:#00e67444">
+      <span class="badge b-live">DONE — First impression</span>
+      <h3 style="margin-top:10px;color:var(--green)">Onboarding flow ✓</h3>
+      <p>welcome.tsx (animated, staggered feature bullets) + permissions.tsx (mic required, notifications + calendar optional). AuthGate routes: first-run → /welcome → /onboarding/permissions → /sign-up. Returning users → /sign-in.</p>
+    </div>
+    <div class="card" style="border-color:#ffd74044">
+      <span class="badge b-pending">P1 — Demo quality</span>
+      <h3 style="margin-top:10px;color:var(--yellow)">Wake word (Plan B active)</h3>
+      <p>Picovoice approval still pending. Plan B is LIVE: @react-native-community/voice (Apple Speech) continuously listens, detects "secondo" / "hey secondo" phrases, auto-restarts on timeout. Falls back from Plan A automatically.</p>
+    </div>
+    <div class="card" style="border-color:#00e67444">
+      <span class="badge b-live">DONE — End-to-end</span>
+      <h3 style="margin-top:10px;color:var(--green)">Real OCR scan ✓</h3>
+      <p>Full pipeline: DocumentScanner (VisionKit) → MLKit TextRecognition → 8 document type patterns → expiry date extraction → Supabase save with doc_type, category, tags. TypeScript clean (ResponseType.ImageFilePath enum).</p>
+    </div>
+    <div class="card">
+      <span class="badge b-partial">P2 — Persistence</span>
+      <h3 style="margin-top:10px">Call history to Supabase</h3>
+      <p>Calls are stored in memory only. After app restart, history is gone. call_records table exists. Wire MemoryCallHistory → Supabase insert post-call. ~2 hours.</p>
+    </div>
+    <div class="card">
+      <span class="badge b-partial">P2 — Settings</span>
+      <h3 style="margin-top:10px">Settings persistence</h3>
+      <p>Toggle states (notifications, voice, theme) don't survive app restart. Zustand is installed but unused. Wire preferences to expo-secure-store or Supabase user metadata. ~3 hours.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- NEXT 48H -->
+<section id="next">
+<div class="wrap">
+  <div class="sec-eyebrow">Action plan</div>
+  <h2>Next 48 Hours — Priority Order</h2>
+  <div class="divider"></div>
+
+  <div class="demo-step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Build vault-lookup Supabase Edge Function</h4>
+      <p>POST /vault-lookup · accepts {query} · Auth: user JWT · websearch_to_tsquery against documents.ocr_text · returns top match. Register as Retell custom tool in agent spec. This is the patent claim.</p>
+      <span class="step-tag st-missing">~4 hours · MUST DO FIRST</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Build onboarding flow (4 screens)</h4>
+      <p>app/welcome.tsx → app/onboarding/permissions.tsx → sign-up → tabs. AsyncStorage flag "hasOnboarded". Redirect in root _layout.tsx. Permission priming screens for mic + calendar.</p>
+      <span class="step-tag st-missing">~6 hours · Demo-critical</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Install @react-native-community/voice as Plan B wake word</h4>
+      <p>Drop WakeWordService stub, implement with RN Voice continuous recognition. Detect "secondo" in transcript stream. No API key required. Works on any iOS device.</p>
+      <span class="step-tag st-wip">~4 hours · Do regardless of Picovoice</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Wire real OCR in scan.tsx</h4>
+      <p>Replace mock with actual react-native-document-scanner-plugin call. Camera session → scan → OCR text → save to Supabase documents table. Enough for demo.</p>
+      <span class="step-tag st-wip">~4 hours · Demo polish</span>
+    </div>
+  </div>
+  <div class="demo-step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h4>End-to-end test on real device</h4>
+      <p>Physical iPhone (or mac-claude-node simulator). Speak → intent parse → call → vault lookup → answer spoken. Record video for counsel. This is what April 28 looks like.</p>
+      <span class="step-tag st-wip">~4 hours · Can't skip</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- BUSINESS LAYER -->
+<section id="business">
+<div class="wrap">
+  <div class="sec-eyebrow">Business layer</div>
+  <h2>Market, Financials, Differentials, Marketing</h2>
+  <div class="sec-desc">Wired research and financial modeling — all source docs, updated 2026-04-02 through 2026-04-20.</div>
+  <div class="divider"></div>
+
+  <div class="grid3">
+    <a class="card" href="financial-dashboard.html" style="text-decoration:none;color:inherit">
+      <span class="badge b-teal">Financials</span>
+      <h3 style="margin-top:10px">Financial Dashboard ↗</h3>
+      <p>Unit economics, burn projection through Jun 30, patent-filing cost lines ($8K provisional + $7K full per app, up to $30K for both apps), Supabase/Twilio/Retell run-rate.</p>
+    </a>
+    <a class="card" href="financial-model-2026.html" style="text-decoration:none;color:inherit">
+      <span class="badge b-teal">Financials</span>
+      <h3 style="margin-top:10px">Financial Model 2026 ↗</h3>
+      <p>Full 2026 model — DTC subscription ramp ($15–20/mo, ~17M TAM US 25–55), enterprise tier ($4K/mo), use-of-funds against the $1M SAFE.</p>
+    </a>
+    <a class="card" href="md-viewer.html?doc=differentiation-analysis.md" style="text-decoration:none;color:inherit">
+      <span class="badge b-patent">Differentials</span>
+      <h3 style="margin-top:10px">Navilum vs Secondo Differentiation ↗</h3>
+      <p>Clean-room separation: Navilum = oncology medication companion (HIPAA-adjacent in v2); Secondo = general voice AI second brain (NOT HIPAA). Why they ship as separate DE C-corps.</p>
+    </a>
+    <a class="card" href="md-viewer.html?doc=marketing-strategy.md" style="text-decoration:none;color:inherit">
+      <span class="badge b-teal">Marketing</span>
+      <h3 style="margin-top:10px">Marketing Strategy ↗</h3>
+      <p>Joint Navilum+Secondo GTM — founder story wedge, TikTok/IG pipelines, viral marketing concepts, paid-acquisition spend plan against DTC funnel.</p>
+    </a>
+    <a class="card" href="md-viewer.html?doc=secondo-deep-market-research.md" style="text-decoration:none;color:inherit">
+      <span class="badge b-teal">Research</span>
+      <h3 style="margin-top:10px">Deep Market Research ↗</h3>
+      <p>AI assistant TAM $3.35B (2025) → $21.11B (2030). ~17M US adults 25–55 at $15–20/mo. Karpathy-validated "LLM Wiki" pattern mirrors our compilation layer (Patent #2).</p>
+    </a>
+    <a class="card" href="md-viewer.html?doc=secondo-competitive-landscape.md" style="text-decoration:none;color:inherit">
+      <span class="badge b-teal">Research</span>
+      <h3 style="margin-top:10px">Competitive Landscape ↗</h3>
+      <p>Lindy, Pi, Rabbit (failed hardware), Humane (failed hardware), ChatGPT, Gemini, Siri. Why nobody else ships a call-agent-with-vault, and why incumbents are structurally blocked.</p>
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- LEGAL & ENTITY -->
+<section id="legal">
+<div class="wrap">
+  <div class="sec-eyebrow">Legal &amp; entity</div>
+  <h2>Structure, Counsel, Patent Calendar</h2>
+  <div class="sec-desc">Per Ned (corporate counsel) 2026-04-17: drop Welvey Labs intermediary. Direct MBACIO LLC → Secondo, Inc. DE C-corp. Clean IP chain, investor-ready.</div>
+  <div class="divider"></div>
+
+  <div class="info">
+    <div class="info-title">Entity structure (finalized 2026-04-17)</div>
+    <p>MBACIO LLC (IL S-corp, E-2 anchor — consulting revenue) → <strong>Secondo, Inc.</strong> (Delaware C-corp, IP assigned, investor-facing). Sister entity Navilum, Inc. parallel. No holdco. Ned owns entity formation, IP assignment docs, intercompany doc between TopCo and subs. Shelly Principe signs off on E-2 impact. MBACIO LLC retains >50% through two rounds.</p>
+  </div>
+
+  <div class="tbl-wrap" style="margin-bottom:20px">
+    <table class="planb-table">
+      <thead>
+        <tr><th>Date</th><th>Who</th><th>Purpose</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Fri Apr 17 9:30</td><td>Collin Schaefer (OGS)</td><td>Corporate / startup / trademark — Welvey, Navilum, Secondo</td><td><span class="badge b-live">Done</span></td></tr>
+        <tr><td>Fri Apr 17 11:30</td><td>Ned Scharfenberg (LOES)</td><td>Entity formation, IP chain, SAFE guidance — supersedes prior Welvey plan</td><td><span class="badge b-live">Done</span></td></tr>
+        <tr><td>This week</td><td>Rob Jacobson (Marshall Gerstein)</td><td>Patent #1 pre-signing call — scope + retainer + demo materials</td><td><span class="badge b-missing">Reply DRAFTED, UNSENT</span></td></tr>
+        <tr><td>This week</td><td>Adam Sussman</td><td>Parallel patent counsel evaluation</td><td><span class="badge b-pending">Awaiting reply</span></td></tr>
+        <tr><td>Apr 27 – May 1</td><td>Collin Schaefer</td><td>Out of office</td><td><span class="badge b-stub">Plan around</span></td></tr>
+        <tr><td>Mon Apr 28</td><td>Selected patent counsel</td><td>Demo delivery (video + narrative + code walkthrough)</td><td><span class="badge b-critical">T-7</span></td></tr>
+        <tr style="background:#9b6dff08"><td><strong>Thu Apr 30</strong></td><td>Selected patent counsel</td><td><strong>Provisional Patent #1 filed</strong> — AI call agent with live vault access</td><td><span class="badge b-critical">T-9 HARD DEADLINE</span></td></tr>
+        <tr><td>May 1 →</td><td>Ned</td><td>Secondo, Inc. DE C-corp formation + IP assignment docs</td><td><span class="badge b-pending">Sequence locked</span></td></tr>
+        <tr><td>Ongoing</td><td>Shelly Principe</td><td>E-2 sign-off on all structural changes</td><td><span class="badge b-teal">Active</span></td></tr>
+        <tr style="background:#9b6dff08"><td><strong>Mon Jun 30</strong></td><td>Selected patent counsel</td><td><strong>Provisional Patent #2 filed</strong> — hierarchical compilation layer / cross-account email dedup</td><td><span class="badge b-patent">T-71</span></td></tr>
+        <tr><td>Ongoing</td><td>CPA (replacement)</td><td>S-corp-owning-C-corps fluency required — Sue Romanoski not a fit</td><td><span class="badge b-pending">Awaiting Ned referral</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">Counsel directory</p>
+  <div class="grid3">
+    <div class="card"><h3>Ned Scharfenberg</h3><p><strong>Corporate / Transactional</strong><br>es@loesllc.com · (312) 826-1980</p></div>
+    <div class="card"><h3>Collin Schaefer</h3><p><strong>Corporate / Startup / Trademark</strong><br>cfschaefer@ogs.law · (312) 725-6274</p></div>
+    <div class="card"><h3>Rob Jacobson</h3><p><strong>Patent — Marshall Gerstein</strong><br>rjacobson@marshallip.com · (312) 423-3432</p></div>
+    <div class="card"><h3>Adam Sussman</h3><p><strong>Patent (eval)</strong><br>asussman0206@mac.com · (630) 207-7440</p></div>
+    <div class="card"><h3>Shelly Principe</h3><p><strong>E-2 Immigration</strong><br>sprincipe@principeimmigrationlaw.com · (888) 907-7462</p></div>
+    <div class="card"><h3>CPA — TBD</h3><p><strong>Startup tax / multi-entity</strong><br>Awaiting Ned referral post 4/17</p></div>
+  </div>
+</div>
+</section>
+
+<!-- THE ASK -->
+<section id="ask">
+<div class="wrap">
+  <div class="sec-eyebrow">The Andy briefing</div>
+  <h2>$1M SAFE — Use of Funds</h2>
+  <div class="sec-desc">Round structure: $500K–$1M initial SAFE → $1.5–3M priced seed. Chicago norms per Ned 4/17. MBACIO retains >50% through two rounds.</div>
+  <div class="divider"></div>
+
+  <div class="tbl-wrap">
+    <table class="planb-table">
+      <thead>
+        <tr><th>Bucket</th><th>Scope</th><th>%</th><th>$</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Engineering</td><td>Full voice stack, wake word polish, warm transfer, iOS + Android polish, TestFlight → App Store</td><td>40%</td><td>$400K</td></tr>
+        <tr><td>Enterprise tier</td><td>Compilation layer, cross-account email dedup, design-partner pilots (Patent #2 territory)</td><td>25%</td><td>$250K</td></tr>
+        <tr><td>Go-to-market</td><td>DTC launch (App Store + paid acquisition), founder-operator design partners</td><td>15%</td><td>$150K</td></tr>
+        <tr><td>Patent prosecution</td><td>Convert Patent #1 and #2 provisionals, file continuations</td><td>10%</td><td>$100K</td></tr>
+        <tr><td>Compliance &amp; telephony</td><td>A2P 10DLC, Trust Hub, TCPA counsel, state disclosure framework</td><td>5%</td><td>$50K</td></tr>
+        <tr><td>Operating reserve</td><td>—</td><td>5%</td><td>$50K</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2" style="margin-top:22px">
+    <div class="card" style="border-color:#ff6b6b44">
+      <span class="badge b-critical">Want from Andy</span>
+      <h3 style="margin-top:10px">What we walk out with</h3>
+      <p>Deck read (strongest/weakest slide) · Gut on wedge (DTC-first vs enterprise-first) · 1–2 warm intros (AI/productivity angel, consumer-tech operator, enterprise design partner) · Honest read on $1M SAFE at this stage · Whether to lead with patent or working demo on first investor calls.</p>
+    </div>
+    <div class="card" style="border-color:#9b6dff44">
+      <span class="badge b-patent">Offer to Andy</span>
+      <h3 style="margin-top:10px">What we offer him</h3>
+      <p>Early SAFE allocation (Secondo + Navilum if he wants both) · Advisor seat on AI/voice product track · First look at Apr 28 patent demo (video + code walkthrough) · Direct line to the founder/operator story — single operator shipping two patent-track apps.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  Secondo — MBACIO LLC → Secondo, Inc. (DE C-corp) · Patent #1 provisional April 30, 2026 · Patent #2 provisional June 30, 2026<br>
+  Updated April 20, 2026 — All metrics trace to source · No fabricated numbers
+</footer>
+
+</body>
+</html>

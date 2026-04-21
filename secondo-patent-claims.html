@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secondo &mdash; Provisional Patent Claims</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0a1a;
+  --bg2: #0f0f24;
+  --bg-card: #13132e;
+  --bg-card-h: #1a1a3a;
+  --coral: #ff6b6b;
+  --teal: #00d4c8;
+  --blue: #4f8ef7;
+  --purple: #9b6dff;
+  --green: #00e676;
+  --yellow: #ffd740;
+  --red: #ff5252;
+  --amber: #f5a623;
+  --orange: #ff9248;
+  --text: #eef2ff;
+  --text2: #8b8faf;
+  --text3: #555775;
+  --border: #1e1e40;
+  --grad: linear-gradient(135deg, #ff6b6b, #ff9248, #ffd740);
+  --grad-purple: linear-gradient(135deg, #9b6dff, #4f8ef7);
+  --r: 14px;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.hero {
+  text-align: center;
+  padding: 56px 24px 44px;
+  background: linear-gradient(180deg, #0f0820, #0d0618, var(--bg));
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 50%, rgba(155,109,255,.07), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 70% 50%, rgba(79,142,247,.06), transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 14px;
+}
+.hero h1 {
+  font-size: clamp(24px, 3.5vw, 40px); font-weight: 800;
+  background: var(--grad-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero p { color: var(--text2); font-size: 15px; margin-top: 8px; }
+.badge-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; letter-spacing: .06em;
+}
+.b-purple { background: #9b6dff18; border: 1px solid #9b6dff44; color: var(--purple); }
+.b-red { background: #ff525218; border: 1px solid #ff525244; color: var(--red); }
+.b-amber { background: #f5a62318; border: 1px solid #f5a62344; color: var(--amber); }
+.b-coral { background: #ff6b6b18; border: 1px solid #ff6b6b44; color: var(--coral); }
+
+/* NAV */
+.nav {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  padding: 16px 24px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px);
+}
+.nav a {
+  font-size: 12px; font-weight: 600; color: var(--text2);
+  text-decoration: none; padding: 6px 14px; border-radius: 6px;
+  border: 1px solid transparent; transition: all .2s;
+}
+.nav a:hover { border-color: var(--border); background: var(--bg-card); color: var(--purple); }
+
+/* SECTIONS */
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+section { padding: 48px 0; }
+.sec-title {
+  font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 6px;
+}
+section h2 {
+  font-size: clamp(20px, 3vw, 28px); font-weight: 700; margin-bottom: 24px;
+}
+section h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+.divider { width: 60px; height: 3px; background: var(--grad-purple); border-radius: 2px; margin: 14px 0 24px; }
+
+/* CARD */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+}
+
+/* CLAIM */
+.claim {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 60px;
+}
+.claim-num {
+  position: absolute; left: 20px; top: 22px;
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800;
+  background: linear-gradient(135deg, #9b6dff33, #4f8ef733);
+  color: var(--purple); border: 1px solid #9b6dff44;
+}
+.claim-type {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 4px;
+}
+.claim-text { font-size: 14px; color: var(--text); line-height: 1.7; }
+.claim-dep { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
+
+/* DIAGRAM */
+.diagram-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  margin: 20px 0;
+  font-family: 'DM Sans', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--teal);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+.diagram-box .label { color: var(--text3); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: 12px; color: var(--purple); }
+.diagram-box .flow { color: var(--text2); }
+.diagram-box .component { color: var(--coral); font-weight: 600; }
+.diagram-box .arrow { color: var(--orange); }
+.diagram-box .data { color: var(--teal); }
+
+/* PRIOR ART */
+.prior-art {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+.pa-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 20px;
+}
+.pa-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.pa-card .pa-lacks {
+  font-size: 12px; color: var(--red); margin-top: 8px;
+  padding: 6px 10px; background: #ff525210; border-radius: 8px;
+}
+
+/* CALLOUT */
+.callout {
+  padding: 16px 22px; border-radius: var(--r);
+  display: flex; align-items: flex-start; gap: 14px;
+  margin: 20px 0; font-size: 13px; line-height: 1.6;
+}
+.callout-warn { background: #ffd74010; border: 1px solid #ffd74033; color: var(--yellow); }
+.callout-info { background: #4f8ef710; border: 1px solid #4f8ef733; color: var(--blue); }
+.callout-purple { background: #9b6dff10; border: 1px solid #9b6dff33; color: var(--purple); }
+
+/* FOOTER */
+.footer {
+  text-align: center; padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text3); font-size: 12px;
+}
+.footer strong { color: var(--text2); }
+
+/* PRINT */
+@media print {
+  body { background: #fff; color: #222; font-size: 12px; }
+  .nav { display: none; }
+  .card, .claim, .diagram-box, .pa-card { border-color: #ddd; background: #fafafa; }
+  .hero { background: #f5f5f5; }
+  .hero h1 { -webkit-text-fill-color: #1a1a1a; color: #1a1a1a; }
+}
+@media (max-width: 768px) {
+  .prior-art { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hero">
+  <div class="hero-eyebrow">Privileged &amp; Confidential &bull; Attorney Work Product</div>
+  <h1>Secondo &mdash; Provisional Patent Claims</h1>
+  <p>Draft for Attorney Review &mdash; MBACIO Labs LLC</p>
+  <div class="badge-row">
+    <span class="badge b-purple">2 Provisional Applications</span>
+    <span class="badge b-coral">Coordinate with Navilum Filings</span>
+    <span class="badge b-amber">Attorney Review Required</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#patent1">Patent #1 &mdash; AI Call Participant</a>
+  <a href="#patent2">Patent #2 &mdash; Mind Palace Vault</a>
+  <a href="#architecture">System Architecture</a>
+  <a href="#prior-art">Prior Art</a>
+  <a href="#coordination">Navilum Coordination</a>
+</nav>
+
+<div class="wrap">
+
+<!-- NOTICE -->
+<section style="padding-bottom:0;">
+  <div class="callout callout-warn">
+    <span style="font-size:20px;">&#9888;</span>
+    <div>
+      <strong>PRIVILEGED AND CONFIDENTIAL.</strong> This document is a draft specification prepared for patent counsel review. It is intended as a starting point for provisional patent applications under 35 U.S.C. &sect; 111(b). All claims, descriptions, and diagrams should be reviewed and refined by qualified patent counsel before filing. This document establishes priority date evidence for the described inventions. <strong>Do not distribute outside of MBACIO Labs LLC and retained patent counsel.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- PATENT #1 -->
+<section id="patent1">
+  <div class="sec-title">Patent Application #1</div>
+  <h2>Persistent AI Participant in Voice Communications with Context-Aware Document Retrieval</h2>
+  <div class="divider"></div>
+
+  <!-- Abstract -->
+  <div class="card">
+    <h3>Abstract</h3>
+    <p style="font-size:14px; color:var(--text2);">
+      A computer-implemented system and method for providing an artificial intelligence agent that participates as a persistent entity in voice telephone communications, wherein the AI agent maintains real-time access to a user's encrypted document vault during the call, can retrieve and vocalize information from stored documents in response to natural language queries, initiates outbound calls on the user's behalf including automated Interactive Voice Response (IVR) navigation, performs warm transfer to conference the user with a live agent, provides live transcription with automated action item extraction, and generates post-call summaries with calendar event creation. The system maintains a persistent knowledge base (backend persona) about the user's stored documents, preferences, and historical interactions to provide contextually relevant assistance throughout the call lifecycle.
+    </p>
+  </div>
+
+  <!-- Technical Field -->
+  <div class="card">
+    <h3>Technical Field</h3>
+    <p style="font-size:14px; color:var(--text2);">
+      The present invention relates generally to voice communication systems enhanced with artificial intelligence, and more particularly to systems and methods for providing a persistent AI participant in telephone calls that can retrieve and present information from an encrypted document storage system in real-time during active voice communications.
+    </p>
+  </div>
+
+  <!-- Background -->
+  <div class="card">
+    <h3>Background of the Invention</h3>
+    <p style="font-size:14px; color:var(--text2); margin-bottom:12px;">
+      Modern consumers frequently need to contact service providers (insurance companies, utilities, healthcare providers, government agencies) by telephone to resolve questions about their accounts, policies, and services. These calls typically require the consumer to have specific documents and information readily available &mdash; policy numbers, account details, dates, coverage amounts, and other data stored across various physical and digital locations.
+    </p>
+    <p style="font-size:14px; color:var(--text2); margin-bottom:12px;">
+      Current voice assistants (Siri, Alexa, Google Assistant) can initiate phone calls but do not participate in the call, cannot access stored documents during the call, and provide no contextual assistance once the call is connected. Note-taking and transcription applications can record calls but do not actively participate or retrieve relevant documents in real-time.
+    </p>
+    <p style="font-size:14px; color:var(--text2);">
+      There exists a need for a system that bridges the gap between document storage and voice communications &mdash; an AI agent that knows what documents the user has stored, can join telephone calls as a persistent participant, and can retrieve and vocalize specific information from those documents in real-time when questions arise during the call.
+    </p>
+  </div>
+
+  <!-- Detailed Description -->
+  <div class="card">
+    <h3>Detailed Description of the Preferred Embodiment</h3>
+    <p style="font-size:14px; color:var(--text2); margin-bottom:16px;">
+      The invention comprises several interconnected subsystems operating on a mobile computing device with optional cloud processing capabilities:
+    </p>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">1. Call Initiation Subsystem</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        Upon receiving a voice command (e.g., "Secondo, call Geico about my claim"), the system: (a) identifies the target entity from the user's contact database or stored documents; (b) retrieves relevant documents associated with that entity (insurance policy, claim numbers, account details); (c) initiates an outbound telephone call via programmable voice API (Twilio/Retell AI); (d) navigates IVR menu systems using DTMF tone generation and speech recognition to select appropriate department/options; (e) monitors hold queue status and notifies the user when a live agent is available; and (f) performs warm transfer by conferencing the user into the active call while the AI remains as a persistent participant.
+      </p>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">2. Persistent AI Participant Subsystem</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        Once the call is active (whether user-initiated or AI-initiated), the AI agent operates as a persistent third participant on the call. The AI agent: (a) maintains a real-time audio stream of the conversation; (b) performs continuous speech-to-text transcription; (c) monitors for triggers that indicate the user needs document-based information (e.g., "What's my policy number?", "When did I file the claim?"); (d) retrieves relevant data from the encrypted document vault; (e) presents information to the user via text overlay on the mobile device screen or via synthesized speech injected into the call audio; and (f) maintains awareness of the conversation context to proactively surface relevant documents before the user explicitly requests them.
+      </p>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">3. Backend Persona Knowledge System</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        The AI maintains a persistent knowledge base ("backend persona") comprising: (a) an index of all documents stored in the user's encrypted vault, with extracted metadata (dates, amounts, names, policy numbers, account numbers); (b) entity relationship mappings (e.g., "Geico" is linked to auto insurance policy, claim #12345, and three prior call transcripts); (c) user preferences and historical patterns (preferred communication style, frequently referenced documents, common queries); and (d) action item history from previous calls with the same entity.
+      </p>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">4. Post-Call Processing Subsystem</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        Upon call termination, the system automatically: (a) generates a structured summary of the call including participants, duration, topics discussed, and outcomes; (b) extracts action items with associated dates and deadlines; (c) creates calendar events for scheduled follow-ups, appointments, or deadlines mentioned during the call; (d) updates the entity relationship model with new information obtained during the call; (e) stores the call transcript in the appropriate room of the document vault; and (f) creates reminder notifications for pending action items.
+      </p>
+    </div>
+  </div>
+
+  <!-- Claims -->
+  <div class="card" style="padding:28px;">
+    <h3>Claims</h3>
+    <div class="divider"></div>
+
+    <div class="claim">
+      <div class="claim-num">1</div>
+      <div class="claim-type">Independent Method Claim</div>
+      <div class="claim-text">A computer-implemented method for providing artificial intelligence-assisted voice communications, comprising: receiving, by a processor, a voice command from a user to initiate a telephone call to a target entity; retrieving, from an encrypted document vault stored on the user's device, one or more documents associated with the target entity; initiating, via a programmable voice communication API, an outbound telephone call to the target entity; navigating, by the AI agent, an Interactive Voice Response (IVR) system of the target entity using automated speech and tone generation; establishing a conference call connection that includes the user, the target entity representative, and the AI agent as a persistent participant; monitoring, by the AI agent, the real-time audio stream of the conference call; detecting, by the AI agent, a query or information need expressed during the call; retrieving, from the encrypted document vault, information responsive to the detected query; and presenting the retrieved information to the user during the active call.</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">2</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, wherein presenting the retrieved information comprises synthesizing a voice response and injecting the synthesized audio into the conference call audio stream such that all call participants can hear the information.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">3</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, wherein presenting the retrieved information comprises displaying a text overlay on the user's mobile device screen visible only to the user during the active call.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">4</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, further comprising: performing continuous speech-to-text transcription of the conference call; extracting action items from the transcription, wherein action items include dates, monetary amounts, deadlines, and follow-up commitments; and automatically generating one or more calendar events based on the extracted action items.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">5</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, further comprising maintaining a backend persona knowledge base that includes: an index of documents stored in the encrypted vault with extracted metadata; entity relationship mappings linking the target entity to associated documents and prior interaction history; and user communication preferences; wherein the AI agent uses the backend persona knowledge base to proactively surface relevant information before the user explicitly requests it.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">6</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, wherein navigating the IVR system comprises: recognizing IVR menu prompts via speech recognition; selecting menu options based on the user's stated intent and the target entity's known IVR structure; monitoring hold queue status; and alerting the user when a live representative becomes available, prior to establishing the conference connection.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">7</div>
+      <div class="claim-type">Independent System Claim</div>
+      <div class="claim-text">A system for providing persistent AI participation in voice communications with context-aware document retrieval, comprising: a mobile computing device having a processor, memory, microphone, and speaker; an encrypted document vault stored in the memory, organized into a plurality of hierarchical rooms, each room containing one or more digitized documents with extracted metadata; a voice communication module configured to initiate, manage, and participate in telephone calls via a programmable voice API; an AI agent module configured to: (a) join an active telephone call as a persistent participant, (b) perform real-time speech-to-text transcription of the call, (c) detect information needs expressed during the call using natural language understanding, (d) query the encrypted document vault to retrieve responsive information, and (e) present the retrieved information to the user via at least one of synthesized speech or visual display; and a post-call processing module configured to generate call summaries, extract action items, and create calendar events.</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">8</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The system of claim 7, wherein the encrypted document vault employs zero-knowledge encryption such that document contents are encrypted with a user-controlled key and are not accessible to any server-side component or third party.</div>
+      <div class="claim-dep">Depends on: Claim 7</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">9</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The system of claim 7, wherein the AI agent module further comprises a warm transfer subsystem configured to: initiate the outbound call independently of the user; navigate IVR systems and hold queues; and conference the user into the call only when a live representative is available, while maintaining the AI agent as a persistent participant throughout the entire call duration.</div>
+      <div class="claim-dep">Depends on: Claim 7</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">10</div>
+      <div class="claim-type">Independent Claim &mdash; Data Flow</div>
+      <div class="claim-text">A computer-implemented method for context-aware document retrieval during active voice communications, comprising: maintaining, on a computing device, an encrypted document vault containing a plurality of user documents organized into hierarchical rooms; creating a searchable index of document metadata including entity names, dates, monetary amounts, policy numbers, and account identifiers; during an active telephone call in which an AI agent participates as a persistent third party: (a) receiving a natural language query from the user or detecting an implicit information need from the conversation context, (b) parsing the query against the searchable index to identify one or more responsive documents, (c) extracting the specific data element responsive to the query from the identified document, and (d) delivering the extracted data to the user within three seconds of the query via synthesized speech or on-screen display; and updating the searchable index with new information obtained during the call.</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">11</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 10, wherein detecting an implicit information need comprises: analyzing the conversation context using natural language understanding; identifying when the target entity representative asks the user a question that can be answered by a stored document; and proactively presenting the relevant information before the user verbally requests it from the AI agent.</div>
+      <div class="claim-dep">Depends on: Claim 10</div>
+    </div>
+  </div>
+
+  <!-- Drawings -->
+  <div class="card">
+    <h3>Drawings Descriptions</h3>
+    <p style="font-size:13px; color:var(--text2); margin-bottom:12px;">The following figures would accompany the provisional application:</p>
+    <div style="font-size:13px; color:var(--text2);">
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 1</strong> &mdash; System architecture diagram showing mobile device, encrypted vault, voice API, AI agent module, and their interconnections.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 2</strong> &mdash; Call initiation and IVR navigation flowchart, from voice command through IVR traversal to warm transfer.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 3</strong> &mdash; Data flow diagram showing real-time document retrieval during active call, including query detection, vault search, and response delivery.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 4</strong> &mdash; Post-call processing pipeline showing transcription analysis, action item extraction, and calendar event generation.</p>
+      <p><strong style="color:var(--text);">FIG. 5</strong> &mdash; Backend persona knowledge graph showing entity relationships, document associations, and historical interaction data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PATENT #2 -->
+<section id="patent2">
+  <div class="sec-title">Patent Application #2</div>
+  <h2>Voice-Activated Multi-Room Encrypted Document Vault with Natural Language Query</h2>
+  <div class="divider"></div>
+
+  <!-- Abstract -->
+  <div class="card">
+    <h3>Abstract</h3>
+    <p style="font-size:14px; color:var(--text2);">
+      A computer-implemented system and method for organizing, storing, and retrieving personal documents using a voice-activated encrypted document vault organized as a hierarchical "Mind Palace" comprising multiple categorized rooms. The system provides voice-activated optical character recognition (OCR) capture of physical documents with an AI-guided categorization wizard, natural language querying that searches across rooms and synthesizes voice responses from structured document data, local-first zero-knowledge encrypted storage ensuring document privacy, and cross-room intelligence that identifies and retrieves related documents from multiple rooms in response to a single query. The Mind Palace metaphor provides an intuitive organizational framework that maps to how users naturally think about different areas of their lives.
+    </p>
+  </div>
+
+  <!-- Technical Field -->
+  <div class="card">
+    <h3>Technical Field</h3>
+    <p style="font-size:14px; color:var(--text2);">
+      The present invention relates generally to document management systems with voice interfaces, and more particularly to systems and methods for voice-activated capture, encrypted hierarchical organization, and natural language retrieval of personal documents using a room-based metaphor with cross-category intelligence.
+    </p>
+  </div>
+
+  <!-- Background -->
+  <div class="card">
+    <h3>Background of the Invention</h3>
+    <p style="font-size:14px; color:var(--text2); margin-bottom:12px;">
+      Modern individuals manage an increasing volume of critical personal documents across multiple life domains: personal identification, financial records, insurance policies, medical records, employment documents, family records, pet care documents, property records, and more. These documents are typically scattered across physical filing cabinets, email attachments, cloud storage folders, camera rolls, and various application silos.
+    </p>
+    <p style="font-size:14px; color:var(--text2); margin-bottom:12px;">
+      Existing document management solutions (Notion, Evernote, Google Drive, Apple Notes) are primarily text-based interfaces that require manual typing, folder navigation, and visual search. They do not provide voice-first interaction, do not offer an intuitive hierarchical organization metaphor, and do not support voice-activated document capture with guided categorization.
+    </p>
+    <p style="font-size:14px; color:var(--text2);">
+      There exists a need for a document management system that is voice-first, uses an intuitive organizational metaphor (rooms in a Mind Palace), provides zero-knowledge encryption for privacy, and enables natural language retrieval of specific data points from stored documents without requiring the user to remember which folder or category contains the target document.
+    </p>
+  </div>
+
+  <!-- Detailed Description -->
+  <div class="card">
+    <h3>Detailed Description of the Preferred Embodiment</h3>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">1. Mind Palace Architecture</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        The document vault is organized as a hierarchical structure of "rooms," each representing a life domain. Default rooms include Personal, Work, Family, and Pets, with the user able to create custom rooms. Each room contains sub-categories (e.g., Personal &rarr; Insurance &rarr; Auto, Personal &rarr; Housing &rarr; Lease). Documents within rooms are stored with extracted metadata including dates, monetary amounts, entity names, expiration dates, and custom tags. The room metaphor provides spatial memory cues that improve recall and retrieval accuracy compared to flat folder hierarchies.
+      </p>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">2. Voice-Activated OCR Capture System</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        Document capture is initiated by voice command or camera activation. The system: (a) captures an image of the physical document via the device camera; (b) performs on-device OCR using a machine learning model (e.g., Google ML Kit) to extract text content; (c) initiates a voice-guided categorization wizard that asks the user a series of natural language questions ("Which room does this belong to?", "Is this an insurance document?", "When does it expire?"); (d) auto-suggests categorization based on OCR content analysis (e.g., detecting "GEICO" and "Policy Number" suggests Personal &rarr; Insurance &rarr; Auto); (e) extracts and indexes key data points (dates, amounts, names, numbers); and (f) encrypts and stores the document with full metadata in the appropriate room.
+      </p>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">3. Natural Language Query Engine</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        The query system processes natural language questions and retrieves specific data points: (a) the user issues a voice query (e.g., "When does my lease expire?"); (b) the system parses the query using natural language understanding to identify the intent (retrieve expiration date) and the target entity (lease); (c) the system searches the document index across all rooms to locate the relevant document; (d) the system extracts the specific data point responsive to the query; (e) the system synthesizes a natural language voice response (e.g., "Your lease at 123 Main Street expires on August 31, 2026"); and (f) the system displays the source document for visual confirmation.
+      </p>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">4. Cross-Room Intelligence</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        A unique capability of the system is cross-room search and correlation: (a) a single query can retrieve related documents from multiple rooms (e.g., "What insurance covers my dog?" searches both Pets and Personal rooms); (b) the system identifies entity relationships across rooms (e.g., a family member mentioned in Family room documents is linked to their health insurance in Personal room); (c) aggregation queries compile information from multiple documents and rooms (e.g., "What are all my monthly insurance payments?" aggregates auto, health, renters, and pet insurance across rooms); and (d) the system proactively suggests related documents when one is accessed.
+      </p>
+    </div>
+
+    <div>
+      <h4 style="font-size:14px; color:var(--coral); margin-bottom:6px;">5. Zero-Knowledge Encryption Architecture</h4>
+      <p style="font-size:13px; color:var(--text2);">
+        All documents are encrypted locally on the user's device using a key derived from the user's authentication credentials. The encryption scheme ensures: (a) documents are encrypted at rest using AES-256; (b) the encryption key never leaves the device; (c) no server-side component can access document plaintext; (d) the searchable index operates on encrypted metadata using techniques that preserve query capability without exposing document contents; and (e) backup and sync operations transfer only encrypted data.
+      </p>
+    </div>
+  </div>
+
+  <!-- Claims -->
+  <div class="card" style="padding:28px;">
+    <h3>Claims</h3>
+    <div class="divider"></div>
+
+    <div class="claim">
+      <div class="claim-num">1</div>
+      <div class="claim-type">Independent Method Claim</div>
+      <div class="claim-text">A computer-implemented method for voice-activated document management using a hierarchical encrypted vault, comprising: maintaining, on a computing device, an encrypted document vault organized as a plurality of rooms, each room representing a distinct life domain and containing one or more digitized documents with extracted metadata; receiving a voice command to capture a new document; performing optical character recognition on an image of a physical document captured by the device camera; initiating a voice-guided categorization wizard that presents audio prompts to the user to determine: (a) the target room for the document, (b) the sub-category within the room, and (c) key metadata including dates, amounts, and entity names; auto-suggesting a categorization based on analysis of the OCR-extracted content; encrypting the document and extracted metadata using a locally-stored encryption key; storing the encrypted document in the determined room of the vault; and indexing the extracted metadata to enable subsequent natural language queries.</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">2</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, further comprising: receiving a natural language voice query from the user; parsing the query to identify an intent and a target entity or data point; searching the index across all rooms of the vault to identify one or more documents responsive to the query; extracting a specific data element responsive to the intent from the identified document; and synthesizing a natural language voice response that presents the extracted data element to the user.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">3</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 2, wherein searching the index comprises performing a cross-room search that identifies related documents from two or more distinct rooms in response to a single query, and wherein the voice response synthesizes information from the related documents across rooms.</div>
+      <div class="claim-dep">Depends on: Claim 2</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">4</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, wherein the encryption employs a zero-knowledge architecture in which: the encryption key is derived from user authentication credentials; the key is stored exclusively on the user's device; no server-side component has access to the encryption key or document plaintext; and backup operations transfer only encrypted data.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">5</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The method of claim 1, wherein auto-suggesting a categorization comprises: analyzing the OCR-extracted text to identify entity names, document types, and contextual keywords; matching the identified elements against a taxonomy of known document types and room categories; and presenting the suggested room and sub-category to the user via voice prompt for confirmation or correction.</div>
+      <div class="claim-dep">Depends on: Claim 1</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">6</div>
+      <div class="claim-type">Independent System Claim</div>
+      <div class="claim-text">A system for voice-activated encrypted document management, comprising: a mobile computing device having a processor, memory, camera, microphone, and speaker; an encrypted document vault module stored in the memory, comprising a plurality of hierarchical rooms each associated with a life domain category, the vault employing local-first zero-knowledge encryption; an OCR module configured to extract text from document images captured by the camera; a voice interaction module configured to: (a) detect a wake word indicating user intent to interact with the system, (b) perform speech-to-text conversion of user voice commands and queries, and (c) synthesize natural language voice responses from structured data; a categorization wizard module configured to guide the user through document classification using voice prompts and to auto-suggest categorization based on OCR content analysis; a natural language query engine configured to parse voice queries, search the encrypted document index across all rooms, and retrieve specific data elements responsive to the query; and a cross-room intelligence module configured to identify and retrieve related documents from multiple rooms in response to a single query.</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">7</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The system of claim 6, wherein the encrypted document vault module further comprises a vector index of document embeddings that enables semantic search across rooms, such that queries using different terminology than the stored document text can still retrieve relevant results based on semantic similarity.</div>
+      <div class="claim-dep">Depends on: Claim 6</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">8</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The system of claim 6, wherein the categorization wizard module is configured to learn from user corrections over time, improving auto-suggestion accuracy for subsequent document captures based on the user's categorization patterns and preferences.</div>
+      <div class="claim-dep">Depends on: Claim 6</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">9</div>
+      <div class="claim-type">Dependent Claim</div>
+      <div class="claim-text">The system of claim 6, wherein the cross-room intelligence module is further configured to: identify entity relationships across rooms by detecting shared entity names, account numbers, or other identifiers in documents stored in different rooms; and proactively surface related documents from other rooms when a user accesses a document in a first room.</div>
+      <div class="claim-dep">Depends on: Claim 6</div>
+    </div>
+
+    <div class="claim">
+      <div class="claim-num">10</div>
+      <div class="claim-type">Independent Claim &mdash; Tiered Access</div>
+      <div class="claim-text">A computer-implemented method for providing tiered access to a voice-activated encrypted document vault, comprising: providing a base tier allowing creation of a limited number of document rooms with voice-activated capture and query capabilities; providing a premium tier allowing creation of additional document rooms, enhanced cross-room intelligence features, and priority voice processing; managing tier access through a subscription billing system; and maintaining all encryption and privacy features identically across all tiers such that the user's data security is not degraded at any access level.</div>
+    </div>
+  </div>
+
+  <!-- Drawings -->
+  <div class="card">
+    <h3>Drawings Descriptions</h3>
+    <p style="font-size:13px; color:var(--text2); margin-bottom:12px;">The following figures would accompany the provisional application:</p>
+    <div style="font-size:13px; color:var(--text2);">
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 1</strong> &mdash; Mind Palace hierarchical room structure showing default rooms (Personal, Work, Family, Pets) with sub-categories and document instances.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 2</strong> &mdash; Voice-activated OCR capture flowchart from camera activation through OCR, voice wizard, categorization, encryption, and storage.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 3</strong> &mdash; Natural language query processing pipeline from voice input through intent parsing, index search, data extraction, and voice response synthesis.</p>
+      <p style="margin-bottom:8px;"><strong style="color:var(--text);">FIG. 4</strong> &mdash; Cross-room intelligence diagram showing entity relationship detection across multiple rooms and multi-document aggregation queries.</p>
+      <p><strong style="color:var(--text);">FIG. 5</strong> &mdash; Zero-knowledge encryption architecture showing local key derivation, encrypted storage, encrypted backup, and the absence of server-side plaintext access.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM ARCHITECTURE -->
+<section id="architecture">
+  <div class="sec-title">Technical Reference</div>
+  <h2>System Architecture Diagrams</h2>
+  <div class="divider"></div>
+
+  <div class="diagram-box">
+    <span class="label">Flow 1: Voice Query &rarr; Document Retrieval</span>
+<span class="flow">User Voice</span> <span class="arrow">&rarr;</span> <span class="component">Wake Word (Porcupine)</span> <span class="arrow">&rarr;</span> <span class="component">STT (whisper.rn)</span> <span class="arrow">&rarr;</span> <span class="component">Intent Parser</span>
+    <span class="arrow">&rarr;</span> <span class="component">Document Query Engine</span> <span class="arrow">&rarr;</span> <span class="data">Encrypted Vault</span> <span class="arrow">&rarr;</span> <span class="component">Room Selection</span> <span class="arrow">&rarr;</span> <span class="data">Result</span>
+    <span class="arrow">&rarr;</span> <span class="component">Voice Response (TTS)</span> <span class="arrow">&rarr;</span> <span class="flow">User</span>
+  </div>
+
+  <div class="diagram-box">
+    <span class="label">Flow 2: AI-Initiated Call with Persistent Participation</span>
+<span class="flow">User Voice</span> <span class="arrow">&rarr;</span> <span class="component">"Call Geico"</span> <span class="arrow">&rarr;</span> <span class="component">AI Dials (Twilio/Retell)</span> <span class="arrow">&rarr;</span> <span class="component">IVR Navigation</span>
+    <span class="arrow">&rarr;</span> <span class="component">Conference User In</span> <span class="arrow">&rarr;</span> <span class="data">AI Stays Live on Call</span> <span class="arrow">&rarr;</span> <span class="component">Real-Time Transcription</span>
+    <span class="arrow">&rarr;</span> <span class="data">Action Items</span> <span class="arrow">&rarr;</span> <span class="component">Calendar + Reminders</span>
+  </div>
+
+  <div class="diagram-box">
+    <span class="label">Flow 3: OCR Document Capture Pipeline</span>
+<span class="flow">Camera</span> <span class="arrow">&rarr;</span> <span class="component">OCR (Google ML Kit)</span> <span class="arrow">&rarr;</span> <span class="component">Voice Wizard ("Which room?")</span> <span class="arrow">&rarr;</span> <span class="data">Auto-Tag</span>
+    <span class="arrow">&rarr;</span> <span class="component">AES-256 Encryption</span> <span class="arrow">&rarr;</span> <span class="data">Encrypted Storage</span> <span class="arrow">&rarr;</span> <span class="component">Vector Index</span> <span class="arrow">&rarr;</span> <span class="data">Queryable</span>
+  </div>
+</section>
+
+<!-- PRIOR ART -->
+<section id="prior-art">
+  <div class="sec-title">Differentiation</div>
+  <h2>Prior Art Analysis</h2>
+  <div class="divider"></div>
+
+  <div class="prior-art">
+    <div class="pa-card">
+      <h4 style="color:var(--blue);">Siri / Alexa / Google Assistant</h4>
+      <p style="font-size:12px; color:var(--text2);">Voice assistants that can initiate calls and answer general knowledge queries from cloud databases.</p>
+      <div class="pa-lacks">
+        <strong>Lacks:</strong> No persistent document vault. No call participation after connection. No room-based organization. No OCR capture with voice wizard. No context-aware retrieval during calls. No zero-knowledge encryption.
+      </div>
+    </div>
+    <div class="pa-card">
+      <h4 style="color:var(--teal);">Notion / Evernote</h4>
+      <p style="font-size:12px; color:var(--text2);">Text-first document management and note-taking platforms with folder-based organization.</p>
+      <div class="pa-lacks">
+        <strong>Lacks:</strong> No voice-first interface. No AI call participation. No OCR-to-voice pipeline. No room-based hierarchical metaphor with cross-room intelligence. No zero-knowledge local encryption. No voice-guided document categorization.
+      </div>
+    </div>
+    <div class="pa-card">
+      <h4 style="color:var(--amber);">Google Keep / Apple Notes</h4>
+      <p style="font-size:12px; color:var(--text2);">Lightweight note-taking with some OCR capability and basic voice input.</p>
+      <div class="pa-lacks">
+        <strong>Lacks:</strong> No encrypted vault. No call integration. No contextual document retrieval during calls. No room-based organization. No voice-guided categorization wizard. No cross-room intelligence. No natural language query with voice response synthesis.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-purple" style="margin-top:20px;">
+    <span style="font-size:20px;">&#128640;</span>
+    <div>
+      <strong>Novel Combination:</strong> No existing system combines (1) voice-first document capture with guided categorization, (2) hierarchical room-based encrypted storage, (3) natural language voice query across rooms, and (4) persistent AI participation in telephone calls with real-time document retrieval. Each component exists in some form, but the integration and the specific architectural approach (Mind Palace + persistent call participant + zero-knowledge vault) represents a novel system not found in prior art.
+    </div>
+  </div>
+</section>
+
+<!-- NAVILUM COORDINATION -->
+<section id="coordination">
+  <div class="sec-title">IP Strategy</div>
+  <h2>Coordination with Navilum Patent Filings</h2>
+  <div class="divider"></div>
+
+  <div class="card">
+    <h3>Overlapping Claims</h3>
+    <p style="font-size:14px; color:var(--text2); margin-bottom:16px;">
+      Navilum (healthcare AI assistant) and Secondo (general life management) share core technology. The patent strategy should account for the following overlaps:
+    </p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+      <div style="padding:14px 16px; background:var(--bg); border-radius:10px; border:1px solid var(--border);">
+        <div style="font-size:12px; font-weight:700; color:var(--teal); margin-bottom:6px;">Shared Claims (File Under MBACIO Labs)</div>
+        <ul style="font-size:12px; color:var(--text2); list-style:none;">
+          <li style="padding:3px 0;">&#8226; Voice-activated OCR capture pipeline</li>
+          <li style="padding:3px 0;">&#8226; On-device wake word + STT processing</li>
+          <li style="padding:3px 0;">&#8226; Zero-knowledge encrypted local storage</li>
+          <li style="padding:3px 0;">&#8226; Natural language query over structured docs</li>
+        </ul>
+      </div>
+      <div style="padding:14px 16px; background:var(--bg); border-radius:10px; border:1px solid var(--border);">
+        <div style="font-size:12px; font-weight:700; color:var(--coral); margin-bottom:6px;">Secondo-Specific Claims</div>
+        <ul style="font-size:12px; color:var(--text2); list-style:none;">
+          <li style="padding:3px 0;">&#8226; Persistent AI call participant</li>
+          <li style="padding:3px 0;">&#8226; IVR navigation + warm transfer</li>
+          <li style="padding:3px 0;">&#8226; Mind Palace room-based organization</li>
+          <li style="padding:3px 0;">&#8226; Cross-room intelligence</li>
+          <li style="padding:3px 0;">&#8226; Contextual affiliate integration</li>
+          <li style="padding:3px 0;">&#8226; Post-call action extraction + calendar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <span style="font-size:20px;">&#9878;</span>
+    <div>
+      <strong>Recommended Approach:</strong> File all provisionals under MBACIO Labs LLC as the assignee. Draft Navilum patents to cover healthcare-specific applications of the shared technology. Draft Secondo patents to cover general consumer applications, AI call participation, and the Mind Palace architecture. This creates a comprehensive IP portfolio that protects the platform regardless of which product gains traction first. Coordinate filing dates to ensure consistent priority.
+    </div>
+  </div>
+</section>
+
+</div><!-- .wrap -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <strong>PRIVILEGED AND CONFIDENTIAL</strong> &mdash; Attorney Work Product<br>
+  Secondo Patent Claims Draft &mdash; MBACIO Labs LLC &bull; Chicago, IL<br>
+  <a href="mailto:max@mbacio.com" style="color:var(--purple); text-decoration:none;">max@mbacio.com</a> &bull; April 2026<br>
+  <span style="margin-top:6px; display:inline-block;">Do not distribute outside of MBACIO Labs LLC and retained patent counsel</span>
+</footer>
+
+</body>
+</html>
